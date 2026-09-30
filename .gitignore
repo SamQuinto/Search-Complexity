@@ -1,0 +1,41 @@
+# Credentials and API material
+.env
+.env.*
+*.key
+*.pem
+*.p12
+credentials*
+secrets*
+*token*
+api_runs/
+api_outputs/
+
+# Private or licensed source material
+papers/
+supplementary_materials/
+teaching_case_library/
+source_library/
+private/
+*.pdf
+*.docx
+*.zip
+*.xls
+*.xlsx
+
+# Local and generated files
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+outputs/
+logs/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local build helpers
+_*.mjs
+_*.py
