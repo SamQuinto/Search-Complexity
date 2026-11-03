@@ -26,6 +26,7 @@ private/
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
+analysis.executed.ipynb
 .pytest_cache/
 .venv/
 venv/
