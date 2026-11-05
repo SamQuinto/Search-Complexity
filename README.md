@@ -1,52 +1,54 @@
-# Search Complexity in Multi-Issue Negotiations
+# Search complexity and agreement in negotiations
 
-Does search complexity explain observed agreement rates beyond bargaining-zone size?
-This repository contains the data and one notebook for the archival Study 1.
+Does search complexity explain agreement rates beyond bargaining-zone size?
+This repository contains the coded Study 1 data and one replication notebook.
 
-The audit dated 3 November 2026 retains 104 coded records. The main analysis uses
-**103 observations from 67 named scenarios**. The stricter analysis uses
-**75 observations from 54 named scenarios**. Excluded records and reasons remain visible.
+The primary analysis uses **141 empirical studies from 112 papers**, linked to
+66 recorded scenario names. Each experiment or independent sample is one
+observation. Independent studies using the same scenario remain separate.
+Conditions or repeated tasks within a study are combined.
 
-## Reproduce the analysis
+## Reproduce
 
-Use Python 3.12. Create and activate a virtual environment, then run:
+Use Python 3.12 in a virtual environment. From this folder, run:
 
 ```bash
 python -m pip install -r requirements.txt
 python -m jupyter nbconvert --to notebook --execute analysis.ipynb --output analysis.executed.ipynb --ExecutePreprocessor.timeout=1800
 ```
 
-The notebook also opens in Jupyter or VS Code. Run its cells in order. It reads
-only the included CSV files, requires no account or API key, and writes tables,
-figures and all robustness results to the ignored outputs/ folder. Each
-resampling check uses 5,000 draws. The recorded local analysis took about one minute;
-runtime varies by computer.
+Or open `analysis.ipynb` in Jupyter or VS Code and run all cells. It first
+rebuilds the study data from the source-outcome crosswalk, then runs all six
+models and checks. Each bootstrap uses 5,000 draws. It takes a few minutes and
+requires no account, API key or private path. Results go in `outputs/`.
 
 ## Files
 
-- [analysis.ipynb](analysis.ipynb): methods, commented code, tables, figures and every specified robustness check.
-- [data/search_complexity_dataset.csv](data/search_complexity_dataset.csv): all coded observations, variables, eligibility flags, outcomes and sources.
-- [data/coding_evidence.csv](data/coding_evidence.csv): calculation methods, aggregation and coding decisions for each observation.
-- [data/starting_study_registry.csv](data/starting_study_registry.csv): the fixed 479-study registry from 328 papers.
-- [data/paper_inventory.csv](data/paper_inventory.csv): the paper list and recovery status after deduplication.
-- [DATASET.md](DATASET.md): how the data were built and how to interpret the columns.
+- [analysis.ipynb](analysis.ipynb): commented reconstruction, analysis and figures.
+- [data/study_level_dataset.csv](data/study_level_dataset.csv): the 141 main observations.
+- [data/study_outcomes.csv](data/study_outcomes.csv): 169 components linking study outcomes to structures.
+- [data/search_complexity_dataset.csv](data/search_complexity_dataset.csv): earlier structural aggregation; 103 included rows, 75 in its stricter subset.
+- [data/coding_evidence.csv](data/coding_evidence.csv): structural calculations and decisions.
+- [data/starting_study_registry.csv](data/starting_study_registry.csv): the fixed 479-study registry.
+- [data/paper_inventory.csv](data/paper_inventory.csv): the deduplicated search list.
+- [DATASET.md](DATASET.md): coding and aggregation rules.
 
-## Results and scope
+## Interpretation
 
-The main sample meets the specified tests for H1-H4. In the stricter sample,
-H2-H4 meet them; H1 does not. Supplementary checks are mixed and are reported individually.
+The study-level analysis meets the stated tests for H2-H4; H1 is not supported.
+The earlier structural aggregation supports H1-H4; its stricter subset supports
+H2-H4. Supplementary checks are mixed, including nonsignificant rank correlations.
+The notebook reports every result.
 
-This package reproduces analysis **from the coded dataset**. Rebuilding the
-coding requires the original papers and teaching materials, which are not
-redistributed. The audit independently recalculated the structural measures for
-the nine included records with complete schedules and reservation values in the
-compact archive. It does not claim independent structural reconstruction of every row.
+The primary unit is an analytical revision dated 5 November 2026. The archived
+plan used the earlier structural aggregation. Do not describe the new unit as
+the original preregistered specification. The permanent OSF registration URL
+and verified submission date must be supplied before public release.
+[Warsitzka et al. (2024)](https://osf.io/2c9gf/) provide a source dataset;
+that link is not this project's registration.
 
-The detailed plan is in the project's OSF preregistration materials folder.
-The permanent registration URL and verified registration date must be supplied
-before public release. This repository does not verify the chronology of
-registration relative to earlier analyses.
-The [Warsitzka et al. (2024) files](https://osf.io/2c9gf/) are a source dataset,
-not this project's own registration.
-
-The findings are observational and do not establish causality.
+This package reproduces analysis and source-outcome aggregation from coded files.
+It does not independently recreate every payoff calculation from the papers.
+Nine complete included schedules were recalculated in the previous audit.
+Licensed papers, teaching materials and credentials are not redistributed.
+The findings are observational.
