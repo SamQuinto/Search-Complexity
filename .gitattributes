@@ -1,0 +1,3 @@
+# Keep replication downloads small; full clones retain the archive.
+archive export-ignore
+archive/** export-ignore

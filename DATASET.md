@@ -1,135 +1,155 @@
-# How the data were built
+# How we built the Study 1 dataset
 
-We sought scored negotiations with at least two issues and an observed agreement
-or impasse outcome. The fixed registry contains 479 study records from 328 papers
-in Warsitzka et al. (2024). Other leads came from the research team, Majer et al.
-(2022), Schweinsberg et al. (2022) and Petrowsky et al. (2025). The deduplicated
-search list contains 370 papers. Search records are not automatically eligible.
+This page follows the evidence from the search list to the final dataset.
+It summarizes the coding; individual sources and decisions remain in the data.
 
-## One main observation is one study
+## 1. Identify and recover papers
 
-A study means an experiment or independently recruited sample, not a paper or
-one reservation-value condition. Independent New Recruit studies, for example,
-remain separate rows with their own agreement rates. Reanalyses of one sample
-are counted once. Repeated tasks completed by the same sample are combined.
+We selected 479 study records linked to 328 source documents from the
+[Warsitzka et al. (2024) replication materials](https://osf.io/2c9gf/).
+Other leads came from the research team and related research, including
+Majer et al. (2022), Schweinsberg et al. (2022) and Petrowsky et al. (2025).
+The [paper inventory](data/search/paper_inventory.csv) records each paper's
+identified sources. It contains 370 deduplicated papers, with 347 marked recovered.
+Being on the search list does not establish eligibility.
 
-We recovered 169 outcome components linked to 102 existing structural records,
-yielding **141 studies from 112 papers** and 66 recorded scenario names. Some
-names describe versions of related exercises. The historical Harborco norm
-remains in the structural robustness data, but identifies no empirical study.
-The excluded Kappes record remains excluded.
+The [starting registry](data/search/starting_study_registry.csv) preserves the
+479 records and their paper links. Some registry records are conditions rather
+than independent studies. Its older column labels retain the earlier screening
+list's size; the current inventory contains 370 rows. Do not interpret 141/479
+as a verified study recovery percentage.
 
-## Aggregation within a study
+## 2. Read and code the sources
 
-First calculate each identified structure's bargaining-zone share and search
-complexity. Then average those measures using the numbers of negotiation
-encounters assigned to the corresponding conditions. Use the same weights for
-agreement rates. With exact counts, the outcome is total agreements divided by
-total negotiations. Agreement derived from impasse is exactly 1 minus impasse.
+We examined papers, supplements, replication data and teaching materials from
+providers including DRRC, NTR and PON. We sought scored negotiations with at least
+two issues, an observed agreement outcome, and recoverable choices, payoffs and
+acceptance rules. Single-issue or non-scored tasks, hypothetical offer evaluations,
+duplicate samples and unsupported numerical structures are not eligible.
 
-An overall outcome is not copied into several conditions. If one outcome pools
-different known structures, pair it with the corresponding average of separately
-calculated structural measures. If condition sizes are unavailable, use equal
-weights only across documented possibilities, record this decision, and leave
-the negotiation-count weight missing. Do not average payoff tables or reservation
-values before calculating the structural measures.
+For agreement outcomes, priority is original agreement/negotiation counts,
+original reported rates, then matched meta-analytic records. Identifiable classroom
+samples can contribute evidence; a historical teaching norm without an identifiable
+study does not enter the study-level analysis. Agreement rate is agreements divided
+by negotiation encounters. It is exactly one minus the impasse rate when those
+are complementary outcomes for the same sample. Participants are not negotiation
+encounters, and exclusions are not automatically impasses.
 
-Some existing structural records already summarize a finite set or closed range
-of documented possibilities. Their recorded calculations are retained. See
-`coding_evidence.csv` and the sources for those earlier calculations.
+For structure, use administered numerical materials, numerical information in
+the paper or supplement, then a verified teaching version. Record reported changes
+to the original exercise. A scenario name alone does not prove an exact match.
 
-Examples:
+Reservation values can be established by explicit acceptance thresholds, numerical
+alternatives to agreement, or stated impasse payoffs on the same payoff scale.
+A minimum attainable agreement score is not a reservation value. Zero requires
+supporting evidence. An explicit prohibition on exit imposes no reservation limit.
+Use the recorded decision rule for multiparty agreement.
 
-- Dannals et al. (2021), Study 1: combine three RV cells into one outcome,
-  1,101/1,276, using the same count weights for structural measures.
-- Petrowsky et al. (2025), Study 2b: four seller-threshold conditions yield one
-  outcome, 311/1,069, paired with count-weighted structural measures.
-- The 31 identified studies using standard New Recruit remain 31 observations.
-  Their structural predictors repeat; their agreement rates vary.
-- Martin-Raugh et al. (2020): one sample of 42 dyads completed two tasks.
-  This is one study observation covering 84 negotiation encounters.
+The main data allow documented reconstruction and finite sets or closed ranges of
+possibilities supported by evidence. They do not permit arbitrary invented payoffs
+or reservation values. The stricter structural subset removes the recorded
+reconstructions, assumed thresholds and specified pooled or uncertain matches.
+Outcomes, structural measures, basic controls and negotiation-count weights are
+not statistically imputed in this release.
 
-## Source priorities
+See [coding_evidence.csv](data/sources/coding_evidence.csv) for calculation methods,
+sources and decisions, and [structures.csv](data/sources/structures.csv) for
+structural scores and eligibility flags. Source extraction requires the original
+materials; this repository does not independently recreate every score from PDFs.
 
-Outcomes: original counts; original reported rates; matched meta-analytic rates;
-identified classroom records; historical teaching norms. The last category needs
-an identifiable study to enter the study-level dataset. Exact counts override
-rounded rates for the same sample. Counts refer to encounters, not participants.
+## 3. Calculate structural measures and match outcomes
 
-Structure: administered materials; numerical information in the paper or
-supplement; a verified teaching version. Reservation values can be numerical
-BATNAs, explicit impasse payoffs or binding acceptance thresholds on the payoff
-scale. A minimum attainable agreement score is not a reservation value. Zero
-requires evidence. An explicit prohibition on exit imposes no reservation limit.
+**Bargaining-zone share** is the fraction of allowed complete offers acceptable
+under the reservation values and decision rule. Discrete choices are enumerated.
+Continuous or mixed choices require declared bounds and a sampling distribution.
 
-Main allows documented reconstruction or a finite set / closed range supported
-by evidence. Outcomes, reservation values, structural measures, basic controls
-and negotiation counts are not statistically imputed.
+**Search complexity** is the fraction of starting offers from which no path reaches
+the bargaining zone through one-issue revisions that strictly increase the number
+of accepting parties. Every valid path is considered, rather than one greedy path.
+Equal-acceptance moves are excluded. Continuous issues also need defined neighbors,
+usually a finite grid; an unordered random sample alone does not define paths.
+Each record's exact or sampled method must be retained.
 
-## Earlier aggregation as a robustness check
+One structural record specifies the numerical payoffs and acceptance rule; some
+records summarize documented possibilities. They are not all unique named
+exercises or perfectly verified study editions. The structural file retains
+104 records: 103 eligible for its main aggregation, including 75 in its stricter
+subset. Held-out records remain visible for audit.
 
-`search_complexity_dataset.csv` retains 104 coded records. Its main flag selects
-103 observations. Each represents a payoff structure and reservation rule;
-independent studies using it are averaged with equal study weights. Counts stay
-separate, so this mean need not equal pooled agreements / pooled negotiations.
+The [outcome crosswalk](data/sources/study_outcomes.csv) contains 169 components
+linked to 102 structural records. Each component identifies the study, outcome
+source and matched structure. A pooled rate is not copied into several studies
+as though each had separately reported it. Recoverable independent study outcomes
+remain separate; an inseparable cross-study aggregate needs an explicit inclusion
+decision rather than invented study-specific rates.
 
-Its stricter flag selects 75 observations, removing reconstructed structures,
-assumed thresholds, outcomes pooled over structures and teaching-note norms
-without sample sizes. It can use narrower, directly matched outcome evidence.
-This is the unit in the archived plan. The study-level primary unit is a dated
-analysis change. The two counts must not be labeled interchangeably.
+## 4. Build one observation per independent study
 
-## Measures and controls
+An experiment or independently recruited sample contributes one main observation.
+Independent studies using the same scenario retain their own agreement rates.
+Conditions and repeated tasks completed by the same sample are combined.
 
-Bargaining-zone share is the proportion of complete offers satisfying the
-reservation values and decision rule. Discrete offers are enumerated. Continuous
-offers require declared ranges and a sampling distribution.
+Calculate structural measures separately before aggregation. Then average them
+within a study using condition negotiation counts and the same allocation as the
+outcome. With exact counts, agreement is total agreements / total negotiations.
+Never calculate metrics from an averaged payoff table or reservation value.
+When condition allocations are unavailable, documented equal weighting is used;
+an unavailable count is not invented for weighted regression. Earlier structural
+records can also contain recorded averages over supported possibilities.
 
-Search complexity is the proportion of starting offers with no path to the
-bargaining zone through one-issue revisions that strictly increase the number
-of accepting parties. Every valid path is considered. Equal-acceptance moves
-are excluded. Continuous cases need a finite grid defining neighbors. An
-unordered sample alone is insufficient. Search complexity cannot exceed one
-minus bargaining-zone share, because every acceptable offer is self-reachable.
+For example, Dannals et al. (2021), Study 1 combines three reservation-value
+conditions into 1,101/1,276 agreements. Petrowsky et al. (2025), Study 2b combines
+four conditions into 311/1,069. The 31 standard New Recruit studies remain separate.
+Martin-Raugh et al. (2020) contributes one study with 84 encounters because the
+same 42 dyads completed two tasks.
 
-The five controls are issues, parties, compatible issues, an automated
-counterpart and a non-unanimous rule. Fractions describe mixtures of conditions.
+The notebook joins the crosswalk to structural scores, rebuilds all 141 rows and
+checks them against [study_level_dataset.csv](data/study_level_dataset.csv).
+The resulting studies link 112 recorded paper citations and 66 scenario-name
+strings. Name groupings used for supplementary analyses are documented in code.
 
-## Analysis
+## 5. Analyse the final dataset
 
-Models 1-5 give each study equal weight. Model 6 weights Model 3 by the study's
-positive, recoverable negotiation count (140 studies). The same models are
-repeated in both structural robustness datasets. Continuous predictors use
-the population SD within the model sample; the outcome remains a proportion.
+The basic controls are issues, parties, compatible issues, an automated counterpart
+and a non-unanimous decision rule. Fractions can represent mixtures of conditions.
 
-Inference uses HC3 robust errors and two-sided t tests. A singleton dummy is
-absorbed for uncertainty on the other slopes. Its coefficient stays, but its
-own HC3 SE is unavailable. The code verifies unchanged focal point estimates.
-Constant controls are omitted explicitly.
+| Model | Predictors |
+| --- | --- |
+| M1 | Search complexity |
+| M2 | Search complexity + basic controls |
+| M3 | Search complexity + bargaining-zone share + basic controls |
+| M4 | Bargaining-zone share |
+| M5 | Bargaining-zone share + basic controls |
+| M6 | M3 weighted by negotiation encounters with recoverable positive counts |
 
-H1, H2 and H4 require the predicted significant coefficient, a 5,000-draw
-observation-bootstrap interval in that direction, and significance after each
-observation is removed in turn. H3 requires a positive paired difference
-R²(M2)-R²(M5), a positive interval and positive differences in every omission.
-Supplementary checks allow related errors for shared scenarios, resample or
-omit scenario groups, average named scenarios and examine rank correlations.
-They do not replace inconclusive primary tests.
+M1–M5 give each study equal weight. M6 includes 140 studies. Continuous predictors
+are standardized within the model sample; agreement remains a proportion.
+The notebook reports coefficients, uncertainty, model fit, 5,000-draw resampling,
+omission checks and the supplementary analyses, including inconclusive results.
+It explains the HC3 errors and singleton-control handling in the code.
 
-## November corrections and replication scope
+The earlier structural aggregation averages independent study rates within each
+payoff/reservation combination. Its 103-row main and 75-row strict analyses are
+robustness checks, not additional study observations. They use the included
+eligibility flags and strict outcome columns.
 
-The 3 November audit held out Kappes et al. (2020) for unsupported reservation
-values, removed four reconstructed Café rows from strict, corrected first-session
-Hong Kong-U.S. counts and narrowed the strict Graham outcome. Decisions remain
-visible in the data.
+The [saved results](results.json) copy the existing 5 November tables without
+rounding or rerunning them. Each key names the corresponding CSV written to
+`outputs/` by the notebook. `study_correlations.csv` and
+`study_descriptive_statistics.csv` support the descriptive table; `coefficients.csv`
+and `model_fit.csv` support the regression table; `hypothesis_tests.csv`,
+`bootstrap_intervals.csv` and `omission_checks.csv` report the main checks.
 
-On 5 November, independent study outcomes were separated, while conditions and
-repeated tasks within a study were combined. Stale source labels were corrected.
-Nadler et al. (2003) now uses 60/61: one impasse among 61 dyads, retaining two
-extreme but valid agreements under the coding rule. Recovered issue-bracketing
-denominators restore two negotiation-count weights to the structural robustness
-data. No payoff or structural metric changed.
+## Preregistration and scope
 
-The notebook rebuilds all study rows from `study_outcomes.csv` and the structural
-data before analysis. Original papers and the private archive are needed to
-audit the preceding extraction. The release does not independently reconstruct
-every structural metric from PDFs.
+The detailed original coding plan is in the project's OSF preregistration
+materials. Its permanent public registration URL still needs to be recorded here.
+The primary study-level unit is an analytical revision dated 5 November 2026;
+the archived plan used the earlier structural aggregation. The fixed registry
+and recovered-study crosswalk do not yet establish the stopping-rule denominator.
+
+The notebook reproduces aggregation and statistics from coded inputs. It was
+previously run in a relocated folder with zero cell errors and matching saved
+statistical tables. Reorganizing this release changes file locations and
+documentation, not numerical data or statistical code. Full independent
+re-extraction from the licensed source library remains a separate audit task.
