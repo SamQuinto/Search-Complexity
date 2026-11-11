@@ -40,3 +40,7 @@ Thumbs.db
 # Local build helpers
 _*.mjs
 _*.py
+
+# The two numerical evidence workbooks
+!data/Paper_inventory.xlsx
+!data/Observation_data.xlsx

@@ -1,8 +1,8 @@
-"""Study 1 models, uncertainty checks, and machine-readable result tables.
+"""Fit Study 1 models and the planned checks using individual observations.
 
-Run through the replication notebook after building the study dataset. This
-module never reads a private path or downloads files. The outcome is a fraction
-and continuous predictors are standardized within each estimation sample.
+An observation is one independent experiment or recruited sample. Every
+resampling draw selects whole observations. Conditions within an experiment
+stay together because prepare_data.py has already combined them.
 """
 
 from pathlib import Path
@@ -13,134 +13,84 @@ import pandas as pd
 from scipy import stats
 import statsmodels.api as sm
 
+from prepare_data import CONTROLS, PREDICTORS
 
-OUTCOME = "agreement_rate"
-SC = "search_complexity"
-BZ = "bargaining_zone_share"
-CONTROLS = [
-    "number_of_issues", "number_of_parties", "number_of_compatible_issues",
-    "automated_counterpart", "non_unanimous_rule",
-]
-PREDICTORS = [SC, BZ, *CONTROLS]
-CONTINUOUS = [SC, BZ, *CONTROLS[:3]]
+
+SC = 'search_complexity'
+BZ = 'bargaining_zone_share'
+OUTCOME = 'agreement_rate'
 MODELS = {
-    "bz_controls": [BZ, *CONTROLS],
-    "sc_controls": [SC, *CONTROLS],
-    "joint": [SC, BZ, *CONTROLS],
-    "bz_only": [BZ],
-    "sc_only": [SC],
-    "weighted_joint": [SC, BZ, *CONTROLS],
+    'M1': [SC],
+    'M2': [SC, *CONTROLS],
+    'M3': [SC, BZ, *CONTROLS],
+    'M4': [BZ],
+    'M5': [BZ, *CONTROLS],
+    'weighted_joint': [SC, BZ, *CONTROLS],
 }
-UNWEIGHTED = [model for model in MODELS if model != "weighted_joint"]
-SEED = 20261105
+CONTINUOUS = [SC, BZ, *CONTROLS[:3]]
+SEED = 20261111
 
 
-def exercise_key(sample):
-    """Use connected exercise IDs when supplied by the dataset builder."""
-    return "scenario_cluster" if "scenario_cluster" in sample else "negotiation_scenario"
-
-
-def structure_sample(structures, strict=False):
-    """Use the narrower observed outcome when the strict evidence differs."""
-    flag = "strict_eligible" if strict else "main_eligible"
-    included = structures[flag].astype(str).str.lower().isin(["true", "1", "yes", "y"])
-    sample = structures.loc[included].copy()
-    if strict:
-        for name in [OUTCOME, "agreements", "negotiations"]:
-            sample[name] = sample[f"strict_{name}"]
-    return sample
-
-
-def common_sample(data):
-    """Use the same complete rows for both R² models and the joint model."""
-    if not data.observation_id.is_unique:
-        raise ValueError("An observation ID occurs more than once")
+def complete_sample(data, weighted=False):
     sample = data.dropna(subset=[OUTCOME, *PREDICTORS]).copy().reset_index(drop=True)
-    if len(sample) < 3 or sample[exercise_key(sample)].isna().any():
-        raise ValueError("Each sample needs complete exercise IDs and at least three rows")
-    if sample[exercise_key(sample)].nunique() < 2:
-        raise ValueError("Exercise-clustered inference needs at least two exercise groups")
-    for name in [OUTCOME, SC, BZ, *CONTROLS[3:]]:
-        if not sample[name].between(0, 1).all():
-            raise ValueError(f"{name} must be between zero and one")
+    if not sample.observation_id.is_unique:
+        raise ValueError('Duplicate observation in the model data')
+    if weighted:
+        sample = sample.loc[sample.negotiations.notna() & sample.negotiations.gt(0) &
+                            np.isfinite(sample.negotiations)].copy().reset_index(drop=True)
+    if len(sample) < 3 or not sample[OUTCOME].between(0, 1).all():
+        raise ValueError('Invalid or insufficient observed agreement data')
+    if not sample[[SC, BZ, *CONTROLS[3:]]].apply(lambda x: x.between(0, 1)).all().all():
+        raise ValueError('A proportion or indicator is outside its permitted range')
     if not (sample[SC] <= 1 - sample[BZ] + 1e-9).all():
-        raise ValueError("Search complexity exceeds the fraction of unacceptable offers")
+        raise ValueError('Search complexity exceeds the unacceptable share of offers')
     return sample
 
 
-def model_sample(sample, model):
-    if model == "weighted_joint":
-        counts = sample.negotiations
-        return sample.loc[counts.notna() & counts.gt(0) & np.isfinite(counts)]
-    return sample
-
-
-def standardize(raw):
-    """Apply the same transformation in a fit and in each bootstrap draw."""
-    standardized = raw.copy()
+def standardized_predictors(raw):
+    data = np.array(raw, dtype=float, copy=True)
     for index, name in enumerate(PREDICTORS):
         if name in CONTINUOUS:
-            values = raw[:, index]
-            sd = values.std()
-            standardized[:, index] = (values - values.mean()) / sd if sd > 1e-12 else 0
-    return standardized
+            sd = data[:, index].std()
+            data[:, index] = (data[:, index] - data[:, index].mean()) / sd if sd > 1e-12 else 0
+    return data
 
 
-def design(standardized, model):
-    """Keep focal terms and omit controls that add no independent information."""
-    predictors = MODELS[model]
-    indices = [PREDICTORS.index(name) for name in predictors]
-    full = np.column_stack((np.ones(len(standardized)), standardized[:, indices]))
-    names = ["const", *predictors]
-    if np.linalg.matrix_rank(full) == full.shape[1]:
-        return full, names, []
-    keep = [0]
-    dropped = []
-    for index, name in enumerate(predictors, 1):
-        if np.linalg.matrix_rank(full[:, [*keep, index]]) > len(keep):
+def design(data, model):
+    """Keep estimable focal terms and omit constant or redundant controls."""
+    names = ['const', *MODELS[model]]
+    indices = [PREDICTORS.index(name) for name in MODELS[model]]
+    matrix = np.column_stack([np.ones(len(data)), data[:, indices]])
+    if np.linalg.matrix_rank(matrix) == matrix.shape[1]:
+        return matrix, names, []
+    keep, dropped = [0], []
+    for index, name in enumerate(names[1:], start=1):
+        if np.linalg.matrix_rank(matrix[:, [*keep, index]]) > len(keep):
             keep.append(index)
         elif name in [SC, BZ]:
-            raise ValueError(f"{model}: {name} is not estimable in this sample")
+            raise ValueError(f'{model}: {name} has no independent variation')
         else:
             dropped.append(name)
-    return full[:, keep], [names[index] for index in keep], dropped
-
-
-def coefficient_rows(result, inference, df, unavailable=()):
-    rows = []
-    intervals = result.conf_int()
-    for term, estimate in result.params.items():
-        row = {"term": term, "b": estimate, "inference": inference, "df": df}
-        if term in unavailable:
-            row.update(se=np.nan, p=np.nan, ci_low=np.nan, ci_high=np.nan)
-        else:
-            row.update(se=result.bse[term], p=result.pvalues[term],
-                       ci_low=intervals.loc[term, 0], ci_high=intervals.loc[term, 1])
-        rows.append(row)
-    return rows
+    return matrix[:, keep], [names[index] for index in keep], dropped
 
 
 def fit(sample, model):
-    """Estimate one model and report HC3 and exercise-clustered CR1 uncertainty."""
-    use = model_sample(sample, model)
-    if len(use) < 3:
-        raise ValueError(f"{model}: too few observations")
-    matrix, terms, dropped = design(standardize(use[PREDICTORS].to_numpy(float)), model)
-    x = pd.DataFrame(matrix, columns=terms, index=use.index)
+    """Report HC3 uncertainty, using a t reference with residual degrees of freedom."""
+    weighted = model == 'weighted_joint'
+    use = complete_sample(sample, weighted=weighted)
+    matrix, terms, dropped = design(standardized_predictors(use[PREDICTORS]), model)
+    x = pd.DataFrame(matrix, columns=terms)
     y = use[OUTCOME]
-    if x.shape[1] >= len(use) or y.nunique() < 2:
-        raise ValueError(f"{model}: insufficient residual degrees of freedom or outcome variation")
-    weighted = model == "weighted_joint"
+    if len(use) <= x.shape[1] or y.nunique() < 2:
+        raise ValueError(f'{model}: insufficient residual variation')
     regression = sm.WLS(y, x, weights=use.negotiations) if weighted else sm.OLS(y, x)
     ordinary = regression.fit()
-    groups = use[exercise_key(use)]
-    group_sizes = groups.value_counts()
-    group_count = len(group_sizes)
-    # One indicator can distinguish only one row. It then fits that row exactly
-    # and HC3 divides a zero residual by zero. Absorb that row and its indicator
-    # for HC3, retaining the full model's estimates and residual degrees of freedom.
+
+    # An indicator applying to just one observation fits that row perfectly.
+    # Its HC3 uncertainty is undefined. Removing that row and its indicator
+    # leaves the other coefficients and their HC3 uncertainty estimable.
     singleton = []
-    absorbed = np.zeros(len(x), dtype=bool)
+    absorbed = np.zeros(len(use), dtype=bool)
     for name in CONTROLS[3:]:
         if name in x and x[name].nunique() == 2:
             rare = x[name].map(x[name].value_counts()).eq(1).to_numpy()
@@ -151,263 +101,246 @@ def fit(sample, model):
         reduced_x = x.loc[~absorbed].drop(columns=singleton)
         reduced_y = y.loc[~absorbed]
         reduced = sm.WLS(reduced_y, reduced_x, weights=use.negotiations.loc[~absorbed]) if weighted else sm.OLS(reduced_y, reduced_x)
-        hc3 = reduced.fit(cov_type="HC3", use_t=True)
-        np.testing.assert_allclose(hc3.params, ordinary.params[reduced_x.columns], atol=1e-9)
-        critical = stats.t.ppf(.975, ordinary.df_resid)
-        rows = []
-        for term, estimate in ordinary.params.items():
-            se = hc3.bse.get(term, np.nan)
-            rows.append({"term": term, "b": estimate, "inference": "HC3",
-                         "df": ordinary.df_resid, "se": se,
-                         "p": 2 * stats.t.sf(abs(estimate) / se, ordinary.df_resid) if se > 0 else np.nan,
-                         "ci_low": estimate - critical * se, "ci_high": estimate + critical * se})
+        robust = reduced.fit(cov_type='HC3', use_t=True)
+        np.testing.assert_allclose(robust.params, ordinary.params[reduced_x.columns], atol=1e-9)
     else:
-        hc3 = regression.fit(cov_type="HC3", use_t=True)
-        rows = coefficient_rows(hc3, "HC3", ordinary.df_resid)
-    if group_count > 1:
-        clustered = regression.fit(
-            cov_type="cluster", use_t=True,
-            cov_kwds={"groups": groups, "use_correction": True, "df_correction": True},
-        )
-        np.testing.assert_allclose(clustered.params, ordinary.params, atol=1e-10)
-        rows.extend(coefficient_rows(clustered, "CR1", group_count - 1, singleton))
-    model_info = {
-        "model": model, "n": len(use), "scenario_groups": group_count,
-        "largest_group": int(group_sizes.max()),
-        "r_squared": ordinary.rsquared, "adjusted_r_squared": ordinary.rsquared_adj,
-        "dropped_controls": ", ".join(dropped),
-        "controls_with_unavailable_uncertainty": ", ".join(singleton),
-        "predictions_below_zero": int((ordinary.fittedvalues < 0).sum()),
-        "predictions_above_one": int((ordinary.fittedvalues > 1).sum()),
-    }
-    return pd.DataFrame(rows).assign(model=model, n=len(use), scenario_groups=group_count), model_info
+        robust = regression.fit(cov_type='HC3', use_t=True)
+
+    critical = stats.t.ppf(.975, ordinary.df_resid)
+    coefficients = []
+    for term, estimate in ordinary.params.items():
+        se = robust.bse.get(term, np.nan)
+        coefficients.append({
+            'model': model, 'term': term, 'b': estimate, 'se': se,
+            'p': 2 * stats.t.sf(abs(estimate / se), ordinary.df_resid) if se > 0 else np.nan,
+            'ci_low': estimate - critical * se, 'ci_high': estimate + critical * se,
+            'n': len(use), 'df_resid': ordinary.df_resid, 'uncertainty': 'HC3',
+        })
+    info = {'model': model, 'n': len(use), 'r_squared': ordinary.rsquared,
+            'adjusted_r_squared': ordinary.rsquared_adj,
+            'dropped_controls': ', '.join(dropped),
+            'controls_with_unavailable_uncertainty': ', '.join(singleton),
+            'predictions_below_zero': int((ordinary.fittedvalues < 0).sum()),
+            'predictions_above_one': int((ordinary.fittedvalues > 1).sum())}
+    return pd.DataFrame(coefficients), info
 
 
-def resample_estimates(raw, y, weights=None):
-    """Use least-squares point estimates inside the paired percentile bootstrap."""
-    matrix = standardize(raw)
-    if weights is None:
-        fit_models = UNWEIGHTED
-        weights = np.ones(len(y))
-    else:
-        fit_models = ["weighted_joint"]
-    root = np.sqrt(weights)
-    total = np.sum(weights * (y - np.average(y, weights=weights)) ** 2)
-    estimates = {}
+def fast_estimates(raw, y, weights=None):
+    """Compute point estimates for a paired row-resampling draw."""
+    data = standardized_predictors(raw)
+    fit_models = ['weighted_joint'] if weights is not None else ['M2', 'M3', 'M5']
+    weights = np.ones(len(y)) if weights is None else weights
+    root_weights = np.sqrt(weights)
+    total_variation = np.sum(weights * (y - np.average(y, weights=weights)) ** 2)
+    results = {}
     for model in fit_models:
         try:
-            x, names, _ = design(matrix, model)
-            if len(y) <= x.shape[1] or total <= 0:
-                continue
+            x, names, _ = design(data, model)
         except ValueError:
             continue
-        b = np.linalg.lstsq(x * root[:, None], y * root, rcond=None)[0]
-        r2 = 1 - np.sum(weights * (y - x @ b) ** 2) / total
-        estimates[model] = (dict(zip(names, b)), r2)
+        if len(y) <= x.shape[1] or total_variation <= 0:
+            continue
+        b = np.linalg.lstsq(x * root_weights[:, None], y * root_weights, rcond=None)[0]
+        r_squared = 1 - np.sum(weights * (y - x @ b) ** 2) / total_variation
+        results[model] = (dict(zip(names, b)), r_squared)
     output = {}
-    for model, name, term in [
-        ("joint", "H1", SC), ("weighted_joint", "H1", SC),
-        ("bz_only", "bz_unadjusted", BZ), ("sc_only", "sc_unadjusted", SC),
-    ]:
-        if model in estimates:
-            output[name] = float(estimates[model][0][term])
-    if {"sc_controls", "bz_controls"}.issubset(estimates):
-        output["H2"] = float(estimates["sc_controls"][1] - estimates["bz_controls"][1])
+    if 'weighted_joint' in results:
+        output['weighted_search_complexity'] = results['weighted_joint'][0][SC]
+    if 'M3' in results:
+        output['H1'] = results['M3'][0][SC]
+    if {'M2', 'M5'}.issubset(results):
+        output['H2'] = results['M2'][1] - results['M5'][1]
     return output
 
 
-def bootstrap(sample, draws, seed, by_exercise, weighted):
-    """Resample whole exercise groups or study rows using common draws."""
-    use = model_sample(sample, "weighted_joint") if weighted else sample
+def bootstrap(sample, draws, seed, weighted=False):
+    use = complete_sample(sample, weighted=weighted)
     raw, y = use[PREDICTORS].to_numpy(float), use[OUTCOME].to_numpy(float)
     weights = use.negotiations.to_numpy(float) if weighted else None
+    tests = ['weighted_search_complexity'] if weighted else ['H1', 'H2']
+    sampled = {name: [] for name in tests}
     rng = np.random.default_rng(seed)
-    groups = list(use.groupby(exercise_key(use), sort=False).indices.values())
-    labels = ["H1"] if weighted else ["H1", "H2", "bz_unadjusted", "sc_unadjusted"]
-    sampled = {name: [] for name in labels}
     for _ in range(draws):
-        if by_exercise:
-            selected = rng.integers(0, len(groups), len(groups))
-            positions = np.concatenate([groups[index] for index in selected])
-        else:
-            positions = rng.integers(0, len(use), len(use))
-        values = resample_estimates(raw[positions], y[positions],
-                                    None if weights is None else weights[positions])
-        for name, estimate in values.items():
-            if np.isfinite(estimate):
-                sampled[name].append(estimate)
+        positions = rng.integers(0, len(use), len(use))
+        values = fast_estimates(raw[positions], y[positions],
+                                None if weights is None else weights[positions])
+        for name, value in values.items():
+            if np.isfinite(value):
+                sampled[name].append(value)
     rows = []
-    for name, estimates in sampled.items():
-        low, high = np.quantile(estimates, [.025, .975]) if estimates else (np.nan, np.nan)
-        rows.append({"test": name, "ci_low": low, "ci_high": high,
-                     "draws_requested": draws, "draws_completed": len(estimates),
-                     "invalid_draws": draws - len(estimates),
-                     "passes_interval_rule": low > 0 if name in ["H2", "bz_unadjusted"] else high < 0})
+    for test, values in sampled.items():
+        low, high = np.quantile(values, [.025, .975]) if values else (np.nan, np.nan)
+        rows.append({'test': test, 'ci_low': low, 'ci_high': high,
+                     'draws_requested': draws, 'draws_completed': len(values),
+                     'invalid_draws': draws - len(values), 'seed': seed,
+                     'n': len(use), 'weighted': weighted})
     return pd.DataFrame(rows)
 
 
-def omission_checks(sample, by_exercise, weighted):
-    """Refit after dropping one observation or exercise group at a time."""
-    use = model_sample(sample, "weighted_joint") if weighted else sample
-    key = exercise_key(use) if by_exercise else "observation_id"
-    checks = [("weighted_joint", "H1", SC)] if weighted else [
-        ("joint", "H1", SC), ("bz_only", "bz_unadjusted", BZ), ("sc_only", "sc_unadjusted", SC),
-    ]
-    rows = []
-    for omitted in use[key].unique():
-        remaining = use.loc[use[key].ne(omitted)]
-        for model, name, term in checks:
-            try:
-                coefficient, _ = fit(remaining, model)
-                term_rows = coefficient.loc[coefficient.term.eq(term)].set_index("inference")
-                estimate = term_rows.loc["HC3", "b"]
-                p_hc3 = term_rows.loc["HC3", "p"]
-                p_cluster = term_rows.loc["CR1", "p"] if "CR1" in term_rows.index else np.nan
-            except ValueError:
-                estimate = p_hc3 = p_cluster = np.nan
-            direction = 1 if name == "bz_unadjusted" else -1
-            rows.append({"omitted": omitted, "test": name, "n": len(remaining),
-                         "estimate": estimate, "p": p_cluster, "p_hc3": p_hc3,
-                         "passes": direction * estimate > 0 and p_cluster < .05})
-        if not weighted:
-            estimates = resample_estimates(remaining[PREDICTORS].to_numpy(float),
-                                            remaining[OUTCOME].to_numpy(float))
-            delta = estimates.get("H2", np.nan)
-            rows.append({"omitted": omitted, "test": "H2", "n": len(remaining),
-                         "estimate": delta, "p": np.nan, "p_hc3": np.nan, "passes": delta > 0})
-    return pd.DataFrame(rows)
+def leave_one_out(sample, weighted=False):
+    """Retain every other observation after omitting one experiment."""
+    use = complete_sample(sample, weighted=weighted)
+    rows, model_rows = [], []
+    models = ['weighted_joint'] if weighted else ['M2', 'M3', 'M5']
+    for observation in use.observation_id:
+        remaining = use.loc[use.observation_id.ne(observation)]
+        try:
+            fits = {}
+            for model in models:
+                coefficient, info = fit(remaining, model)
+                fits[model] = info
+                model_rows.append(coefficient.assign(
+                    omitted_observation=observation, weighted=weighted,
+                    r_squared=info['r_squared']))
+                if model == ('weighted_joint' if weighted else 'M3'):
+                    sc = coefficient.loc[coefficient.term.eq(SC)].iloc[0]
+            delta = fits['M2']['r_squared'] - fits['M5']['r_squared'] if not weighted else np.nan
+            rows.append({'omitted_observation': observation, 'n': len(remaining),
+                         'search_complexity_b': sc.b, 'search_complexity_p': sc.p,
+                         'search_complexity_ci_low': sc.ci_low,
+                         'search_complexity_ci_high': sc.ci_high,
+                         'r_squared_difference': delta,
+                         'negative_and_significant': bool(sc.b < 0 and sc.p < .05),
+                         'weighted': weighted, 'error': ''})
+        except ValueError as error:
+            rows.append({'omitted_observation': observation, 'n': len(remaining),
+                         'weighted': weighted, 'error': str(error)})
+    return pd.DataFrame(rows), pd.concat(model_rows, ignore_index=True)
 
 
-def describe(sample, name):
+def descriptions(sample, dataset):
     variables = [OUTCOME, BZ, SC, *CONTROLS]
-    descriptives = sample[variables].agg(["count", "mean", "std", "min", "max"]).T
-    descriptives.index.name = "variable"
-    correlations = []
+    summary = sample[variables].agg(['count', 'mean', 'std', 'min', 'max']).T
+    summary.index.name = 'variable'
+    pairs = []
     for i, left in enumerate(variables):
         for right in variables[i:]:
             r = p = np.nan
             if sample[left].nunique() > 1 and sample[right].nunique() > 1:
                 r, p = stats.pearsonr(sample[left], sample[right])
-            correlations.append({"dataset": name, "variable": left, "other_variable": right,
-                                 "r": r, "p": p, "n": len(sample)})
-    return descriptives.reset_index().assign(dataset=name), pd.DataFrame(correlations)
+            pairs.append({'dataset': dataset, 'variable': left,
+                          'other_variable': right, 'r': r, 'p': p, 'n': len(sample)})
+    return summary.reset_index().assign(dataset=dataset), pd.DataFrame(pairs)
 
 
-def exercise_means(sample):
-    """Give each named exercise equal weight after averaging its versions."""
-    means = sample.groupby(exercise_key(sample), as_index=False)[[OUTCOME, *PREDICTORS]].mean()
-    return means.rename(columns={exercise_key(sample): "negotiation_scenario"}).assign(
-        observation_id=lambda x: x.negotiation_scenario
-    )
+def confirmation_tests(coefficients, fits, intervals, omissions, n):
+    """Keep each required confirmation check visible instead of merging it silently.
 
-
-def run_analysis(studies, structures, output_dir, draws=5000):
-    """Write CSV results and sample counts from the linked study and structure inputs.
-
-    The structural input contains only eligible versions with an identifiable
-    study. It includes strict eligibility flags and the corresponding outcome
-    and count fields. Only the study sample determines the two main decisions.
+    These checks matter because the final observation count depends on the
+    archival evidence that can be recovered. A full-sample result alone is
+    insufficient: its row-resampling interval and every row omission must pass.
     """
-    if draws < 1:
-        raise ValueError("At least one bootstrap draw is required")
+    joint = coefficients.loc[(coefficients.model == 'M3') &
+                             (coefficients.term == SC)].iloc[0]
+    fit_by_model = fits.set_index('model')
+    delta = fit_by_model.loc['M2', 'r_squared'] - fit_by_model.loc['M5', 'r_squared']
+    weighted_rows = omissions.weighted.astype(str).str.lower().isin(['true', '1', 'y']) if 'weighted' in omissions else None
+    ordinary = omissions.loc[~weighted_rows].copy() if weighted_rows is not None else omissions.copy()
+    valid = ordinary.error.fillna('').eq('')
+    records = []
+    for hypothesis in ['H1', 'H2']:
+        interval = intervals.loc[intervals.test.eq(hypothesis)].iloc[0]
+        if hypothesis == 'H1':
+            primary_pass = bool(joint.b < 0 and joint.p < .05)
+            bootstrap_pass = bool(interval.ci_high < 0)
+            omission_pass = valid & ordinary.search_complexity_b.lt(0) & ordinary.search_complexity_p.lt(.05)
+            estimate, se, p = joint.b, joint.se, joint.p
+            low, high = joint.ci_low, joint.ci_high
+            inference = 'HC3, two-sided t test; individual-observation confirmation checks'
+        else:
+            primary_pass = bool(delta > 0)
+            bootstrap_pass = bool(interval.ci_low > 0)
+            omission_pass = valid & ordinary.r_squared_difference.gt(0)
+            estimate, se, p = delta, np.nan, np.nan
+            low, high = interval.ci_low, interval.ci_high
+            inference = 'Paired individual-observation interval and every individual-observation omission'
+        # An incomplete set of planned draws or omissions cannot silently
+        # count as full confirmation.
+        bootstrap_pass = bool(bootstrap_pass and interval.draws_completed == interval.draws_requested)
+        omissions_passed = int(omission_pass.sum())
+        all_omissions_pass = bool(len(ordinary) == n and
+                                 ordinary.omitted_observation.is_unique and omissions_passed == n)
+        confirmed = bool(primary_pass and bootstrap_pass and all_omissions_pass)
+        records.append({
+            'hypothesis': hypothesis, 'estimate': estimate, 'se': se, 'p': p,
+            'ci_low': low, 'ci_high': high,
+            'primary_criterion_met': primary_pass,
+            'bootstrap_ci_low': interval.ci_low, 'bootstrap_ci_high': interval.ci_high,
+            'bootstrap_draws_requested': int(interval.draws_requested),
+            'bootstrap_draws_completed': int(interval.draws_completed),
+            'bootstrap_invalid_draws': int(interval.invalid_draws),
+            'bootstrap_criterion_met': bootstrap_pass,
+            'omissions_passed': omissions_passed, 'omissions_required': n,
+            'omissions_completed': int(valid.sum()),
+            'omission_criterion_met': all_omissions_pass,
+            'full_confirmation_met': confirmed, 'criterion_met': confirmed,
+            'inference': inference, 'n': n,
+        })
+    return pd.DataFrame(records)
+
+
+def run_analysis(datasets, output_dir, draws=5000):
+    """Run the five models and the checks specified for each observation unit."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    samples = {
-        "study": common_sample(studies),
-        "structure": common_sample(structure_sample(structures)),
-        "strict_structure": common_sample(structure_sample(structures, strict=True)),
-    }
-    averaging_samples = {
-        "exercise_mean": exercise_means(samples["structure"]),
-        "strict_exercise_mean": exercise_means(samples["strict_structure"]),
-    }
-    table_names = [
-        "coefficients", "model_fit", "descriptive_statistics", "correlations",
-        "bootstrap_intervals", "omission_checks", "hypothesis_tests",
-    ]
-    tables = {name: [] for name in table_names}
-    sample_summary = {}
-    for offset, (name, sample) in enumerate({**samples, **averaging_samples}.items()):
-        print(f"{name}: {len(sample)} complete observations", flush=True)
-        sizes = sample[exercise_key(sample)].value_counts()
-        sample_summary[name] = {"n": len(sample), "exercise_groups": len(sizes),
-                                "largest_group": int(sizes.max())}
-        coefficients, models = [], []
-        for model in (MODELS if name in samples else UNWEIGHTED):
-            terms, info = fit(sample, model)
-            coefficients.append(terms)
-            models.append(info)
+    tables = {name: [] for name in ['coefficients', 'model_fit', 'descriptive_statistics',
+                                   'correlations', 'bootstrap_intervals', 'leave_one_out',
+                                   'leave_one_out_models', 'hypothesis_tests']}
+    summary = {}
+    for index, (name, raw) in enumerate(datasets.items()):
+        sample = complete_sample(raw)
+        print(f'{name}: {len(sample)} observations', flush=True)
+        primary_unit = name in ['main', 'strict']
+        models = list(MODELS) if primary_unit else [model for model in MODELS if model != 'weighted_joint']
+        coefficients, fits = [], []
+        for model in models:
+            coef, info = fit(sample, model)
+            coefficients.append(coef)
+            fits.append(info)
         coefficients = pd.concat(coefficients, ignore_index=True)
-        model_fit = pd.DataFrame(models)
-        tables["coefficients"].append(coefficients.assign(dataset=name))
-        tables["model_fit"].append(model_fit.assign(dataset=name))
-        descriptives, correlations = describe(sample, name)
-        tables["descriptive_statistics"].append(descriptives)
-        tables["correlations"].append(correlations)
-        if name not in samples:
+        fits = pd.DataFrame(fits)
+        tables['coefficients'].append(coefficients.assign(dataset=name))
+        tables['model_fit'].append(fits.assign(dataset=name))
+        descriptive, correlations = descriptions(sample, name)
+        tables['descriptive_statistics'].append(descriptive)
+        tables['correlations'].append(correlations)
+        summary[name] = {'n': len(sample),
+                         'weighted_n': len(complete_sample(sample, weighted=True)) if primary_unit else None}
+        if not primary_unit:
             continue
 
-        # Confirm the fast bootstrap fits reproduce the full-sample estimates.
-        fast = resample_estimates(sample[PREDICTORS].to_numpy(float), sample[OUTCOME].to_numpy(float))
-        fit_r2 = model_fit.set_index("model").r_squared
-        delta = fit_r2["sc_controls"] - fit_r2["bz_controls"]
-        joint = coefficients.loc[
-            coefficients.model.eq("joint") & coefficients.term.eq(SC) & coefficients.inference.eq("CR1")
-        ].iloc[0]
-        np.testing.assert_allclose([fast["H1"], fast["H2"]], [joint.b, delta], atol=1e-10)
-        for by_exercise in [False, True]:
-            for weighted in [False, True]:
-                kind = ("exercise" if by_exercise else "observation") + ("_weighted" if weighted else "")
-                seed = SEED + offset + 100 * int(by_exercise) + 200 * int(weighted)
-                intervals = bootstrap(sample, draws, seed, by_exercise, weighted)
-                omissions = omission_checks(sample, by_exercise, weighted)
-                tables["bootstrap_intervals"].append(intervals.assign(dataset=name, resampling=kind, seed=seed))
-                tables["omission_checks"].append(omissions.assign(dataset=name, omission=kind))
-                if by_exercise and not weighted:
-                    h2 = intervals.loc[intervals.test.eq("H2")].iloc[0]
-        decisions = [
-            {"hypothesis": "H1", "estimate": joint.b, "se": joint.se, "p": joint.p,
-             "ci_low": joint.ci_low, "ci_high": joint.ci_high,
-             "inference": "CR1", "supported": joint.b < 0 and joint.p < .05},
-            {"hypothesis": "H2", "estimate": delta, "se": np.nan, "p": np.nan,
-             "ci_low": h2.ci_low, "ci_high": h2.ci_high,
-             "inference": "paired exercise bootstrap", "supported": delta > 0 and h2.ci_low > 0},
-        ]
-        tables["hypothesis_tests"].append(pd.DataFrame(decisions).assign(
-            dataset=name, primary=name == "study", n=len(sample), scenario_groups=len(sizes)
-        ))
+        # The two comparison models share the same observations and controls.
+        joint = coefficients.loc[(coefficients.model == 'M3') & (coefficients.term == SC)].iloc[0]
+        fit_by_model = fits.set_index('model')
+        delta = fit_by_model.loc['M2', 'r_squared'] - fit_by_model.loc['M5', 'r_squared']
+        fast = fast_estimates(sample[PREDICTORS].to_numpy(float), sample[OUTCOME].to_numpy(float))
+        np.testing.assert_allclose([joint.b, delta], [fast['H1'], fast['H2']], atol=1e-10)
+        interval = bootstrap(sample, draws, SEED + index)
+        tables['bootstrap_intervals'].append(interval.assign(dataset=name))
+        tables['bootstrap_intervals'].append(bootstrap(sample, draws, SEED + index + 100,
+                                                       weighted=True).assign(dataset=name))
+        for weighted in [False, True]:
+            omission, omission_models = leave_one_out(sample, weighted=weighted)
+            tables['leave_one_out'].append(omission.assign(dataset=name))
+            tables['leave_one_out_models'].append(omission_models.assign(dataset=name))
+            if not weighted:
+                ordinary_omissions = omission
+        tables['hypothesis_tests'].append(
+            confirmation_tests(coefficients, fits, interval, ordinary_omissions, len(sample))
+            .assign(dataset=name, primary=name == 'main'))
 
     result = {name: pd.concat(parts, ignore_index=True) for name, parts in tables.items()}
-    ranks = []
-    for predictor in [BZ, SC]:
-        rho, p = stats.spearmanr(samples["study"][predictor], samples["study"][OUTCOME])
-        ranks.append({"dataset": "study", "predictor": predictor, "spearman_rho": rho,
-                      "p": p, "n": len(samples["study"])})
-    result["rank_correlations"] = pd.DataFrame(ranks)
     for name, table in result.items():
-        table.to_csv(output_dir / f"{name}.csv", index=False)
-    (output_dir / "analysis_summary.json").write_text(
-        json.dumps({"bootstrap_draws": draws, "base_seed": SEED, "samples": sample_summary}, indent=2),
-        encoding="utf-8",
-    )
-    summary = {
-        "bootstrap_draws": draws,
-        "base_seed": SEED,
-        "samples": sample_summary,
-        "hypothesis_tests": json.loads(result["hypothesis_tests"].to_json(orient="records")),
-        "model_fit": json.loads(result["model_fit"].to_json(orient="records")),
-        "bootstrap_intervals": json.loads(result["bootstrap_intervals"].to_json(orient="records")),
-    }
-    (output_dir / "results.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+        table.to_csv(output_dir / f'{name}.csv', index=False)
+    (output_dir / 'analysis_summary.json').write_text(
+        json.dumps({'bootstrap_draws': draws, 'base_seed': SEED, 'samples': summary}, indent=2),
+        encoding='utf-8')
     return result
 
 
 if __name__ == '__main__':
     from prepare_data import build_data
-    from presentation import build_presentation
 
     root = Path(__file__).resolve().parent
-    output = root / 'outputs'
-    studies, structures, flow = build_data(root, output)
-    tables = run_analysis(studies, structures, output)
-    build_presentation(studies, tables, flow, output)
+    datasets = build_data(root, root / 'outputs')
+    run_analysis(datasets, root / 'outputs')

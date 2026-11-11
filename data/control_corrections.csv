@@ -1,0 +1,2 @@
+component_id,variable,recorded_value,corrected_value,reason,source
+W0027::beersma_de_dreu_2002_market_four_versions_pooled,non_unanimous_rule,0.5,0.4945054945054945,Replace the earlier equal-allocation assumption with the exact reported marginal group counts.,"Beersma and De Dreu (2002), PDF p. 18, coalition-results paragraph: 46 unanimity groups and 45 majority groups."

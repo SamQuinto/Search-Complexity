@@ -1,0 +1,122 @@
+[
+  {
+    "payoff_id": "sale_cafe_buyer_cap_1550",
+    "negotiation_exercise": "Sale of a Café",
+    "shape": [
+      21,
+      21,
+      21
+    ],
+    "option_indices": {
+      "A": 0,
+      "U": 20
+    },
+    "buyer_score_coefficients": [
+      300,
+      250,
+      100
+    ],
+    "buyer_minimum": 6100,
+    "programmed_buyer_score_cap": 1550,
+    "seller_total_function": {
+      "intercept": 13000,
+      "coefficients": [
+        -300,
+        -100,
+        -250
+      ]
+    },
+    "rule_status": "Source-supported reconstruction; full survey or author confirmation pending",
+    "sources": "Petrowsky et al. (2025), Study 2b, implemented buyer role, Exp2b.sav and source syntax. https://doi.org/10.1016/j.obhdp.2025.104448; https://osf.io/b4r36/"
+  },
+  {
+    "payoff_id": "sale_cafe_buyer_cap_3500",
+    "negotiation_exercise": "Sale of a Café",
+    "shape": [
+      21,
+      21,
+      21
+    ],
+    "option_indices": {
+      "A": 0,
+      "U": 20
+    },
+    "buyer_score_coefficients": [
+      300,
+      250,
+      100
+    ],
+    "buyer_minimum": 6100,
+    "programmed_buyer_score_cap": 3500,
+    "seller_total_function": {
+      "intercept": 13000,
+      "coefficients": [
+        -300,
+        -100,
+        -250
+      ]
+    },
+    "rule_status": "Source-supported reconstruction; full survey or author confirmation pending",
+    "sources": "Petrowsky et al. (2025), Study 2b, implemented buyer role, Exp2b.sav and source syntax. https://doi.org/10.1016/j.obhdp.2025.104448; https://osf.io/b4r36/"
+  },
+  {
+    "payoff_id": "sale_cafe_buyer_cap_5450",
+    "negotiation_exercise": "Sale of a Café",
+    "shape": [
+      21,
+      21,
+      21
+    ],
+    "option_indices": {
+      "A": 0,
+      "U": 20
+    },
+    "buyer_score_coefficients": [
+      300,
+      250,
+      100
+    ],
+    "buyer_minimum": 6100,
+    "programmed_buyer_score_cap": 5450,
+    "seller_total_function": {
+      "intercept": 13000,
+      "coefficients": [
+        -300,
+        -100,
+        -250
+      ]
+    },
+    "rule_status": "Source-supported reconstruction; full survey or author confirmation pending",
+    "sources": "Petrowsky et al. (2025), Study 2b, implemented buyer role, Exp2b.sav and source syntax. https://doi.org/10.1016/j.obhdp.2025.104448; https://osf.io/b4r36/"
+  },
+  {
+    "payoff_id": "sale_cafe_buyer_cap_7400",
+    "negotiation_exercise": "Sale of a Café",
+    "shape": [
+      21,
+      21,
+      21
+    ],
+    "option_indices": {
+      "A": 0,
+      "U": 20
+    },
+    "buyer_score_coefficients": [
+      300,
+      250,
+      100
+    ],
+    "buyer_minimum": 6100,
+    "programmed_buyer_score_cap": 7400,
+    "seller_total_function": {
+      "intercept": 13000,
+      "coefficients": [
+        -300,
+        -100,
+        -250
+      ]
+    },
+    "rule_status": "Source-supported reconstruction; full survey or author confirmation pending",
+    "sources": "Petrowsky et al. (2025), Study 2b, implemented buyer role, Exp2b.sav and source syntax. https://doi.org/10.1016/j.obhdp.2025.104448; https://osf.io/b4r36/"
+  }
+]

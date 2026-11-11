@@ -1,0 +1,98 @@
+[
+  {
+    "payoff_id": "northcraft_1998_employment_decreasing_r0_r0",
+    "kind": "all_payoffs_meet_reservations",
+    "lower_payoff_bounds": [
+      0,
+      0
+    ],
+    "reservation_values": [
+      0,
+      0
+    ],
+    "source": "Northcraft et al. (1998), Tables 1–2 and Methods, printed pp. 66–67. https://doi.org/10.1006/obhd.1998.2750",
+    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds."
+  },
+  {
+    "payoff_id": "northcraft_1998_employment_linear_r0_r0",
+    "kind": "all_payoffs_meet_reservations",
+    "lower_payoff_bounds": [
+      0,
+      0
+    ],
+    "reservation_values": [
+      0,
+      0
+    ],
+    "source": "Northcraft et al. (1998), Tables 1–2 and Methods, printed pp. 66–67. https://doi.org/10.1006/obhd.1998.2750",
+    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds."
+  },
+  {
+    "payoff_id": "northcraft_1998_employment_increasing_r0_r0",
+    "kind": "all_payoffs_meet_reservations",
+    "lower_payoff_bounds": [
+      0,
+      0
+    ],
+    "reservation_values": [
+      0,
+      0
+    ],
+    "source": "Northcraft et al. (1998), Tables 1–2 and Methods, printed pp. 66–67. https://doi.org/10.1006/obhd.1998.2750",
+    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds."
+  },
+  {
+    "payoff_id": "murnighan_1999_development_pooled",
+    "kind": "all_payoffs_meet_reservations",
+    "lower_payoff_bounds": [
+      0,
+      0
+    ],
+    "reservation_values": [
+      0,
+      0
+    ],
+    "source": "Murnighan et al. (1999), Experiment 2, Table 2 and Methods. https://doi.org/10.1108/eb022828",
+    "explanation": "Both six-issue versions have nonnegative point outcomes and a zero-point disagreement result. Both measures are identical under every allocation between the versions."
+  },
+  {
+    "payoff_id": "mumpower_2004_two_issue_versions_pooled",
+    "kind": "all_payoffs_meet_reservations",
+    "lower_payoff_bounds": [
+      0,
+      0
+    ],
+    "reservation_values": [
+      0,
+      0
+    ],
+    "source": "Mumpower et al. (2004), Study 1, Methods printed p. 267 and Table 3. https://doi.org/10.1023/B:GRUP.0000031089.91654.26",
+    "explanation": "The article states that total scores range from 0 to 100 and failure to reach a settlement gives zero to both roles. Both complete Table 3 versions therefore permit every offer."
+  },
+  {
+    "payoff_id": "zhang_mental_accounting_power_plant_two_versions_pooled",
+    "kind": "all_payoffs_meet_reservations",
+    "lower_payoff_bounds": [
+      0,
+      0
+    ],
+    "reservation_values": [
+      0,
+      0
+    ],
+    "source": "Zhang et al. (2022), Power Plant numerical role materials, corresponding to the study records retained in Warsitzka et al. (2024). https://osf.io/56a8h/",
+    "explanation": "Both complete eight-issue point schedules have nonnegative outcomes and stated zero-point disagreement outcomes. Their allocation cannot change either measure."
+  },
+  {
+    "payoff_id": "martin_raugh_2020_fundraiser",
+    "kind": "all_complete_offers_allowed",
+    "source": "Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",
+    "explanation": "The platform requires both participants to choose matching options for all six issues and explicitly offers no possibility of walking away. No numerical threshold filters complete agreements. The coded operative rule permits every complete package."
+  },
+  {
+    "payoff_id": "martin_raugh_2020_robot",
+    "kind": "all_complete_offers_allowed",
+    "source": "Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",
+    "explanation": "The platform requires both participants to choose matching options for all six issues and explicitly offers no possibility of walking away. No numerical threshold filters complete agreements. The coded operative rule permits every complete package."
+  }
+]

@@ -1,55 +1,40 @@
 # Search complexity and agreement in negotiations
 
-Study 1 links observed agreement rates to the structure of scored, multi-issue negotiations. The main observation is an independent experiment or sample.
+Study 1 asks whether search complexity predicts agreement rates beyond bargaining-zone size and other structural features of a negotiation exercise.
 
-The current dataset contains **141 independent studies from 112 papers**, linked to 102 numerical negotiation structures and 66 recorded exercise names. Conditions within a study are combined. Independent studies using the same exercise retain separate agreement rates.
+The dataset contains **141 observations from 112 papers**, linked to **103 payoff records across 66 named negotiation exercises**. An observation is an experiment or separately recruited participant sample. Conditions within an experiment are combined; independent experiments using the same exercise remain separate. The strict analysis retains **126 observations**.
 
-The revised analysis was run on 11 November 2026 after the author confirmed submission of the Study 1 OSF amendment. The amendment discloses the earlier study-level analyses of 5 November. Its public OSF link will be added when supplied. The [5 November release](https://github.com/SamQuinto/Search-Complexity/tree/2cfbb90ad56e38ea1eea6d9ecea2808df43c65bd) preserves the previous specification and results.
+## Find what you need
 
-## Follow the data
-
-| What you need | Where to look |
+| File | Contents |
 | --- | --- |
-| Papers searched, recovery status and studies contributed | [Paper inventory](data/inventory/paper_inventory.csv) |
-| Exercise names, sources and outcome coverage | [Exercise inventory](data/inventory/exercise_inventory.csv) |
-| The fixed screening registry | [479 starting records](data/inventory/starting_study_registry.csv) |
-| Study citations and paper identifiers | [Study-to-paper links](data/inventory/paper_study_links.csv) |
-| Agreement evidence, structural sources and score calculations | [Coded inputs](data/sources/README.md) |
-| One row per study with source information and controls | [Study inputs](data/study_inputs.csv) |
-| Columns used by the regressions | [Regression data](data/regression_data.csv) |
-| Read the saved model and robustness results | [Results](results.json) |
-| Data construction and statistical decisions | [Study 1 methods](DATASET.md) |
-| Reproduce the data, tables, figures and robustness checks | [Notebook](analysis.ipynb) |
+| [Paper_inventory.xlsx](data/Paper_inventory.xlsx) | The 371 papers, how they were found, retrieval status, exercise matches, and observations contributed |
+| [Observation_data.xlsx](data/Observation_data.xlsx) | Agreement outcomes, underlying results, payoff tables or functions, reservation values, controls, and sources, before adding the two structural measures |
+| [Regression data](data/regression_data.csv) | The 141 observations and ten columns used by the analysis |
+| [Exercise inventory](data/inventory/exercise_inventory.csv) | The 66 exercises, material sources, and contributions |
+| [Starting registry](data/inventory/starting_study_registry.csv) | The fixed 479 review records, linked to 330 papers |
+| [Counts and units](data/data_flow.csv) | The search, recovered papers, coded results, and final analysis observations |
+| [Data collection and calculations](DATASET.md) | Inclusion, source priorities, combining conditions, structural measures, and statistical tests |
+| [Tables](Tables.md) | Descriptive statistics, five main regressions, strict results, and supplementary checks |
+| [Notebook](analysis.ipynb) | Rebuild the data and reproduce the results |
 
-The inventories document manual search and coding. The notebook joins the coded outcomes to structures, verifies the structural scores where replay inputs are available, and combines conditions within each study. It generates the flow and aggregation tables from the same records used for analysis.
+We read the papers and research materials to code the evidence. The notebook starts from those transcriptions, checks the structural calculations, combines conditions within observations, and creates the regression data. Sources and coding decisions remain attached to the underlying results.
 
-## Reproduce Study 1
+## Run the analysis
 
-Download the repository ZIP and extract it. Open a terminal in that folder with Python 3.12 and run:
+Download this folder, extract it, and open a terminal in the extracted folder. With Python 3.12, run:
 
 ```bash
 python -m pip install -r requirements.txt
-python -m jupyter nbconvert --to notebook --execute analysis.ipynb --output analysis.executed.ipynb --ExecutePreprocessor.timeout=1800
+python run.py
 ```
 
-You can also open `analysis.ipynb` and run all cells. The notebook uses the included inputs and writes to `outputs/`. It requires no account, key or private folder. The resampling checks use 5,000 draws.
+Or open `analysis.ipynb` and choose **Run all** after installing the requirements. Everything is saved in `outputs/`. The code uses relative paths and needs no account or API key. Each resampling check uses 5,000 draws with a fixed seed.
 
-If Jupyter is unavailable, `python analysis.py` runs the same steps and writes the same files.
+## Main findings
 
-`outputs/data_flow.csv` traces the sample. `outputs/component_weights.csv` documents each within-study weight. `outputs/metric_reproduction.csv` identifies the structures with replay inputs and the source-coded scores. `outputs/hypothesis_tests.csv`, `bootstrap_intervals.csv`, and `omission_checks.csv` report the inference and sensitivity checks. The notebook generates display-ready tables and both analytical figures.
+In the joint model, greater search complexity is associated with lower agreement rates (**b = −.109, p < .001**). Its model with controls explains more variation than the bargaining-zone model with the same controls (**ΔR² = .206; 95% interval [.025, .361]**). Both hypotheses meet their main regression, individual-observation resampling, and single-observation omission criteria.
 
-## Results
+The notebook also reproduces the original main hypothesis analyses in Appendix A, using `original_main_analysis.py`.
 
-H1 predicts a negative association between search complexity and agreement rates after accounting for bargaining-zone size and five controls. The estimate is −.112, with exercise-clustered p < .001 and a 95% interval of [−.139, −.085].
-
-H2 compares explained variation using the same controls. R² is .424 for search complexity and .200 for bargaining-zone size. The difference is .225. Its primary exercise-resampling interval is [−.035, .398], so H2 is not supported by that test. The supplementary study-row interval is [.024, .386].
-
-The supplementary structure comparison has 102 observations. Its stricter subset has 75. Both retain a negative adjusted search-complexity coefficient. H2's interval is positive in the 102-observation comparison and includes zero in the stricter subset. These comparisons combine the evidence differently and form separate analyses.
-
-## Verification and source coverage
-
-Three independent reviews checked the data and counts, model code, and manuscript. The data build reproduced all 141 study rows from a copy extracted to a different folder. The standalone metric check reproduces 32 coded structures, including 31 of the 102 linked to studies. Other structures use their recorded scores and source notes. An unexpected difference in a recalculated score stops the build for review.
-
-The complete notebook ran in a relocated folder. Its dataset, models, resampling checks, journal tables and figures matched the Python script run. All 30 bootstrap interval records completed 5,000 draws with no invalid draws. Independent matrix calculations reproduced the main and weighted coefficients and clustered uncertainty.
-
-The inventory retains historical retrieval flags and identifies unresolved screening. Of 370 candidate papers, 347 are marked recovered. This ledger flag is separate from study inclusion. The inventory README explains discrepancies and the limits of the screening records. Source papers and licensed teaching instructions remain in their respective libraries.
+The workbook and source files provide numerical transcriptions and citations. Research papers and proprietary teaching documents remain in their respective libraries.

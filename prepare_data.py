@@ -1,15 +1,21 @@
-"""Build the study analysis file from coded sources and structural measures."""
+"""Build one observation per experiment from the released coded evidence.
+
+The source files are transcribed evidence. This script checks their links and
+counts, applies the documented inclusion decisions, and combines conditions.
+It does not infer missing reservation values or change an observed outcome.
+"""
+
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 
+MEASURES = ['search_complexity', 'bargaining_zone_share']
 CONTROLS = ['number_of_issues', 'number_of_parties', 'number_of_compatible_issues',
             'automated_counterpart', 'non_unanimous_rule']
-MEASURES = ['bargaining_zone_share', 'search_complexity']
-REGRESSION_COLUMNS = ['observation_id', 'negotiation_scenario', 'scenario_cluster',
-                      'agreement_rate', 'negotiations', *MEASURES, *CONTROLS]
+PREDICTORS = [*MEASURES, *CONTROLS]
+MODEL_COLUMNS = ['observation_id', 'agreement_rate', 'negotiations', *PREDICTORS]
 
 
 def require(condition, message):
@@ -17,182 +23,284 @@ def require(condition, message):
         raise ValueError(message)
 
 
-def values(series):
-    """Retain source strings in their first recorded order."""
-    return ' | '.join(dict.fromkeys(str(value) for value in series.dropna() if str(value)))
+def distinct_text(values):
+    return ' | '.join(dict.fromkeys(str(value) for value in values.dropna() if str(value)))
 
 
-def encounter_weights(rows):
-    counts = rows['negotiations']
-    complete = bool(counts.notna().all() and counts.gt(0).all())
-    weights = counts.to_numpy(float) if complete else np.ones(len(rows))
-    return weights / weights.sum(), complete
+def weights_for(rows):
+    """Use encounter counts only when every component has a positive count."""
+    complete = rows.negotiations.notna().all() and rows.negotiations.gt(0).all()
+    counts = rows.negotiations.to_numpy(float) if complete else np.ones(len(rows))
+    return counts / counts.sum(), bool(complete)
 
 
-def exercise_groups(components):
-    """Join exercises used together within one study into connected groups."""
-    parents = {name: name for name in components['negotiation_scenario'].unique()}
-
-    def representative(name):
-        while parents[name] != name:
-            name = parents[name]
-        return name
-
-    for _, rows in components.groupby('study_id', sort=False):
-        names = rows['negotiation_scenario'].unique()
-        for name in names[1:]:
-            parents[representative(name)] = representative(names[0])
-
-    return {name: representative(name) for name in parents}
-
-
-def study_observations(components, structures):
-    """Join every source component to its structure and combine within samples."""
-    require(components['component_id'].is_unique, 'Duplicate outcome component ID')
-    require(components[['study_id', 'structure_id', 'negotiation_scenario']].notna().all().all(),
-            'Study, structure and exercise IDs are required')
-    require(structures['observation_id'].is_unique, 'Duplicate structure ID')
-    require(components['agreement_rate'].between(0, 1).all(), 'Invalid outcome rate')
-    known = components['agreements'].notna() & components['negotiations'].notna()
-    counted = components.loc[known]
-    require(counted['negotiations'].gt(0).all() and
-            counted['agreements'].ge(0).all() and
-            counted['agreements'].le(counted['negotiations']).all(), 'Invalid agreement counts')
-    require(np.allclose(counted['agreement_rate'],
-                        counted['agreements'] / counted['negotiations'], atol=1e-10, rtol=0),
-            'An exact agreement count differs from the coded rate')
-
-    columns = ['observation_id', *MEASURES, *CONTROLS, 'main_eligible',
-               'payoff_source', 'reservation_values_or_rule', 'scenario_version']
-    joined = components.merge(structures[columns], left_on='structure_id', right_on='observation_id',
-                              how='left', validate='many_to_one')
-    require(joined[[*MEASURES, *CONTROLS]].notna().all().all(),
-            'Some study outcomes lack a complete structural match')
-    require(joined['main_eligible'].eq(True).all(), 'An ineligible structure is linked to a study')
-    require(joined[MEASURES].apply(lambda col: col.between(0, 1)).all().all(),
-            'Structural measures must be proportions')
-
-    groups = exercise_groups(joined)
+def combine_study_components(components):
     records = []
-    joined['within_study_weight'] = np.nan
-    for study_id, rows in joined.groupby('study_id', sort=False):
+    for study_id, rows in components.groupby('study_id', sort=False):
+        weights, complete_counts = weights_for(rows)
+        exact_counts = complete_counts and rows.agreements.notna().all()
+        negotiations = rows.negotiations.sum() if complete_counts else np.nan
+        agreements = rows.agreements.sum() if exact_counts else np.nan
+        rate = agreements / negotiations if exact_counts else float(np.dot(weights, rows.agreement_rate))
         first = rows.iloc[0]
-        require(rows['paper_citation'].nunique(dropna=False) == 1 and
-                rows['study_label'].nunique(dropna=False) == 1,
-                f'Conflicting study labels for {study_id}')
-        weights, complete = encounter_weights(rows)
-        joined.loc[rows.index, 'within_study_weight'] = weights
-        exact = complete and rows['agreements'].notna().all()
-        total = rows['negotiations'].sum() if complete else np.nan
-        agreements = rows['agreements'].sum() if exact else np.nan
-        rate = agreements / total if exact else np.dot(weights, rows['agreement_rate'])
+        require(rows.paper_citation.nunique() == 1 and rows.study_label.nunique() == 1,
+                f'{study_id} has conflicting study identifiers')
         records.append({
             'observation_id': study_id,
-            'paper_citation': first['paper_citation'],
-            'study_label': first['study_label'],
-            'negotiation_scenario': values(rows['negotiation_scenario']),
-            'scenario_cluster': groups[first['negotiation_scenario']],
-            'structure_ids': values(rows['structure_id']),
-            'component_ids': values(rows['component_id']),
+            'paper_citation': first.paper_citation,
+            'study_label': first.study_label,
+            'negotiation_exercise': distinct_text(rows.negotiation_exercise),
+            'payoff_ids': distinct_text(rows.payoff_id),
+            'component_ids': distinct_text(rows.component_id),
+            'component_count': len(rows),
             'agreement_rate': rate,
             'agreements': agreements,
-            'negotiations': total,
-            'aggregation': ('Single source component' if len(rows) == 1 else
-                            'Negotiation counts' if complete else 'Equal weights across components'),
-            'component_count': len(rows),
-            'structure_count': rows['structure_id'].nunique(),
-            **{name: float(np.dot(weights, rows[name])) for name in [*MEASURES, *CONTROLS]},
-            'payoff_source': values(rows['payoff_source']),
-            'reservation_values_or_rule': values(rows['reservation_values_or_rule']),
-            'agreement_rate_source': values(rows['agreement_rate_source']),
-            'structure_source_link': values(rows['source_link']),
-            'coding_note': values(rows['coding_note']),
+            'negotiations': negotiations,
+            'aggregation': ('Single observed component' if len(rows) == 1 else
+                            'Encounter-count weighted components' if complete_counts else
+                            'Equal weights across documented components'),
+            **{name: float(np.dot(weights, rows[name])) for name in PREDICTORS},
+            'payoff_source': distinct_text(rows.payoff_source),
+            'reservation_values_or_rule': distinct_text(rows.reservation_values_or_rule),
+            'agreement_rate_source': distinct_text(rows.agreement_rate_source),
+            'agreement_rate_coding': distinct_text(rows.agreement_rate_coding),
+            'source_link': distinct_text(rows.source_link),
+            'strict_reason': distinct_text(rows.strict_reason),
         })
-    return pd.DataFrame.from_records(records), joined
+    return pd.DataFrame(records)
 
 
-def version_observations(components, structures):
-    """Rebuild the linked version-level comparison from independent study rates."""
-    results = []
-    for structure_id, rows in components.groupby('structure_id', sort=False):
-        study_rates = []
-        for _, study_rows in rows.groupby('study_id', sort=False):
-            weights, _ = encounter_weights(study_rows)
-            study_rates.append(np.dot(weights, study_rows['agreement_rate']))
-        _, complete = encounter_weights(rows)
-        results.append({
-            'observation_id': structure_id,
-            'agreement_rate': float(np.mean(study_rates)),
-            'negotiations': rows['negotiations'].sum() if complete else np.nan,
-            'agreements': rows['agreements'].sum() if complete and rows['agreements'].notna().all() else np.nan,
-            'contributing_studies': len(study_rates),
+def aggregate_identical_structures(components):
+    """Give independent experiments equal weight within a coded structure.
+
+    First combine multiple components for the same experiment and structure.
+    Then average those experiment rates. This keeps an experiment with a larger
+    sample from receiving more weight in this supplementary comparison.
+    """
+    records = []
+    for payoff_id, rows in components.groupby('payoff_id', sort=False):
+        experiments = combine_study_components(rows)
+        first = rows.iloc[0]
+        fixed = [*MEASURES, *CONTROLS[:3], 'non_unanimous_rule']
+        require(rows[fixed].nunique().le(1).all(),
+                f'{payoff_id} does not have a single set of predictors')
+        records.append({
+            'observation_id': payoff_id,
+            'negotiation_exercise': first.negotiation_exercise,
+            'agreement_rate': experiments.agreement_rate.mean(),
+            'contributing_experiments': len(experiments),
+            **{name: experiments[name].mean() for name in PREDICTORS},
         })
-    outcome = pd.DataFrame.from_records(results)
-    prior_outcome_cols = ['agreement_rate', 'negotiations', 'agreements']
-    return outcome.merge(structures.drop(columns=prior_outcome_cols), on='observation_id',
-                         how='left', validate='one_to_one')
-
-
-def flow_table(papers, registry, studies, components, structures, regressions):
-    """Keep paper, registry, study and version denominators visible."""
-    counts = [
-        ('Starting registry', 'Registry records', len(registry)),
-        ('Starting registry', 'Source documents', registry['paper_id'].nunique()),
-        ('Search inventory', 'Candidate papers', len(papers)),
-        ('Search inventory', 'Papers marked recovered', papers['paper_recovered'].eq('Y').sum()),
-        ('Search inventory', 'Papers pending retrieval', papers['paper_recovered'].ne('Y').sum()),
-        ('Linked evidence', 'Study outcome components', len(components)),
-        ('Linked evidence', 'Structural records', components['structure_id'].nunique()),
-        ('Linked evidence', 'Named exercises', components['negotiation_scenario'].nunique()),
-        ('Linked evidence', 'Contributing paper citations', studies['paper_citation'].nunique()),
-        ('Analysis', 'Independent study observations', len(regressions)),
-        ('Analysis', 'Exercise groups', regressions['scenario_cluster'].nunique()),
-        ('Analysis', 'Study observations with negotiation weights', regressions['negotiations'].gt(0).sum()),
-        ('Sensitivity', 'Study-linked version observations', len(structures)),
-        ('Sensitivity', 'Strict version observations', structures['strict_eligible'].eq(True).sum()),
-    ]
-    return pd.DataFrame(counts, columns=['stage', 'unit', 'count'])
+    return pd.DataFrame(records)
 
 
 def build_data(root, output_dir):
-    """Load released inputs, regenerate study files, and export the data flow."""
     root, output_dir = Path(root), Path(output_dir)
-    sources = root / 'data' / 'sources'
-    inventory = root / 'data' / 'inventory'
-    components = pd.read_csv(sources / 'study_outcomes.csv')
-    structures = pd.read_csv(sources / 'structure_inputs.csv')
-    scores = pd.read_csv(sources / 'structural_scores.csv')
-    require(scores['observation_id'].is_unique, 'Duplicate structural score ID')
-    require(set(scores['observation_id']) == set(structures['observation_id']),
-            'Structural input and score IDs differ')
-    structures = structures.merge(scores, on='observation_id', how='left', validate='one_to_one')
+    source = root / 'data/sources'
+    outcomes = pd.read_csv(source / 'study_outcomes.csv').rename(
+        columns={'structure_id': 'payoff_id', 'negotiation_scenario': 'negotiation_exercise'})
+    structures = pd.read_csv(source / 'structure_inputs.csv').rename(columns={'observation_id': 'payoff_id'})
+    scores = pd.read_csv(source / 'structural_scores.csv').rename(columns={'observation_id': 'payoff_id'})
+    decisions = pd.read_csv(root / 'data/component_decisions.csv', keep_default_na=False)
+    from payoff_metrics import (calculate_payoff_file, replay_acceptance_inputs,
+                                calculate_acceptability_proofs, calculate_programmed_rules,
+                                calculate_catalog_inputs)
 
-    # Where released numerical inputs exist, the companion module can verify
-    # and reproduce the measures. Other rows retain their recorded calculations.
-    from structure_metrics import apply_metric_inputs
-    structures, metric_audit = apply_metric_inputs(structures, sources)
+    metric_records = []
+    for calculated in replay_acceptance_inputs(source):
+        matches = scores.payoff_id.eq(calculated['payoff_id'])
+        require(matches.sum() == 1, 'An acceptance input needs one matching payoff ID')
+        for measure in MEASURES:
+            require(np.isclose(scores.loc[matches, measure].iloc[0], calculated[measure], atol=1e-12, rtol=0),
+                    f'The replayed {measure} differs from its recorded value')
+            scores.loc[matches, measure] = calculated[measure]
+        metric_records.append(calculated)
+    for path in sorted((root / 'data/payoff_schedules').glob('*.json')):
+        calculated = calculate_payoff_file(path)
+        matches = scores.payoff_id.eq(calculated['payoff_id'])
+        require(matches.sum() == 1, 'A numerical schedule needs one matching payoff ID')
+        for measure in MEASURES:
+            require(np.isclose(scores.loc[matches, measure].iloc[0], calculated[measure], atol=1e-12, rtol=0),
+                    f'The recalculated {measure} differs from its recorded value')
+            scores.loc[matches, measure] = calculated[measure]
+        structural_match = structures.payoff_id.eq(calculated['payoff_id'])
+        for control in CONTROLS[:3]:
+            require(np.isclose(structures.loc[structural_match, control].iloc[0], calculated[control]),
+                    f'The numerical schedule disagrees with {control}')
+        metric_records.append(calculated)
+    for calculated in calculate_acceptability_proofs(root / 'data/acceptability_proofs.json'):
+        matches = scores.payoff_id.eq(calculated['payoff_id'])
+        require(matches.sum() == 1, 'An acceptability proof needs one matching payoff ID')
+        for measure in MEASURES:
+            require(np.isclose(scores.loc[matches, measure].iloc[0], calculated[measure], atol=1e-12, rtol=0),
+                    f'The source proof disagrees with the recorded {measure}')
+            scores.loc[matches, measure] = calculated[measure]
+        metric_records.append(calculated)
+    for calculated in calculate_programmed_rules(root / 'data/programmed_acceptance_rules.json'):
+        matches = scores.payoff_id.eq(calculated['payoff_id'])
+        require(matches.sum() == 1, 'A programmed rule needs one matching payoff ID')
+        for measure in MEASURES:
+            require(np.isclose(scores.loc[matches, measure].iloc[0], calculated[measure], atol=1e-12, rtol=0),
+                    f'The programmed rule disagrees with the recorded {measure}')
+            scores.loc[matches, measure] = calculated[measure]
+        metric_records.append(calculated)
+    catalog_values, catalog_components = calculate_catalog_inputs(
+        root / 'data/raw_payoff_catalog.json', structures, root / 'data/within_payoff_weights.csv')
+    for calculated in catalog_values:
+        matches = scores.payoff_id.eq(calculated['payoff_id'])
+        require(matches.sum() == 1, 'A payoff table needs one matching payoff ID')
+        for measure in MEASURES:
+            require(np.isclose(scores.loc[matches, measure].iloc[0], calculated[measure], atol=1e-12, rtol=0),
+                    f'The numerical table for {calculated["payoff_id"]} disagrees with {measure}')
+            scores.loc[matches, measure] = calculated[measure]
+        metric_records.append(calculated)
+    # A few source tasks use payoff functions, continuous issues, or a graph
+    # too large to enumerate. Replay their recorded grids and sampling rules.
+    # These checks never substitute a newly chosen grid or a different seed.
+    from source_functions import calculate_formula_inputs
+    from additional_functions import calculate_additional_inputs
+    from sampled_metrics import calculate_player_input
 
-    studies, joined = study_observations(components, structures)
-    versions = version_observations(components, structures)
-    papers = pd.read_csv(inventory / 'paper_inventory.csv')
-    registry = pd.read_csv(inventory / 'starting_study_registry.csv')
-    links = pd.read_csv(inventory / 'paper_study_links.csv')
-    require(links['study_id'].is_unique, 'Paper crosswalk must contain one record per study')
-    require(set(studies['observation_id']) == set(links['study_id']), 'Paper crosswalk and study IDs differ')
-    study_inputs = studies.drop(columns=MEASURES).merge(
-        links[['study_id', 'paper_id']], left_on='observation_id', right_on='study_id',
-        how='left', validate='one_to_one').drop(columns='study_id')
-    study_inputs = study_inputs.merge(papers[['paper_id', 'paper_link', 'search_sources']], on='paper_id',
-                                      how='left', validate='many_to_one')
-    final = studies[REGRESSION_COLUMNS].dropna(subset=['agreement_rate', *MEASURES, *CONTROLS]).copy()
-    data_flow = flow_table(papers, registry, studies, components, versions, final)
+    function_values = calculate_formula_inputs(root) + calculate_additional_inputs(root)
+    player_value, player_components = calculate_player_input(root / 'data/raw_payoff_catalog.json')
+    for calculated in [*function_values, player_value]:
+        matches = scores.payoff_id.eq(calculated['payoff_id'])
+        require(matches.sum() == 1, 'A source function needs one matching payoff ID')
+        for measure in MEASURES:
+            require(np.isclose(scores.loc[matches, measure].iloc[0], calculated[measure],
+                               atol=1e-12, rtol=0),
+                    f'The source function for {calculated["payoff_id"]} disagrees with {measure}')
+        metric_records.append(calculated)
+    require(outcomes.component_id.is_unique, 'Duplicate source outcome component')
+    require(structures.payoff_id.is_unique and scores.payoff_id.is_unique,
+            'Duplicate structural record')
+    require(decisions.component_id.is_unique and
+            set(decisions.component_id) == set(outcomes.component_id),
+            'Every outcome needs one explicit inclusion decision')
+
+    structures = structures.merge(scores, on='payoff_id', validate='one_to_one')
+    columns = ['payoff_id', *PREDICTORS, 'main_eligible', 'payoff_source',
+               'reservation_values_or_rule']
+    components = outcomes.merge(structures[columns], on='payoff_id', how='left', validate='many_to_one')
+    components = components.merge(
+        decisions[['component_id', 'main_included', 'participant_sample_identified',
+                   'strict_included', 'strict_reason', 'strict_evidence']],
+        on='component_id', validate='one_to_one')
+    components = components.loc[components.main_included.eq('Y')].copy()
+    metric_records = list({record['payoff_id']: record for record in metric_records}.values())
+    replayed = {record['payoff_id'] for record in metric_records}
+    for payoff_id in components.payoff_id.unique():
+        if payoff_id not in replayed:
+            row = structures.loc[structures.payoff_id.eq(payoff_id)].iloc[0]
+            metric_records.append({'payoff_id': payoff_id,
+                                   'bargaining_zone_share': row.bargaining_zone_share,
+                                   'search_complexity': row.search_complexity,
+                                   'input_type': 'Recorded score with source note',
+                                   'source': row.payoff_source})
+    for record in metric_records:
+        record['recomputed_from_included_input'] = record['payoff_id'] in replayed
+    require(set(components.payoff_id).issubset(replayed),
+            'Every included payoff ID needs a reproducible metric input')
+    require(components.main_eligible.eq(True).all(), 'An outcome links to an excluded structure')
+    require(components[PREDICTORS].notna().all().all(), 'A predictor is missing')
+    require(components.agreement_rate.between(0, 1).all(), 'An agreement rate is outside 0–1')
+    counted = components.agreements.notna() & components.negotiations.notna()
+    require(np.allclose(components.loc[counted, 'agreement_rate'],
+                        components.loc[counted, 'agreements'] / components.loc[counted, 'negotiations'],
+                        atol=1e-10, rtol=0), 'Agreement counts disagree with the recorded rate')
+    require(components.loc[counted, 'negotiations'].gt(0).all(), 'Invalid encounter denominator')
+    require(components.loc[counted, 'agreements'].between(
+        0, components.loc[counted, 'negotiations']).all(), 'Invalid agreement count')
+    require(components.participant_sample_identified.eq('Y').all() and
+            components[['study_id', 'paper_citation', 'study_label']].notna().all().all(),
+            'Every observation needs an identified participant sample and research source')
+    components['strict_included'] = components.strict_included.eq('Y')
+    components['agreement_rate_coding'] = np.where(
+        counted, 'Calculated from retained agreement and negotiation counts',
+        'Reported rate; an exact agreement numerator is not available')
+    residual = components.payoff_id.eq('market_alternatives_remaining_13_pooled')
+    components.loc[residual, 'agreement_rate_coding'] = 'Derived from exact residual counts (270/276)'
+    reviewed = components.payoff_id.eq('van_den_abbeele_two_power_versions_pooled')
+    components.loc[reviewed, 'agreement_rate_coding'] = 'Matched meta-analysis counts (90/104)'
+    components.loc[reviewed, 'agreement_rate_source'] = (
+        'Warsitzka et al. (2024), replication-data row W0422, Van den Abbeele et al. (2009), '
+        'Study 1: 90 agreements and 104 negotiations. https://osf.io/2c9gf/. '
+        'The original paper reports 104 dyads and outside-option/timeout information, '
+        'but does not state this agreement numerator unambiguously.')
+
+    corrections = pd.read_csv(root / 'data/control_corrections.csv')
+    for correction in corrections.itertuples(index=False):
+        require(correction.variable in CONTROLS, 'Only documented control corrections are allowed here')
+        matches = components.component_id.eq(correction.component_id)
+        require(matches.sum() == 1, 'A control correction must identify exactly one component')
+        require(np.isclose(components.loc[matches, correction.variable].iloc[0], correction.recorded_value),
+                'The recorded control differs from the correction audit')
+        components.loc[matches, correction.variable] = correction.corrected_value
+
+    components['main_weight'] = np.nan
+    components['strict_weight'] = np.nan
+    for _, rows in components.groupby('study_id', sort=False):
+        components.loc[rows.index, 'main_weight'] = weights_for(rows)[0]
+        retained = rows.loc[rows.strict_included]
+        if len(retained):
+            components.loc[retained.index, 'strict_weight'] = weights_for(retained)[0]
+
+    main = combine_study_components(components)
+    strict_components = components.loc[components.strict_included].copy()
+    strict = combine_study_components(strict_components)
+    require(main.observation_id.is_unique and strict.observation_id.is_unique,
+            'Experiments are duplicated after aggregation')
+    require(set(strict.observation_id).issubset(main.observation_id),
+            'The strict sample contains a new experiment')
+
+    audit = []
+    for study_id, rows in components.groupby('study_id', sort=False):
+        retained = rows.loc[rows.strict_included]
+        complete = len(retained) == len(rows)
+        audit.append({
+            'observation_id': study_id,
+            'paper_citation': rows.paper_citation.iloc[0],
+            'study_label': rows.study_label.iloc[0],
+            'negotiation_exercise': distinct_text(rows.negotiation_exercise),
+            'strict_included': 'Y' if len(retained) else 'N',
+            'strict_coverage': 'All eligible conditions' if complete else
+                               'Recoverable subset of conditions' if len(retained) else
+                               'No conditions meet the stricter evidence rule',
+            'main_component_count': len(rows),
+            'strict_component_count': len(retained),
+            'main_negotiations': rows.negotiations.sum() if rows.negotiations.notna().all() else np.nan,
+            'strict_negotiations': retained.negotiations.sum() if len(retained) and
+                                   retained.negotiations.notna().all() else np.nan,
+            'excluded_component_ids': distinct_text(rows.loc[~rows.strict_included, 'component_id']),
+            'reason': distinct_text(rows.loc[~rows.strict_included, 'strict_reason']) if not complete
+                      else distinct_text(retained.strict_reason),
+        })
+    eligibility = pd.DataFrame(audit)
+    aggregates = {'aggregate_main': aggregate_identical_structures(components),
+                  'aggregate_strict': aggregate_identical_structures(strict_components)}
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    study_inputs.to_csv(output_dir / 'study_inputs.csv', index=False)
-    final.to_csv(output_dir / 'regression_data.csv', index=False)
-    versions.to_csv(output_dir / 'version_comparison_data.csv', index=False)
-    data_flow.to_csv(output_dir / 'data_flow.csv', index=False)
-    metric_audit.to_csv(output_dir / 'metric_reproduction.csv', index=False)
-    joined[['study_id', 'component_id', 'structure_id', 'within_study_weight']].to_csv(
-        output_dir / 'component_weights.csv', index=False)
-    return final, versions, data_flow
+    main.to_csv(output_dir / 'study_inputs.csv', index=False)
+    main[MODEL_COLUMNS].to_csv(output_dir / 'regression_data.csv', index=False)
+    strict.to_csv(output_dir / 'strict_study_inputs.csv', index=False)
+    strict[MODEL_COLUMNS].to_csv(output_dir / 'strict_regression_data.csv', index=False)
+    eligibility.to_csv(output_dir / 'observation_eligibility.csv', index=False)
+    for name, data in aggregates.items():
+        data.to_csv(output_dir / f'{name}.csv', index=False)
+    public_columns = ['component_id', 'study_id', 'paper_citation', 'study_label', 'payoff_id',
+                      'negotiation_exercise', 'agreement_rate', 'agreements', 'negotiations',
+                      *PREDICTORS, 'payoff_source', 'reservation_values_or_rule',
+                      'agreement_rate_source', 'agreement_rate_coding', 'source_link', 'strict_included', 'strict_reason',
+                      'strict_evidence', 'main_weight', 'strict_weight']
+    components[public_columns].to_csv(output_dir / 'component_evidence.csv', index=False)
+    pd.DataFrame(metric_records).to_csv(output_dir / 'payoff_metric_checks.csv', index=False)
+    catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False)
+    pd.DataFrame(player_components).to_csv(output_dir / 'player_component_metrics.csv', index=False)
+    return {'main': main, 'strict': strict, **aggregates}
+
+
+if __name__ == '__main__':
+    root = Path(__file__).resolve().parent
+    data = build_data(root, root / 'outputs')
+    for name, sample in data.items():
+        print(f'{name}: {len(sample)} observations')

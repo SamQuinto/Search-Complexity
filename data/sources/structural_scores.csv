@@ -1,12 +1,11 @@
-observation_id,bargaining_zone_share,search_complexity
+payoff_id,bargaining_zone_share,search_complexity
 market_alternatives_s7500_b7500,0.0,1.0
-sale_cafe_seller_threshold_11600,0.0,1.0
-sale_cafe_seller_threshold_9650,0.0001079796998164,0.9584278155706728
+sale_cafe_buyer_cap_1550,0.0,1.0
+sale_cafe_buyer_cap_3500,0.0,1.0
 market_alternatives_s5000_b7500,0.0027434842249657,0.850480109739369
 market_alternatives_s7500_b5000,0.0027434842249657,0.850480109739369
 new_recruit_r4500_r4500,0.00653312,0.81021952
-harborco_consensus_proxy,0.0166666666666666,0.3125
-sale_cafe_seller_threshold_7700,0.0367130979375877,0.3855955080444876
+sale_cafe_buyer_cap_5450,0.0,1.0
 new_recruit_r4500_r2200,0.04381696,0.54417408
 sweet_shops_r8000_r8000,0.0672839506172839,0.3577601410934744
 ma_appliance,0.0864197530864197,0.1783264746227709
@@ -15,9 +14,9 @@ hong_kong_unequal_high,0.12,0.3743999999999999
 van_den_abbeele_two_power_versions_pooled,0.120713305898491,0.2216946291020365
 pinkley_1995_new_recruit_4500_0,0.12519936,0.3553689599999999
 new_recruit_r2200_r2200,0.16022016,0.25766656
-player_kray_2004_study2_r6000_r3000,0.1634979248046875,0.1612091064453125
+kray2004_player_two_power_orders_pooled,0.0157623291015625,0.729949951171875
 harinck_dedreu_2008_car_r8000_r8000,0.167936,0.191296
-sale_cafe_seller_threshold_5750,0.2030018356548968,0.0331497678436454
+sale_cafe_buyer_cap_7400,0.2053773890508584,0.0004319187992657
 work_contract_r9000_r9000,0.2278656,0.1004671999999999
 player_falcao_2019_r750_r750,0.2377472,0.1597568
 wolfe_mcginn_new_recruit_four_reservation_versions_pooled,0.353240966796875,0.1612752475247524
@@ -46,7 +45,6 @@ hyder_prietula_weingart_2000_landers_market_r99_r99,0.8661789361377839,0.0
 mislin_2015_employment_r3000_r3000,0.8901748971193416,0.0
 gupta_livne_1990_anp_png,0.9832175925925926,0.0
 biopharm6,1.0,0.0
-kappes_2020_apartment_rental,1.0,0.0
 brochure_printing,1.0,0.0
 henderson_trope_2009_business_trip,1.0,0.0
 nadler_2003_task2_commercial_real_estate,1.0,0.0
@@ -103,3 +101,4 @@ honors_class_six_issue_unbounded,1.0,0.0
 northcraft_1998_employment_decreasing_r0_r0,1.0,0.0
 northcraft_1998_employment_linear_r0_r0,1.0,0.0
 northcraft_1998_employment_increasing_r0_r0,1.0,0.0
+aaldering_2018_employment_five_issue_r0_r0,1.0,0.0

@@ -1,0 +1,210 @@
+{
+  "payoff_id": "aaldering_2018_employment_five_issue_r0_r0",
+  "negotiation_exercise": "Collective Employment Negotiation",
+  "parties": [
+    "Management",
+    "Union"
+  ],
+  "issues": [
+    {
+      "name": "Salary",
+      "option_values": [
+        15000,
+        20000,
+        25000,
+        30000,
+        35000,
+        40000,
+        45000
+      ],
+      "payoffs": [
+        [
+          540,
+          0
+        ],
+        [
+          450,
+          90
+        ],
+        [
+          360,
+          180
+        ],
+        [
+          270,
+          270
+        ],
+        [
+          180,
+          360
+        ],
+        [
+          90,
+          450
+        ],
+        [
+          0,
+          540
+        ]
+      ]
+    },
+    {
+      "name": "Start contract (weeks)",
+      "option_values": [
+        14,
+        12,
+        10,
+        8,
+        6,
+        4,
+        2
+      ],
+      "payoffs": [
+        [
+          90,
+          0
+        ],
+        [
+          75,
+          60
+        ],
+        [
+          60,
+          120
+        ],
+        [
+          45,
+          180
+        ],
+        [
+          30,
+          240
+        ],
+        [
+          15,
+          300
+        ],
+        [
+          0,
+          360
+        ]
+      ]
+    },
+    {
+      "name": "Duration (years)",
+      "option_values": [
+        0.5,
+        1,
+        1.5,
+        2,
+        2.5
+      ],
+      "payoffs": [
+        [
+          180,
+          0
+        ],
+        [
+          135,
+          30
+        ],
+        [
+          90,
+          60
+        ],
+        [
+          45,
+          90
+        ],
+        [
+          0,
+          120
+        ]
+      ]
+    },
+    {
+      "name": "Salary increase (%)",
+      "option_values": [
+        0.5,
+        1,
+        1.5,
+        2,
+        2.5,
+        3,
+        3.5
+      ],
+      "payoffs": [
+        [
+          360,
+          0
+        ],
+        [
+          300,
+          15
+        ],
+        [
+          240,
+          30
+        ],
+        [
+          180,
+          45
+        ],
+        [
+          120,
+          60
+        ],
+        [
+          60,
+          75
+        ],
+        [
+          0,
+          90
+        ]
+      ]
+    },
+    {
+      "name": "Health coverage (%)",
+      "option_values": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "payoffs": [
+        [
+          120,
+          0
+        ],
+        [
+          90,
+          45
+        ],
+        [
+          60,
+          90
+        ],
+        [
+          30,
+          135
+        ],
+        [
+          0,
+          180
+        ]
+      ]
+    }
+  ],
+  "reservation_values": [
+    0,
+    0
+  ],
+  "required_approvals": 2,
+  "sources": {
+    "payoff_schedule": "Aaldering and Ten Velden (2018), Table 2, printed p. 117. https://doi.org/10.1177/1368430216656470",
+    "reservation_values": "De Dreu et al. (2006), Experiment 3, printed p. 936 (PDF p. 10). https://doi.org/10.1037/0022-3514.90.6.927",
+    "matching_evidence": "The 2018 Methods explicitly cites De Dreu et al. (2006) for this task. Five issue labels, compromise joint payoff 1,290 and maximum joint payoff 1,620 match."
+  }
+}

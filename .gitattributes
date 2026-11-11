@@ -1,3 +1,9 @@
-# Keep replication downloads small; full clones retain the archive.
 archive export-ignore
 archive/** export-ignore
+*.md text eol=lf
+*.py text eol=lf
+*.csv text eol=lf
+*.json text eol=lf
+*.ipynb text eol=lf
+*.xlsx binary
+*.npz binary
