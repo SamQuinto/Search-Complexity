@@ -1,0 +1,13 @@
+﻿row_type,source_or_overlap,paper_count,recovered_paper_count,paper_count_with_current_study,included_study_count,current_outcome_component_count,counting_note
+marginal source,Majer et al. (2022) structural inventory,38,38,14,19,22,Marginal source counts overlap because one paper can appear in more than one source list.
+marginal source,Petrowsky et al. (2025) focal experiment,1,1,1,1,4,Marginal source counts overlap because one paper can appear in more than one source list.
+marginal source,Research-team spreadsheet,52,51,18,22,29,Marginal source counts overlap because one paper can appear in more than one source list.
+marginal source,Warsitzka et al. (2024) coding workbook,328,305,102,128,153,Marginal source counts overlap because one paper can appear in more than one source list.
+exact source combination,Majer et al. (2022) structural inventory,9,9,1,2,2,Exact source-combination rows are mutually exclusive.
+exact source combination,Majer et al. (2022) structural inventory | Research-team spreadsheet,2,2,0,0,0,Exact source-combination rows are mutually exclusive.
+exact source combination,Majer et al. (2022) structural inventory | Research-team spreadsheet | Warsitzka et al. (2024) coding workbook,3,3,2,3,6,Exact source-combination rows are mutually exclusive.
+exact source combination,Majer et al. (2022) structural inventory | Warsitzka et al. (2024) coding workbook,24,24,11,14,14,Exact source-combination rows are mutually exclusive.
+exact source combination,Petrowsky et al. (2025) focal experiment | Research-team spreadsheet,1,1,1,1,4,Exact source-combination rows are mutually exclusive.
+exact source combination,Research-team spreadsheet,30,30,8,10,10,Exact source-combination rows are mutually exclusive.
+exact source combination,Research-team spreadsheet | Warsitzka et al. (2024) coding workbook,16,15,7,8,9,Exact source-combination rows are mutually exclusive.
+exact source combination,Warsitzka et al. (2024) coding workbook,285,263,82,103,124,Exact source-combination rows are mutually exclusive.

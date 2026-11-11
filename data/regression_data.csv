@@ -1,0 +1,142 @@
+observation_id,negotiation_scenario,scenario_cluster,agreement_rate,negotiations,bargaining_zone_share,search_complexity,number_of_issues,number_of_parties,number_of_compatible_issues,automated_counterpart,non_unanimous_rule
+SRU0286,Market Alternatives Transfer Pricing,Market Alternatives Transfer Pricing,0.8609467455621301,338.0,0.38953979519397003,0.3199462042328577,2.9999999999999996,2.0,0.0,0.0,0.0
+PET2025_2b,Sale of a Café,Sale of a Café,0.2909260991580917,1069.0,0.060487621778929655,0.5938898641405276,3.0,2.0,0.0,1.0,0.0
+SRU0324,New Recruit,New Recruit,0.8628526645768025,1276.0,0.0648739510971787,0.5359150605642633,8.0,2.0,2.0,0.0,0.0
+SRU0334,New Recruit,New Recruit,0.5319148936170213,47.0,0.04381696,0.54417408,8.0,2.0,2.0,0.0,0.0
+SRU0343,Sweet Shops,Sweet Shops,0.9809523809523809,105.0,0.06728395061728396,0.3577601410934744,6.0,2.0,1.0,0.0,0.0
+SRU0392,Samsung–Future Shop,Samsung–Future Shop,1.0,120.0,0.08641975308641975,0.17832647462277096,3.0,2.0,0.0,0.0,0.0
+SRU0362,Hong Kong–U.S. Transfer Pricing,Hong Kong–U.S. Transfer Pricing,0.9950248756218906,201.0,0.41333333333333333,0.2496,4.0,2.0,1.0,0.0,0.0
+SRU0171,Buyer–Supplier Machine Lease,Buyer–Supplier Machine Lease,0.8653846153846154,104.0,0.120713305898491,0.2216946291020365,3.0,2.0,0.0,0.0,0.0
+SRU0327,New Recruit,New Recruit,0.9475,86.0,0.12519936,0.35536895999999996,8.0,2.0,2.0,0.0,0.0
+SRU0267,The Player,The Player,0.9411764705882353,34.0,0.1634979248046875,0.1612091064453125,11.0,2.0,2.0,0.0,0.0
+SRU0328,Work Contract,Work Contract,0.99375,160.0,0.2278656,0.10046719999999998,7.0,2.0,2.0,0.0,0.0
+SRU0345,The Player,The Player,1.0,97.0,0.2377472,0.1597568,7.0,2.0,1.0,0.0,0.0
+SRU0220,New Recruit,New Recruit,0.9137931034482759,58.0,0.353240966796875,0.1612752475247524,5.0,2.0,0.0,0.0,0.0
+SRU0346,At Your Service,At Your Service,0.9885057471264368,87.0,0.464,0.0022857142857143,4.0,2.0,1.0,0.0,0.0
+SRU0189,New Recruit,New Recruit,0.8711656441717791,163.0,0.50125312,0.0533936355555555,8.0,2.0,2.0,0.0,0.0
+SRU0032,Three-Commodity Bargaining,Three-Commodity Bargaining,0.9925925925925926,135.0,0.522633744855967,0.1467764060356652,3.0,2.0,0.0,0.0,0.0
+SRU0424,Job Contract,Job Contract,1.0,48.0,0.578496,0.022208000000000006,6.0,2.0,1.0,0.0,0.0
+SRU0366,Three-Commodity Bargaining,Three-Commodity Bargaining,0.875,48.0,0.5857338820301783,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0183,Job Contract,Job Contract,1.0,144.0,0.6064213333333334,0.0416,6.0,2.0,1.0,0.0,0.0
+SRU0375,Pollution Controls Joint Venture,Pollution Controls Joint Venture,0.896551724137931,29.0,0.648,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0354,Soccer Player–Team Owner,Soccer Player–Team Owner,1.0,97.0,0.7541069738643685,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0254,New Recruit,New Recruit,0.85,40.0,0.673728,0.0,6.0,2.0,0.0,0.0,0.0
+SRU0363,Appliance Shipment,Appliance Shipment,0.9436619718309859,71.0,0.7311385459533608,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0403,Conflict in Oakland Apartments,Conflict in Oakland Apartments,0.9056603773584906,53.0,0.76896,0.0,5.0,2.0,1.0,0.0,0.0
+SRU0009,Moms.com,Moms.com,0.926829268292683,41.0,0.830810546875,2.6911863646561507e-05,5.0,2.0,1.0,0.0,0.0
+SRU0233,Moms.com,Moms.com,0.9166666666666666,24.0,0.8386499215070644,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0361,Transfer Pricing,Transfer Pricing,0.9946524064171123,374.0,0.9261347593582887,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0383,Landers Market,Landers Market,0.9672131147540983,61.0,0.8661789361377839,0.0,4.0,2.0,0.0,0.0,0.0
+SRU0396,Employment Contract — Mislin et al.,Employment Contract — Mislin et al.,1.0,36.0,0.8901748971193416,0.0,5.0,2.0,1.0,0.0,0.0
+SRU0378,ANP–PNG Contract,ANP–PNG Contract,0.9830508474576272,59.0,0.9832175925925926,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0390,Brochure Printing,Brochure Printing,0.981651376146789,109.0,1.0,0.0,4.0,2.0,0.0,0.0,0.0
+SRU0082,Business Trip,Business Trip,0.675,40.0,1.0,0.0,4.0,2.0,0.0,0.0,0.0
+SRU0115,Commercial Real Estate,Commercial Real Estate,0.9836065573770492,61.0,1.0,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0368,Concert Tickets,Concert Tickets,1.0,103.0,1.0,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0397,Information Dilemma — Machine | Information Dilemma — Travel,Information Dilemma — Machine,1.0,34.0,1.0,0.0,3.0,2.0,1.0,0.0,0.0
+SRU0331,New Car Sale — Zhang et al.,New Car Sale — Zhang et al.,1.0,106.0,1.0,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0360,Patent License,Patent License,0.9722222222222222,108.0,1.0,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0114,Real Estate Development,Real Estate Development,0.7916666666666666,96.0,1.0,0.0,6.0,2.0,2.0,0.0,0.0
+SRU0373,Specialty Light Bulbs,Specialty Light Bulbs,1.0,82.0,1.0,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0389,Three-Commodity Bargaining,Three-Commodity Bargaining,0.9652777777777778,144.0,1.0,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0335,Vacation Plans,Vacation Plans,0.8978494623655914,186.0,1.0,0.0,5.0,2.0,1.0,0.0,0.0
+SRU0001,New Car — Thompson,New Car — Thompson,1.0,270.0,0.8592,0.0,4.0,2.0,0.0,0.0,0.0
+SRU0122,Employment Contract — Olekalns and Smith,Employment Contract — Olekalns and Smith,0.8666666666666667,45.0,1.0,0.0,8.0,2.0,1.0,0.0,0.0
+SRU0088,Roberts–Simo Contract,Roberts–Simo Contract,1.0,30.0,0.2869897959183674,0.0433673469387755,4.0,2.0,0.0,0.0,0.0
+SRU0095,Workplace Disciplinary Negotiation,Workplace Disciplinary Negotiation,0.88,25.0,0.4326416925619835,0.3451710201652893,8.0,2.0,2.0,0.0,0.0
+SRU0098,Allred Employment Contract,Allred Employment Contract,0.9411764705882353,34.0,0.0224,0.4544,4.0,2.0,1.0,0.0,0.0
+SRU0066,Refrigerator Buyer–Seller Negotiation,Refrigerator Buyer–Seller Negotiation,0.9583333333333334,24.0,1.0,0.0,4.0,2.0,0.0,0.0,0.0
+SRU0093,Three-Appliance Negotiation,Three-Appliance Negotiation,0.95,60.0,0.0877914951989026,0.2194787379972565,3.0,2.0,0.0,0.0,0.0
+SRU0113,Two-Company Acreage Negotiation,Two-Company Acreage Negotiation,0.8666666666666667,60.0,1.0,0.0,2.0,2.0,0.0,0.0,0.0
+SRU0089,University Resource Allocation,University Resource Allocation,0.9620253164556962,79.0,0.49609375,0.189453125,9.0,2.0,0.0,0.0,0.0
+SRU0325,Six-Issue New Car,Six-Issue New Car,0.9571428571428572,70.0,0.167936,0.191296,6.0,2.0,1.0,0.0,0.0
+SRU0326,Six-Issue New Car,Six-Issue New Car,0.8947368421052632,38.0,0.167936,0.191296,6.0,2.0,1.0,0.0,0.0
+SRU0347,Cartoon,Cartoon,0.9402985074626866,67.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0348,Cartoon,Cartoon,1.0,50.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0352,Cartoon,Cartoon,1.0,210.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0353,Cartoon,Cartoon,1.0,19.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0355,Cartoon,Cartoon,0.6302521008403361,119.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0357,Cartoon,Cartoon,1.0,50.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0358,Cartoon,Cartoon,1.0,75.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0263,Cartoon,Cartoon,0.9871794871794872,78.0,0.7161865234375,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0404,Junior Geologist Job Offer,Junior Geologist Job Offer,1.0,21.0,0.7378472222222222,0.0,5.0,2.0,0.0,0.0,0.0
+SRU0405,Junior Geologist Job Offer,Junior Geologist Job Offer,0.92,25.0,0.7378472222222222,0.0,5.0,2.0,0.0,0.0,0.0
+SRU0342,Sweet Shops,Sweet Shops,0.9888888888888889,180.0,0.8021164021164021,0.0,6.0,2.0,1.0,0.0,0.0
+SRU0344,Sweet Shops,Sweet Shops,0.9897959183673469,98.0,0.8021164021164021,0.0,6.0,2.0,1.0,0.0,0.0
+SRU0349,The Player,The Player,1.0,18.0,0.8505015432098766,0.0,7.0,2.0,1.0,0.0,0.0
+SRU0350,The Player,The Player,1.0,43.0,0.8505015432098766,0.0,7.0,2.0,1.0,0.0,0.0
+SRU0351,The Player,The Player,1.0,25.0,0.8505015432098766,0.0,7.0,2.0,1.0,0.0,0.0
+SRU0406,AlphaPharma–BioPharma,AlphaPharma–BioPharma,0.9791666666666666,48.0,1.0,0.0,6.0,2.0,1.0,0.0,0.0
+SRU0407,AlphaPharma–BioPharma,AlphaPharma–BioPharma,1.0,32.0,1.0,0.0,6.0,2.0,1.0,0.0,0.0
+SRU0381,Employee–Employer Contract,Employee–Employer Contract,0.6666666666666666,60.0,1.0,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0382,Employee–Employer Contract,Employee–Employer Contract,0.46551724137931033,58.0,1.0,0.0,4.0,2.0,1.0,0.0,0.0
+SRU0369,Union–Management Contract,Union–Management Contract,0.9777777777777777,45.0,1.0,0.0,4.0,2.0,0.0,0.0,0.0
+SRU0370,Union–Management Contract,Union–Management Contract,1.0,21.0,1.0,0.0,4.0,2.0,0.0,0.0,0.0
+SRU0067,Refrigerator Buyer–Seller Negotiation,Refrigerator Buyer–Seller Negotiation,0.92,25.0,1.0,0.0,5.0,2.0,0.0,0.0,0.0
+SRU0068,Refrigerator Buyer–Seller Negotiation,Refrigerator Buyer–Seller Negotiation,0.9642857142857143,28.0,1.0,0.0,5.0,2.0,0.0,0.0,0.0
+SRU0075,Five Criminal Cases,Five Criminal Cases,0.5869565217391305,46.0,1.0,0.0,5.0,2.0,1.0,0.0,0.0
+SRU0077,Five Criminal Cases,Five Criminal Cases,0.6363636363636364,44.0,1.0,0.0,5.0,2.0,1.0,0.0,0.0
+SRU0008,New Recruit,New Recruit,0.9,30.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0192,New Recruit,New Recruit,0.9230769230769231,39.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0193,New Recruit,New Recruit,0.9318181818181818,44.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0216,New Recruit,New Recruit,0.9846153846153847,65.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0224,New Recruit,New Recruit,0.9705882352941176,68.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0227,New Recruit,New Recruit,1.0,68.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0228,New Recruit,New Recruit,0.9259259259259259,54.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0229,New Recruit,New Recruit,0.9318181818181818,44.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0230,New Recruit,New Recruit,0.984251968503937,127.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0235,New Recruit,New Recruit,1.0,67.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0238,New Recruit,New Recruit,0.95,20.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0239,New Recruit,New Recruit,1.0,26.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0240,New Recruit,New Recruit,1.0,92.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0241,New Recruit,New Recruit,1.0,21.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0242,New Recruit,New Recruit,0.96875,64.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0244,New Recruit,New Recruit,1.0,61.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0245,New Recruit,New Recruit,1.0,52.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0247,New Recruit,New Recruit,0.9897959183673469,196.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0250,New Recruit,New Recruit,1.0,81.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0252,New Recruit,New Recruit,0.8636363636363636,66.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0253,New Recruit,New Recruit,0.8,60.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0257,New Recruit,New Recruit,1.0,33.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0258,New Recruit,New Recruit,1.0,24.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0332,New Recruit,New Recruit,1.0,112.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0333,New Recruit,New Recruit,1.0,97.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0336,New Recruit,New Recruit,1.0,138.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0337,New Recruit,New Recruit,1.0,,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0338,New Recruit,New Recruit,0.9591836734693877,49.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0339,New Recruit,New Recruit,0.9701492537313433,67.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0340,New Recruit,New Recruit,0.9158878504672897,107.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0341,New Recruit,New Recruit,1.0,35.0,0.54825984,0.015646720000000003,8.0,2.0,2.0,0.0,0.0
+SRU0108,Fundraiser | Robot,Fundraiser,1.0,84.0,1.0,0.0,6.0,2.0,2.0,0.0,0.0
+SRU0417,Issue Bracketing — five issues | Issue Bracketing — nine issues,Issue Bracketing — five issues,0.9726027397260274,73.0,1.0,0.0,6.972602739726027,2.0,0.0,0.0,0.0
+SRU0418,Issue Bracketing — five issues | Issue Bracketing — nine issues,Issue Bracketing — five issues,0.990990990990991,111.0,1.0,0.0,6.981981981981982,2.0,0.0,0.0,0.0
+SRU0419,"Issue Bracketing — five issues | Issue Bracketing — nine issues | Issue Bracketing — nine issues, added options | Issue Bracketing — nine issues, stronger priorities",Issue Bracketing — five issues,1.0,180.0,1.0,0.0,8.022222222222222,2.0,0.0,0.0,0.0
+SRU0420,"Issue Bracketing — five issues | Issue Bracketing — nine issues | Issue Bracketing — nine issues, added options | Issue Bracketing — nine issues, stronger priorities",Issue Bracketing — five issues,0.9844961240310077,129.0,1.0,0.0,7.759689922480621,2.0,0.0,0.0,0.0
+AMISTAD2018_STUDY1,New Recruit,New Recruit,0.9324324324324325,74.0,1.0,0.0,7.0,2.0,1.0,0.0,0.0
+WS::10.1108/eb022831::Study 1,Market Rental Group Negotiation,Market Rental Group Negotiation,0.7333333333333333,30.0,1.0,0.0,3.0,3.0,0.0,0.0,0.0
+WS::10.1006/obhd.2001.2964::Study 1,Market Rental Group Negotiation,Market Rental Group Negotiation,1.0,91.0,1.0,0.0,3.0,3.0,0.0,0.0,0.5
+WS::10.1023/a:1026032628634::Study 2,Market Rental Group Negotiation,Market Rental Group Negotiation,1.0,47.0,1.0,0.0,3.0,3.0,0.0,0.0,0.5
+WS::10.1177/1046496404273145::Study 1,Joint Office Complex,Joint Office Complex,0.974025974025974,77.0,0.619,0.0,5.0,3.0,0.0,0.0,0.0
+WS::10.1037/0022-3514.89.3.358::Study 1,Market Rental Group Negotiation,Market Rental Group Negotiation,0.8666666666666667,30.0,1.0,0.0,3.0,3.0,0.0,0.0,0.0
+WS::10.1037/0022-3514.89.3.358::Study 2,Market Rental Group Negotiation,Market Rental Group Negotiation,0.8115942028985508,69.0,1.0,0.0,3.0,3.0,0.0,0.0,0.0
+WS::10.1057/palgrave.jibs.8490506::Study 1,Three-Commodity Bargaining,Three-Commodity Bargaining,1.0,66.0,0.5281207133058985,0.0,3.0,2.0,0.0,0.0,0.0
+SRU0376,Three-Commodity Bargaining,Three-Commodity Bargaining,0.9795918367346939,49.0,0.5281207133058985,0.0,3.0,2.0,0.0,0.0,0.0
+WS::10.1111/j.1750-4716.2008.00017.x::Study 1,Towers Market,Towers Market,0.717948717948718,39.0,1.0,0.0,5.0,4.0,0.0,0.0,0.48717948717948717
+REINA2003_STUDY1,Two-Number Integrative Negotiation,Two-Number Integrative Negotiation,0.8928571428571429,28.0,0.18595041322314043,0.0826446280991735,2.0,2.0,0.0,0.0,0.0
+WS::10.5465/amj.2016.0182::Study 1,Internal Consultancy Team Decision,Internal Consultancy Team Decision,0.9883720930232558,86.0,1.0,0.0,4.0,3.0,0.0,0.0,0.0
+WS::10.1037/0021-9010.78.3.504::Study 1,Towers Market,Towers Market,0.8809523809523809,84.0,0.4544,0.0,5.0,4.0,0.0,0.0,0.0
+WS::10.1108/eb022898::Study 1,Towers Market,Towers Market,0.8611111111111112,36.0,0.4544,0.0,5.0,4.0,0.0,0.0,0.0
+WS::::Study 2,Fictional Raw Materials,Fictional Raw Materials,0.9938271604938271,162.0,1.0,0.0,8.0,2.0,0.0,0.0,0.0
+WS::::Study 3,Power Plant Sale,Power Plant Sale,0.9508196721311475,183.0,1.0,0.0,8.0,2.0,0.0,0.0,0.0
+WS::::Study 4,Power Plant Sale,Power Plant Sale,0.968,125.0,1.0,0.0,8.0,2.0,0.0,0.0,0.0
+WS::::Study 5,Power Plant Sale,Power Plant Sale,0.9461538461538461,130.0,1.0,0.0,8.0,2.0,0.0,0.0,0.0
+SRU0359,Collective Employment Negotiation,Collective Employment Negotiation,0.9534883720930233,43.0,1.0,0.0,5.0,2.0,1.0,0.0,0.0
+WS::10.1177/1368430216656470::Study 1,Collective Employment Negotiation,Collective Employment Negotiation,0.573170731707317,82.0,1.0,0.0,5.0,2.0,1.0,0.0,0.0
+WS::10.1037/a0021871::Study 1,Merging Companies,Merging Companies,1.0,77.0,0.134848,0.25151999999999997,6.0,2.0,1.0,0.0,0.0
+WS::10.1037/a0021871::Study 2,Merging Companies,Merging Companies,0.782608695652174,69.0,0.134848,0.25151999999999997,6.0,2.0,1.0,0.0,0.0
+SRU0423,Merging Companies,Merging Companies,1.0,170.0,0.134848,0.25151999999999997,6.0,2.0,1.0,0.0,0.0
+SRU0128,Confetti,Confetti,0.41379310344827586,58.0,0.00096,0.90528,5.0,2.0,1.0,0.0,0.0
+SRU0129,Confetti,Confetti,0.39759036144578314,83.0,0.00096,0.90528,5.0,2.0,1.0,0.0,0.0
+SRU0130,Confetti,Confetti,0.5384615384615384,91.0,0.00096,0.90528,5.0,2.0,1.0,0.0,0.0
+OC2005_STUDY1,Confetti | Honors Class,Confetti,0.5951984732824428,262.0,0.50048,0.45264,5.5,2.0,1.0,0.0,0.0
+NORTHCRAFT1998_STUDY1,Nonlinear Employment Contract,Nonlinear Employment Contract,1.0,66.0,1.0,0.0,6.0,2.0,1.0,0.0,0.0
