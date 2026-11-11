@@ -1,5 +1,9 @@
 # Study 1 data and analysis
 
+Preregistration: https://osf.io/wtgxc
+
+The paper's Appendix A explains data collection and coding; Appendix B explains the structural calculations; Appendix C explains the supplementary analyses. This file connects those explanations to the released inputs and code. Tables 1–3 are the main tables, and Tables C1–C4 contain the full supplementary results.
+
 ## From the search to the observations
 
 The search starts with the replication data shared by Warsitzka et al. (2024), [OSF 2c9gf](https://osf.io/2c9gf/), and adds papers identified through Majer et al. (2022), Petrowsky et al. (2025), and the research team's search. Schweinsberg et al. (2022) was also consulted; the available discovery records do not separately attribute additional papers to that review.
@@ -46,13 +50,13 @@ All 103 structural calculations can be rebuilt from the supplied inputs. Ninety-
 
 The five controls are issue count, party count, compatible-issue count, automated/AI counterpart, and agreement without unanimity. Compatible issues are those on which parties prefer the same choice or direction. Controls can be weighted averages across conditions. No missing agreement rate, payoff, reservation value, structural measure, basic control, or negotiation count is statistically imputed.
 
-All five main models use the same complete observations and HC3 robust standard errors (MacKinnon & White, 1985). Models 1 and 2 contain search complexity without and with controls. Model 3 contains both structural predictors and the controls. Models 4 and 5 contain bargaining-zone size without and with controls. Continuous predictors and the three counts are standardized; agreement rate stays on 0–1.
+All five main models use the same complete observations and HC3 robust standard errors, allowing unexplained variation in agreement rates to differ across observations (Long & Ervin, 2000; MacKinnon & White, 1985). Models 1 and 2 contain search complexity without and with controls. Model 3 contains both structural predictors and the controls. Models 4 and 5 contain bargaining-zone size without and with controls. Continuous predictors and the three counts are standardized; agreement rate stays on 0–1.
 
 The final number and mix of observations depend on which research evidence can be recovered. The stopping rule is a practical search rule rather than a power calculation fixing the final sample size. We therefore require a main result and two stability checks before supporting either hypothesis.
 
 H1 requires a negative search-complexity coefficient in Model 3 with a two-sided p value below .05, a 95% observation-resampling interval entirely below zero, and a negative coefficient with p < .05 after every single-observation omission. H2 compares Model 2 with Model 5 on the same observations and controls. Its R² difference must be positive, its 95% resampling interval must be entirely above zero, and the difference must remain positive after every single-observation omission. The output reports each condition and their combined result separately.
 
-Each resampling draw selects whole observations with replacement, retaining the dataset's size. Both comparison models use the same draw. The percentile interval uses 5,000 draws (Efron & Tibshirani, 1993); the large number reduces variation caused by the resampling procedure itself. These checks examine stability within the recovered evidence.
+Each resampling draw selects whole observations with replacement, retaining the dataset's size. Both comparison models use the same draw. The percentile interval uses 5,000 draws (Efron & Tibshirani, 1993); the large number reduces variation caused by the resampling procedure itself. Removing one observation at a time checks whether any individual result is essential, following the logic of case-deletion diagnostics (Cook, 1977). The paper's Appendix C explains these procedures and how to read their results.
 
 Supplementary checks start with the 126 strict observations. Source-supported arithmetic, a sampled structural measure, or an unknown condition allocation that cannot change any predictor can qualify. Unresolved numerical matches, reconstruction assumptions and unknown allocations that affect a predictor cannot. One strict observation uses a recoverable subset of its conditions. `outputs/observation_eligibility.csv` records every decision.
 
@@ -62,11 +66,15 @@ The combined-payoff comparison averages independent experiment rates within each
 
 ## References
 
-Efron, B., & Tibshirani, R. J. (1993). *An introduction to the bootstrap*. Chapman & Hall. https://doi.org/10.1007/978-1-4899-4541-9
+Cook, R. D. (1977). Detection of influential observation in linear regression. *Technometrics, 19*(1), 15–18. https://doi.org/10.1080/00401706.1977.10489493
+
+Efron, B., & Tibshirani, R. J. (1993). *An introduction to the bootstrap*. Chapman & Hall. https://doi.org/10.1201/9780429246593
 
 Kauffman, S., & Levin, S. (1987). Towards a general theory of adaptive walks on rugged landscapes. *Journal of Theoretical Biology, 128*(1), 11–45. https://doi.org/10.1016/S0022-5193(87)80029-2
 
 Levinthal, D. A. (1997). Adaptation on rugged landscapes. *Management Science, 43*(7), 934–950. https://doi.org/10.1287/mnsc.43.7.934
+
+Long, J. S., & Ervin, L. H. (2000). Using heteroscedasticity consistent standard errors in the linear regression model. *The American Statistician, 54*(3), 217–224. https://doi.org/10.1080/00031305.2000.10474549
 
 MacKinnon, J. G., & White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. *Journal of Econometrics, 29*(3), 305–325. https://doi.org/10.1016/0304-4076(85)90158-7
 

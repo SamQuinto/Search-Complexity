@@ -191,14 +191,14 @@ def original_table(outputs):
                      interval(item.bootstrap_ci_low,item.bootstrap_ci_high),
                      f'{item.omissions_passed}/{item.omissions_required}',
                      'Yes' if item.full_confirmation_met else 'No'])
-    return {'label':'Table A1','title':'Main hypothesis tests specified in the original registration',
+    return {'label':'Table C4','title':'Main hypothesis tests specified in the original registration',
             'columns':['Original hypothesis','Model','Estimate','p value','95% resampling interval','Omissions passing','Full criteria met'],
             'rows':rows,'landscape':True,'widths':[2.7,1,.7,.9,1.5,1,1],
             'note':('Note. N = 103 payoff records using the corrected research evidence. Coefficient rows report b for a standardized predictor; '
                     'H3 reports R²(Model 2) − R²(Model 5). Each interval uses 5,000 individual-payoff-row draws. '
                     'The original criteria require the full-sample test, an interval entirely in the predicted direction, '
                     'and the required direction and significance after every single-row omission. H3 requires a positive '
-                    'difference after each omission. The five regressions appear in Table S2. These original hypothesis '
+                    'difference after each omission. The five regressions appear in Table C2. These original hypothesis '
                     'numbers are separate from H1 and H2 in the main text.')}
 
 
@@ -314,9 +314,9 @@ def build_tables(root, outputs):
     tables=[correlation_table(pd.read_csv(outputs/'regression_data.csv')),
             regression_table(coeff,fits,'main','Table 2','Agreement rates predicted by search complexity and bargaining-zone size'),
             robustness_table(coeff,fits,boots,omit,hyp),
-            regression_table(coeff,fits,'strict','Table S1','Agreement rates with strict inclusion'),
-            regression_table(coeff,fits,'aggregate_main','Table S2','Agreement rates after combining identical payoff tables and reservation values'),
-            regression_table(coeff,fits,'aggregate_strict','Table S3','Strict observations after combining identical payoff tables and reservation values')]
+            regression_table(coeff,fits,'strict','Table C1','Agreement rates with strict inclusion'),
+            regression_table(coeff,fits,'aggregate_main','Table C2','Agreement rates after combining identical payoff tables and reservation values'),
+            regression_table(coeff,fits,'aggregate_strict','Table C3','Strict observations after combining identical payoff tables and reservation values')]
     if (outputs/'original_main_hypotheses.csv').exists():
         tables.append(original_table(outputs))
     (outputs/'tables.json').write_text(json.dumps(tables,ensure_ascii=False,indent=2),encoding='utf-8')

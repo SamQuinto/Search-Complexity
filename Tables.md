@@ -50,7 +50,7 @@ Note. The dependent variable is agreement rate (0–1). Entries are coefficients
 
 Note. Main resampling and omission checks are required for confirmation. Intervals use 5,000 observation draws. Omission rows show ranges; their N counts checks and their p column counts negative coefficients with p < .05. Other N values are observations. R² difference is Model 2 minus Model 5. Model 6 uses negotiation-count weights.
 
-## Table S1. Agreement rates with strict inclusion
+## Table C1. Agreement rates with strict inclusion
 
 | Predictor | (1)<br>Search complexity | (2)<br>+ controls | (3)<br>Both + controls | (4)<br>Bargaining zone | (5)<br>+ controls |
 | --- | --- | --- | --- | --- | --- |
@@ -67,7 +67,7 @@ Note. Main resampling and omission checks are required for confirmation. Interva
 
 Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; indicator controls retain their original scales. Every model includes a constant. — indicates that a predictor is not included or is constant in this sample. * p < .05. ** p < .01. *** p < .001. The automated-counterpart control is constant at zero and is omitted.
 
-## Table S2. Agreement rates after combining identical payoff tables and reservation values
+## Table C2. Agreement rates after combining identical payoff tables and reservation values
 
 | Predictor | (1)<br>Search complexity | (2)<br>+ controls | (3)<br>Both + controls | (4)<br>Bargaining zone | (5)<br>+ controls |
 | --- | --- | --- | --- | --- | --- |
@@ -84,7 +84,7 @@ Note. The dependent variable is agreement rate (0–1). Entries are coefficients
 
 Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; indicator controls retain their original scales. Every model includes a constant. — indicates that a predictor is not included or is constant in this sample. * p < .05. ** p < .01. *** p < .001.
 
-## Table S3. Strict observations after combining identical payoff tables and reservation values
+## Table C3. Strict observations after combining identical payoff tables and reservation values
 
 | Predictor | (1)<br>Search complexity | (2)<br>+ controls | (3)<br>Both + controls | (4)<br>Bargaining zone | (5)<br>+ controls |
 | --- | --- | --- | --- | --- | --- |
@@ -101,7 +101,7 @@ Note. The dependent variable is agreement rate (0–1). Entries are coefficients
 
 Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; indicator controls retain their original scales. Every model includes a constant. — indicates that a predictor is not included or is constant in this sample. * p < .05. ** p < .01. *** p < .001. The automated-counterpart control is constant at zero and is omitted.
 
-## Table A1. Main hypothesis tests specified in the original registration
+## Table C4. Main hypothesis tests specified in the original registration
 
 | Original hypothesis | Model | Estimate | p value | 95% resampling interval | Omissions passing | Full criteria met |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -110,4 +110,4 @@ Note. The dependent variable is agreement rate (0–1). Entries are coefficients
 | H3: Explained-variation comparison | M2 minus M5 | .181 | — | [.024, .337] | 103/103 | Yes |
 | H4: Search complexity with both predictors (−) | M3 | −.149 | p = .005 | [−.250, −.058] | 103/103 | Yes |
 
-Note. N = 103 payoff records using the corrected research evidence. Coefficient rows report b for a standardized predictor; H3 reports R²(Model 2) − R²(Model 5). Each interval uses 5,000 individual-payoff-row draws. The original criteria require the full-sample test, an interval entirely in the predicted direction, and the required direction and significance after every single-row omission. H3 requires a positive difference after each omission. The five regressions appear in Table S2. These original hypothesis numbers are separate from H1 and H2 in the main text.
+Note. N = 103 payoff records using the corrected research evidence. Coefficient rows report b for a standardized predictor; H3 reports R²(Model 2) − R²(Model 5). Each interval uses 5,000 individual-payoff-row draws. The original criteria require the full-sample test, an interval entirely in the predicted direction, and the required direction and significance after every single-row omission. H3 requires a positive difference after each omission. The five regressions appear in Table C2. These original hypothesis numbers are separate from H1 and H2 in the main text.
