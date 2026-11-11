@@ -66,6 +66,9 @@ def combine_study_components(components):
             'agreement_rate_coding': distinct_text(rows.agreement_rate_coding),
             'source_link': distinct_text(rows.source_link),
             'strict_reason': distinct_text(rows.strict_reason),
+            'approval_rule': distinct_text(rows.approval_rule),
+            'approval_rule_basis': distinct_text(rows.approval_rule_basis),
+            'approval_rule_source': distinct_text(rows.approval_rule_source),
         })
     return pd.DataFrame(records)
 
@@ -237,6 +240,20 @@ def build_data(root, output_dir):
                 'The recorded control differs from the correction audit')
         components.loc[matches, correction.variable] = correction.corrected_value
 
+    # Keep the readable approval rule beside its numeric control. Unanimity is
+    # the default unless the study or matching exercise specifies another rule.
+    approval = pd.read_csv(root / 'data/approval_rules.csv')
+    require(approval.payoff_id.is_unique, 'Each payoff record needs one approval-rule description')
+    approval = approval.rename(columns={'coding_basis': 'approval_rule_basis',
+                                        'source': 'approval_rule_source'})
+    components = components.merge(
+        approval[['payoff_id', 'approval_rule', 'approval_rule_basis',
+                  'approval_rule_source', 'non_unanimous_share']],
+        on='payoff_id', how='left', validate='many_to_one')
+    require(components.approval_rule.notna().all(), 'An approval-rule description is missing')
+    require(np.allclose(components.non_unanimous_rule, components.non_unanimous_share,
+                        atol=1e-12, rtol=0), 'The approval rule disagrees with the regression control')
+
     components['main_weight'] = np.nan
     components['strict_weight'] = np.nan
     for _, rows in components.groupby('study_id', sort=False):
@@ -291,7 +308,8 @@ def build_data(root, output_dir):
                       'negotiation_exercise', 'agreement_rate', 'agreements', 'negotiations',
                       *PREDICTORS, 'payoff_source', 'reservation_values_or_rule',
                       'agreement_rate_source', 'agreement_rate_coding', 'source_link', 'strict_included', 'strict_reason',
-                      'strict_evidence', 'main_weight', 'strict_weight']
+                      'strict_evidence', 'main_weight', 'strict_weight', 'approval_rule',
+                      'approval_rule_basis', 'approval_rule_source']
     components[public_columns].to_csv(output_dir / 'component_evidence.csv', index=False)
     pd.DataFrame(metric_records).to_csv(output_dir / 'payoff_metric_checks.csv', index=False)
     catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False)

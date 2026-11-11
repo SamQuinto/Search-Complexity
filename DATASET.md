@@ -28,6 +28,8 @@ For payoffs and acceptance rules, materials administered to participants take pr
 
 A reservation value is a stated minimum for acceptance or the payoff a party can secure without a deal. A numerical BATNA, outside-option payoff, or impasse payoff can supply it when it is on the negotiation's payoff scale. Zero requires an explicit source or a scale defined as gains above the outside option. A qualitative BATNA does not establish a numerical threshold. An opening offer is not a reservation value unless the study identifies it as one.
 
+For approval, use the rule in the study or matching exercise materials. If no alternative rule is stated, assume that all parties must agree. This convention applies to the main and strict data; reservation values still require numerical support. `data/approval_rules.csv` distinguishes the default from rules identified in the materials and reconstructed programmed acceptance. The workbook gives these descriptions beside every observation, condition, and payoff record. The control is zero for unanimity, one for non-unanimity, or the negotiation-count weighted share when an experiment uses both rules. The notebook checks that the descriptions agree with the numeric control.
+
 ## Combining conditions
 
 We calculate the structural measures for each payoff table and reservation-value combination before combining conditions. With counts, we sum agreements and divide by total negotiations. Structural measures and controls use the same negotiation-count weights. For example, 24/30 and 56/70 agreements become 80/100, with structural weights of .30 and .70.
@@ -38,9 +40,9 @@ If only a combined agreement rate is available within an experiment, it is used 
 
 ## Structural calculations
 
-Bargaining-zone size is the share of complete offers satisfying the reservation values and approval rule. For finite choices, the code enumerates all offers where practical. Very large combinations can use a declared reproducible sample. Continuous or mixed issues use the stated ranges, distributions, numerical grids or payoff-function checks. Sampling estimates a share under those choices; it is not a universal volume independent of the ranges.
+Bargaining-zone size is the share of complete offers satisfying the reservation values and approval rule. With fixed choices, the code lists the possible combinations, calculates each party's payoff, and counts acceptable offers. For a term such as price that can take any value within a range, the code calculates the acceptable share over the exercise's specified range. Payoff functions allow exact calculation in some cases; recorded grids or reproducible samples are used in others. The paper's Appendix B explains continuous and mixed issues and how the ranges and weights define the share.
 
-Search complexity is the share of starting offers that cannot reach the bargaining zone through one-issue changes that strictly increase the number of accepting parties. An offer already in the bargaining zone is reachable. The calculation checks whether any qualifying path exists. This adapts the search intuition of Kauffman and Levin (1987) and Levinthal (1997); it is the measure defined here, rather than their original formula.
+Search complexity is the share of starting offers that cannot reach agreement through revisions that change one issue and strictly increase the number of parties whose payoffs meet their reservation values. Offers differing on one issue have Hamming distance one (Hamming, 1950); the size of the change on that issue can be large or small. The calculation checks whether any improving path exists, and an offer already in the bargaining zone is reachable. This adapts the local-search intuition of Kauffman and Levin (1987) and Levinthal (1997) to acceptance in negotiations.
 
 All 103 structural calculations can be rebuilt from the supplied inputs. Ninety-eight payoff records contain numerical tables or functions. Five use source-supported proofs that the measures are fixed even without a complete numerical table: three Northcraft et al. (1998) versions have nonnegative payoffs and zero reservation values; two Martin-Raugh et al. (2020) tasks require agreement and provide no walk-away option. Unprinted point values are not invented. `outputs/payoff_metric_checks.csv` identifies the calculation used for each record.
 
@@ -69,6 +71,8 @@ The combined-payoff comparison averages independent experiment rates within each
 Cook, R. D. (1977). Detection of influential observation in linear regression. *Technometrics, 19*(1), 15–18. https://doi.org/10.1080/00401706.1977.10489493
 
 Efron, B., & Tibshirani, R. J. (1993). *An introduction to the bootstrap*. Chapman & Hall. https://doi.org/10.1201/9780429246593
+
+Hamming, R. W. (1950). Error detecting and error correcting codes. *The Bell System Technical Journal, 29*(2), 147–160. https://doi.org/10.1002/j.1538-7305.1950.tb00463.x
 
 Kauffman, S., & Levin, S. (1987). Towards a general theory of adaptive walks on rugged landscapes. *Journal of Theoretical Biology, 128*(1), 11–45. https://doi.org/10.1016/S0022-5193(87)80029-2
 

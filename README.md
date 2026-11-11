@@ -12,6 +12,7 @@ The dataset contains **141 observations from 112 papers**, linked to **103 payof
 | --- | --- | --- |
 | [Paper_inventory.xlsx](data/Paper_inventory.xlsx) | The 371 papers, search sources, retrieval status, exercise matches, and contributions | Data Collection and Sample; Appendix A |
 | [Observation_data.xlsx](data/Observation_data.xlsx) | Outcomes, payoff information, reservation values, controls, and sources before calculating the structural measures | Appendix A |
+| [Approval rules](data/approval_rules.csv) | Required agreement rule, its source or unanimity default, and the matching numeric control | Appendix A |
 | [Regression data](data/regression_data.csv) | The 141 observations and ten analysis columns | Analytical Strategy |
 | [Exercise inventory](data/inventory/exercise_inventory.csv) | The 66 exercises, material sources, and contributions | Appendix A |
 | [Starting registry](data/inventory/starting_study_registry.csv) | The fixed 479 review records, linked to 330 papers | Appendix A |

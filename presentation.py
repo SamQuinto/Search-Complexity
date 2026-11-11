@@ -216,14 +216,14 @@ def save_markdown(tables, path):
 def make_figures(root, outputs):
     data=pd.read_csv(outputs/'regression_data.csv')
     figures=outputs/'figures'; figures.mkdir(exist_ok=True)
-    plt.rcParams.update({'font.family':'DejaVu Sans','font.size':15,'axes.labelsize':17,
-                         'xtick.labelsize':14,'ytick.labelsize':14,'axes.titlesize':17,
+    plt.rcParams.update({'font.family':'DejaVu Sans','font.size':12,'axes.labelsize':14,
+                         'xtick.labelsize':11,'ytick.labelsize':11,'axes.titlesize':13.5,
                          'axes.spines.top':False,'axes.spines.right':False,
                          'figure.facecolor':'white','axes.facecolor':'white','savefig.facecolor':'white'})
     fig,axes=plt.subplots(2,1,figsize=(7.2,9),sharey=True)
     for axis,predictor,title in zip(axes,['bargaining_zone_share','search_complexity'],
                                     ['A. Bargaining-zone size','B. Search complexity']):
-        axis.scatter(data[predictor],data.agreement_rate,s=43,facecolors='none',edgecolors='black',alpha=.7,linewidth=.85)
+        axis.scatter(data[predictor],data.agreement_rate,s=32,facecolors='none',edgecolors='black',alpha=.7,linewidth=.8)
         # The line summarizes the corresponding bivariate regression only.
         slope,intercept=np.polyfit(data[predictor],data.agreement_rate,1)
         x=np.linspace(data[predictor].min(),data[predictor].max(),200)
