@@ -30,7 +30,7 @@ You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **
 | [Paper_inventory.xlsx](data/Paper_inventory.xlsx) | Papers, search sources, retrieval status, exercise matches, and contributions |
 | [Observation_data.xlsx](data/Observation_data.xlsx) | Coded outcomes, payoff tables, reservation values, controls, and sources |
 | [Raw payoff catalogue](data/raw_payoff_catalog.json) | Payoff tables and functions, reservation values, and calculation rules |
-| [Regression data](data/regression_data.csv) | The minimal dataset used in the main analyses |
+| [Regression data](data/regression_data.csv) | Main analysis values and a self-contained JSON payoff-input column |
 | [Exercise inventory](data/inventory/exercise_inventory.csv) | Negotiation exercises and material sources |
 | [Starting registry](data/inventory/starting_study_registry.csv) | The original review records |
 | [Record-to-observation links](data/inventory/registry_observation_links.csv) | How starting records contribute to the final observations |
@@ -50,5 +50,16 @@ You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **
 - `archive/`: earlier materials; these are not used by the replication and are omitted from the download ZIP.
 
 The main replication reads the released analysis data. Add `--rebuild-data` to the command to recalculate the structural measures from the coded payoff and outcome sources before running the analyses. The workbooks and [data documentation](data/README.md) identify those sources and coding decisions. The papers and licensed teaching documents themselves are not redistributed here. Figure 1 is a conceptual illustration in the paper; Figure 2 is the empirical figure reproduced here.
+
+## Calculate from the payoff column
+
+`payoff_json`, immediately after `observation_id`, contains each observation's numerical payoff tables or functions, domains, reservation values or programmed acceptance rule, and component weights. Repeated tables use a lookup embedded inside the same cell. To calculate one observation or check all rows:
+
+```bash
+python scripts/supporting/payoff_info.py --observation SRU0286
+python scripts/supporting/payoff_info.py --check
+```
+
+The helper reuses the released calculators. Both structural measures match all 141 rows. Five payoff records in two observations have source proofs in place of complete numerical schedules. Three numerical records have unresolved compatibility-count differences affecting five observations. The helper reports these separately from the unchanged regression controls; [input issues](data/payoff_input_issues.csv) gives the observation IDs, weights and source checks. See the [payoff-column notes](data/README.md#the-payoff-json-column) for the format and limitations.
 
 Preregistration: https://osf.io/wtgxc

@@ -30,6 +30,7 @@ All helper code is in [supporting](supporting/). You do not need to run these fi
 | --- | --- |
 | `prepare_data.py` | Check the coded evidence and combine conditions |
 | `payoff_metrics.py` | Calculate bargaining-zone share and search complexity |
+| `payoff_info.py` | Read one self-contained `payoff_json` cell or check the whole main dataset |
 | `source_functions.py`, `additional_functions.py`, `sampled_metrics.py` | Apply the documented exercise-specific payoff calculations |
 | `analysis.py` | Fit the regressions and run the robustness checks |
 | `original_main_analysis.py` | Reproduce the original-registration appendix tests |

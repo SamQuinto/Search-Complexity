@@ -49,36 +49,41 @@ def replay_acceptance_inputs(source_dir):
     return records
 
 
+def metrics_from_source_proof(proof):
+    """Calculate from a supplied source proof, without needing a file path."""
+    if proof['kind'] == 'all_payoffs_meet_reservations':
+        lower = np.asarray(proof['lower_payoff_bounds'], dtype=float)
+        reservations = np.asarray(proof['reservation_values'], dtype=float)
+        if lower.shape != reservations.shape or not np.all(lower >= reservations):
+            raise ValueError('The documented bounds do not prove acceptability for every party')
+    elif proof['kind'] != 'all_complete_offers_allowed':
+        raise ValueError('Unknown source-proof rule')
+    return {'bargaining_zone_share': 1.0, 'search_complexity': 0.0}
+
+
 def calculate_acceptability_proofs(path):
     """Use source inequalities or an explicit rule to establish acceptability."""
-    records = []
-    for proof in json.loads(Path(path).read_text(encoding='utf-8')):
-        if proof['kind'] == 'all_payoffs_meet_reservations':
-            lower = np.asarray(proof['lower_payoff_bounds'], dtype=float)
-            reservations = np.asarray(proof['reservation_values'], dtype=float)
-            if lower.shape != reservations.shape or not np.all(lower >= reservations):
-                raise ValueError('The documented bounds do not prove acceptability for every party')
-        elif proof['kind'] != 'all_complete_offers_allowed':
-            raise ValueError('Unknown source-proof rule')
-        # When every complete offer is acceptable, every starting offer is
-        # already inside the bargaining zone. No search path is required.
-        records.append({'payoff_id': proof['payoff_id'], 'bargaining_zone_share': 1.0,
-                        'search_complexity': 0.0, 'input_type': 'Source-based acceptability proof',
-                        'source': proof['source']})
-    return records
+    return [{'payoff_id': proof['payoff_id'], **metrics_from_source_proof(proof),
+             'input_type': 'Source-based acceptability proof', 'source': proof['source']}
+            for proof in json.loads(Path(path).read_text(encoding='utf-8'))]
+
+
+def metrics_from_programmed_rule(rule):
+    """Calculate a supplied programmed rule without treating it as a seller RV."""
+    shape = tuple(rule['shape'])
+    choices = np.indices(shape).reshape(len(shape), -1)
+    buyer = np.asarray(rule['buyer_score_coefficients']) @ choices
+    accepts = np.column_stack([buyer >= rule['buyer_minimum'],
+                               buyer <= rule['programmed_buyer_score_cap']])
+    return metrics_from_acceptance(accepts, shape, 2)
 
 
 def calculate_programmed_rules(path):
     """Calculate the documented main-sample reconstruction for a programmed rule."""
     records = []
     for rule in json.loads(Path(path).read_text(encoding='utf-8')):
-        shape = tuple(rule['shape'])
-        choices = np.indices(shape).reshape(len(shape), -1)
-        buyer = np.asarray(rule['buyer_score_coefficients']) @ choices
-        accepts = np.column_stack([buyer >= rule['buyer_minimum'],
-                                   buyer <= rule['programmed_buyer_score_cap']])
         records.append({'payoff_id': rule['payoff_id'],
-                        **metrics_from_acceptance(accepts, shape, 2),
+                        **metrics_from_programmed_rule(rule),
                         'input_type': 'Reconstructed programmed acceptance rule',
                         'source': rule['sources']})
     return records

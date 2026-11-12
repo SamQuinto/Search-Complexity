@@ -50,6 +50,36 @@ All 103 structural calculations can be rebuilt from the supplied inputs. Ninety-
 
 `data/raw_payoff_catalog.json` holds the payoff data, functions, rules, sources and assumptions. The Python modules supply the declared numerical procedures. For The Player in Kray et al. (2004), the main calculation averages the 6,000/3,000 and 3,000/6,000 role assignments with equal weights because their separate sample sizes are unavailable. The historical study's exact table match remains uncertain. For Sale of a Café, both payoff functions are verified from the study data, but the automated buyer-score acceptance cap is a reconstruction; its program logic is unavailable. Both ambiguities remain visible and do not enter the strict data.
 
+## The payoff JSON column
+
+The main [regression dataset](regression_data.csv) has `payoff_json` immediately after `observation_id`. All other columns keep their released values and order. The main script and notebook select the numeric analysis columns by name. Both data-preparation routes rebuild the JSON column from the supplied source records.
+
+Each cell is a JSON object with `schema_version`, `coverage`, `weighting`, `components` and `payoffs`. `components` links the observation to its payoff records and gives its negotiation counts and weights. Each payoff record contains the source catalogue entry, approval-rule evidence and any documented internal allocation. These are two distinct levels of weights: source-result components within the observation, and numerical versions within a payoff record.
+
+For discrete tables, `catalog.schedules` holds issue names, option labels and nested `payoffs` arrays. A payoff row gives the parties' values in the listed order. `catalog.components[].schedule_ref` resolves inside this same object; repeated tables are stored once. Each component also gives reservation values, required approvals, mandatory parties and its aggregation weight. `"unbounded"` means the source specifies no binding minimum; a missing numerical threshold remains `null`.
+
+Continuous and mixed cases retain their numerical formulas, domains, parameter values, grids, sampling settings and version weights in `payoff_function_input` and `calculation_settings`. Salary and a payment-share simplex retain their logical issue grouping. The helper uses the existing exercise-specific calculators; it checks the registered formula specification and rejects unsupported edits rather than evaluating formula text. Numerical estimates retain the released procedures and fixed sampling settings.
+
+From the repository folder, with the normal requirements installed:
+
+```bash
+python scripts/supporting/payoff_info.py --observation SRU0286
+python scripts/supporting/payoff_info.py --check
+```
+
+To use a copied cell, save its JSON text as `cell.json` and run `python scripts/supporting/payoff_info.py --cell cell.json`. In Python, `from scripts.supporting.payoff_info import calculate` exposes `calculate(cell_text)`. Calculation needs the cell and the supporting calculator code; it reads no separate data file or stored structural score.
+
+Coverage is 98 numerical payoff records and five source-proof records, across 141 observations. Both structural measures match every released observation. Issue and party counts match all observations; the two proof-only observations use their separately labelled source coding for these counts. Of 139 observations with numerical compatibility checks, 134 match the coded control. [payoff_input_issues.csv](payoff_input_issues.csv) traces the remaining five numerical checks and the five proof records to their observations and weights:
+
+- `SRU0114`: the two supplied Murnighan development tables each give zero shared-best issues; the released coding is two. Each internal version has weight .5, so reweighting cannot resolve the difference.
+- `SRU0349`, `SRU0350`, `SRU0351`: the supplied Kern Player table gives seven shared-best issues; the released coding is one.
+- `SRU0359`: the supplied Aaldering and De Dreu collective-employment table gives zero shared-best issues; the released coding is one.
+- `SRU0108` and `NORTHCRAFT1998_STUDY1`: complete numerical schedules are missing. Source proofs establish bargaining-zone share 1 and search complexity 0. The helper returns `null` for compatibility and reports the coded count separately.
+
+The three numerical differences require checking original role option alignment, payoff/cost direction and administered source version. The supplied models specify additive utilities to maximize and record no cost reversal or interactions that resolve them. The JSON flags the source checks, and the regression controls remain unchanged. Compatible counts for Cartoon/Moms.com treat optional Juniors inclusion as the documented common-benefit direction; the price within inclusion remains opposed.
+
+Other existing source assumptions remain attached to their models: the Café cap is a reconstructed programmed rule with a `null` seller reservation value, the Kray Player role-table match is uncertain, the Kong reservation pairings use the documented equal grid, and the Moms.com contingent-option support is reconstructed. The helper does not fill those gaps.
+
 ## Models and checks
 
 The five controls are issue count, party count, compatible-issue count, automated/AI counterpart, and agreement without unanimity. Compatible issues are those on which parties prefer the same choice or direction. Controls can be weighted averages across conditions. No missing agreement rate, payoff, reservation value, structural measure, basic control, or negotiation count is statistically imputed.

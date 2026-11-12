@@ -19,7 +19,7 @@ REPOSITORY = Path(__file__).resolve().parents[1]
 if str(REPOSITORY) not in sys.path:
     sys.path.insert(0, str(REPOSITORY))
 
-from scripts.supporting.prepare_data import build_data, prepare_analysis_data
+from scripts.supporting.prepare_data import MODEL_COLUMNS, build_data, prepare_analysis_data
 from scripts.supporting.analysis import run_analysis
 from scripts.supporting.original_main_analysis import run_original_main
 from scripts.supporting.presentation import build_tables
@@ -58,7 +58,7 @@ def publish_files(root, working):
         new = pd.read_csv(working / 'regression_data.csv').sort_values('observation_id').reset_index(drop=True)
         assert list(old.columns) == list(new.columns), 'The analysis columns changed.'
         assert old.observation_id.equals(new.observation_id), 'The observations changed.'
-        np.testing.assert_allclose(old.iloc[:, 1:], new.iloc[:, 1:], atol=1e-12, rtol=0,
+        np.testing.assert_allclose(old[MODEL_COLUMNS[1:]], new[MODEL_COLUMNS[1:]], atol=1e-12, rtol=0,
                                    equal_nan=True, err_msg='The rebuilt data differ from the released data.')
     optional = {'payoff_metric_checks.csv', 'catalog_component_metrics.csv', 'player_component_metrics.csv'}
     for source, destination in files.items():

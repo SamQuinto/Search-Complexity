@@ -274,7 +274,7 @@ def build_data(root, output_dir):
     aggregates = {'aggregate_main': aggregate_identical_structures(components),
                   'aggregate_strict': aggregate_identical_structures(strict_components)}
 
-    save_analysis_files(main, strict, aggregates, components, eligibility, output_dir)
+    save_analysis_files(main, strict, aggregates, components, eligibility, output_dir, root=root)
     pd.DataFrame(metric_records).to_csv(output_dir / 'payoff_metric_checks.csv', index=False)
     catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False)
     pd.DataFrame(player_components).to_csv(output_dir / 'player_component_metrics.csv', index=False)
@@ -308,12 +308,14 @@ def make_eligibility_table(components):
     return eligibility
 
 
-def save_analysis_files(main, strict, aggregates, components, eligibility, output_dir):
+def save_analysis_files(main, strict, aggregates, components, eligibility, output_dir, root):
     """Save the analysis datasets and their source links."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     main.to_csv(output_dir / 'study_inputs.csv', index=False)
-    main[MODEL_COLUMNS].to_csv(output_dir / 'regression_data.csv', index=False)
+    from .payoff_info import attach_payoff_info
+    attach_payoff_info(main[MODEL_COLUMNS], root, components).to_csv(
+        output_dir / 'regression_data.csv', index=False)
     strict.to_csv(output_dir / 'strict_study_inputs.csv', index=False)
     strict[MODEL_COLUMNS].to_csv(output_dir / 'strict_regression_data.csv', index=False)
     eligibility.to_csv(output_dir / 'observation_eligibility.csv', index=False)
@@ -335,7 +337,7 @@ def prepare_analysis_data(root, output_dir):
     do not need to recalculate the payoff tables to reproduce the findings.
     """
     root, output_dir = Path(root), Path(output_dir)
-    released = pd.read_csv(root / 'data/regression_data.csv')
+    released = pd.read_csv(root / 'data/regression_data.csv', float_precision='round_trip')
     components = pd.read_csv(root / 'data/derived/component_evidence.csv')
     require(released.observation_id.is_unique, 'The main dataset has repeated observation IDs.')
     require(components.component_id.is_unique, 'The condition records have repeated IDs.')
@@ -351,7 +353,7 @@ def prepare_analysis_data(root, output_dir):
             components.loc[retained.index, 'strict_weight'] = weights_for(retained)[0]
 
     rebuilt = combine_study_components(components)
-    expected = released.sort_values('observation_id').reset_index(drop=True)
+    expected = released[MODEL_COLUMNS].sort_values('observation_id').reset_index(drop=True)
     actual = rebuilt[MODEL_COLUMNS].sort_values('observation_id').reset_index(drop=True)
     require(expected.observation_id.equals(actual.observation_id),
             'The condition records do not reproduce the main observations.')
@@ -363,8 +365,10 @@ def prepare_analysis_data(root, output_dir):
     aggregates = {'aggregate_main': aggregate_identical_structures(components),
                   'aggregate_strict': aggregate_identical_structures(strict_components)}
     eligibility = make_eligibility_table(components)
-    save_analysis_files(rebuilt, strict, aggregates, components, eligibility, output_dir)
+    save_analysis_files(rebuilt, strict, aggregates, components, eligibility, output_dir, root=root)
     # Keep the released primary dataset as the actual primary regression input.
+    from .payoff_info import attach_payoff_info
+    released = attach_payoff_info(released, root, components)
     released.to_csv(output_dir / 'regression_data.csv', index=False)
     return {'main': released, 'strict': strict, **aggregates}
 
