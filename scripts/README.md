@@ -36,3 +36,5 @@ All helper code is in [supporting](supporting/). You do not need to run these fi
 ## Optional data reconstruction
 
 From this folder, run `python run.py --rebuild-data` to also recalculate the structural measures from the coded payoff tables and outcome sources. This option then runs the same analyses. The regular command uses the released analysis dataset.
+
+In the notebook, set `rebuild_from_coded_sources = True` for the same reconstruction.
