@@ -194,7 +194,7 @@ def original_table(outputs):
     return {'label':'Table C4','title':'Main hypothesis tests specified in the original registration',
             'columns':['Original hypothesis','Model','Estimate','p value','95% resampling interval','Omissions passing','Full criteria met'],
             'rows':rows,'landscape':True,'widths':[2.7,1,.7,.9,1.5,1,1],
-            'note':('Note. N = 103 payoff records using the corrected research evidence. Coefficient rows report b for a standardized predictor; '
+            'note':(f'Note. N = {int(frame.n.iloc[0])} payoff records using the corrected research evidence. Coefficient rows report b for a standardized predictor; '
                     'H3 reports R²(Model 2) − R²(Model 5). Each interval uses 5,000 individual-payoff-row draws. '
                     'The original criteria require the full-sample test, an interval entirely in the predicted direction, '
                     'and the required direction and significance after every single-row omission. H3 requires a positive '

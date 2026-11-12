@@ -60,6 +60,6 @@ python scripts/supporting/payoff_info.py --observation SRU0286
 python scripts/supporting/payoff_info.py --check
 ```
 
-The helper reuses the released calculators. Both structural measures match all 141 rows. Five payoff records in two observations have source proofs in place of complete numerical schedules. Three numerical records have unresolved compatibility-count differences affecting five observations. The helper reports these separately from the unchanged regression controls; [input issues](data/payoff_input_issues.csv) gives the observation IDs, weights and source checks. See the [payoff-column notes](data/README.md#the-payoff-json-column) for the format and limitations.
+The helper checks both structural measures and all three counts for all 140 rows. Three Northcraft payoff records in one observation use valid source proofs and directly reported controls; their complete numerical schedules remain unavailable. [Input coverage](data/payoff_input_issues.csv) gives the observation, weights and missing material. Table options are paired by the same physical alternative across roles. Any control mismatch stops input preparation or the check command. See the [payoff-column notes](data/README.md#the-payoff-json-column) for the format and limitations.
 
 Preregistration: https://osf.io/wtgxc

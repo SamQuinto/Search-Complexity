@@ -1,0 +1,130 @@
+[
+  {
+    "payoff_id": "martin_raugh_2020_fundraiser",
+    "observation_id": "SRU0108",
+    "status": "excluded_pending_complete_numerical_inputs",
+    "exclusion_reason": "Excluded pending complete paired numerical payoff schedules and reservation/acceptance evidence. Matching final selections establish a complete proposal, not that every proposal is acceptable. Figure 1 awards zero on timeout and allows negative points; the all-complete-offers proof cannot identify the bargaining zone.",
+    "exclusion_evidence": "Martin-Raugh et al. (2020), section 2.3 and Figure 1, printed/PDF pp. 4-5; Appendices A-B, pp. 8-9; DOI 10.1016/j.chb.2019.03.030; PDF SHA-256 2fd674846794379b8765030104d0a790e28b9f60a70b3cf1fcb74c28f1bec1b4. Preregistered numerical payoff/reservation-input requirement: https://osf.io/wtgxc/.",
+    "original_payoff_record": {
+      "payoff_id": "martin_raugh_2020_fundraiser",
+      "negotiation_exercise": "Fundraiser",
+      "payoff_source": "Martin-Raugh et al. (2020), appendix task structure",
+      "reservation_values_or_rule": "No binding minimum; the platform requires a complete matching agreement.",
+      "components": [],
+      "raw_payoff_status": "Exact source-supported structural proof; full numerical role tables not supplied",
+      "needed_piece": "The complete option-level schedules for both administered roles are not supplied. Table 1 shows generic issue-type examples; Appendices A and B show one role per task and per-issue extrema. Those are not a full six-issue matrix.",
+      "structural_proof": {
+        "kind": "All listed complete offers are allowed; no walk-away option",
+        "source_table_locator": "Martin-Raugh et al. (2020), section 2.3, PDF p. 5; issue types/counts on PDF p. 4",
+        "evidence": "The platform required matching selections on every issue for points to be awarded, and the source explicitly states that participants could not complete the task without agreement or walk away from a deal.",
+        "number_of_issues": 6,
+        "options_per_issue": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "number_of_parties": 2,
+        "compatible_issues": 2,
+        "reservation_interpretation": "There is no binding minimum-score acceptance filter. No numerical reservation value is assigned, and negative possible scores do not create rejected packages under this implemented rule."
+      }
+    },
+    "withdrawn_acceptability_proof": {
+      "payoff_id": "martin_raugh_2020_fundraiser",
+      "kind": "all_complete_offers_allowed",
+      "source": "Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",
+      "explanation": "The platform requires both participants to choose matching options for all six issues and explicitly offers no possibility of walking away. No numerical threshold filters complete agreements. The coded operative rule permits every complete package.",
+      "source_verified_controls": {
+        "issues": 6,
+        "parties": 2,
+        "compatible": 2
+      },
+      "controls_source": "Martin-Raugh et al. (2020), section 2.1, printed/PDF p. 3: dyads; section 2.3, printed/PDF p. 4: each task has six issues, two compatible, two integrative and two distributive.",
+      "source_pdf_sha256": "2fd674846794379b8765030104d0a790e28b9f60a70b3cf1fcb74c28f1bec1b4"
+    },
+    "withdrawn_structural_scores": {
+      "payoff_id": "martin_raugh_2020_fundraiser",
+      "bargaining_zone_share": "1.0",
+      "search_complexity": "0.0"
+    },
+    "structure_record_before_exclusion": {
+      "payoff_id": "martin_raugh_2020_fundraiser",
+      "negotiation_exercise": "Fundraiser",
+      "number_of_issues": "6.0",
+      "number_of_parties": "2.0",
+      "number_of_compatible_issues": "2.0",
+      "automated_counterpart": "0.0",
+      "non_unanimous_rule": "0.0",
+      "main_eligible": "True",
+      "reservation_values_or_rule": "No binding minimum; the platform requires a complete matching agreement.",
+      "payoff_source": "Martin-Raugh et al. (2020), appendix task structure"
+    },
+    "source_outcome_ledger": "data/sources/study_outcomes.csv; original observed outcomes retained without reinterpretation"
+  },
+  {
+    "payoff_id": "martin_raugh_2020_robot",
+    "observation_id": "SRU0108",
+    "status": "excluded_pending_complete_numerical_inputs",
+    "exclusion_reason": "Excluded pending complete paired numerical payoff schedules and reservation/acceptance evidence. Matching final selections establish a complete proposal, not that every proposal is acceptable. Figure 1 awards zero on timeout and allows negative points; the all-complete-offers proof cannot identify the bargaining zone.",
+    "exclusion_evidence": "Martin-Raugh et al. (2020), section 2.3 and Figure 1, printed/PDF pp. 4-5; Appendices A-B, pp. 8-9; DOI 10.1016/j.chb.2019.03.030; PDF SHA-256 2fd674846794379b8765030104d0a790e28b9f60a70b3cf1fcb74c28f1bec1b4. Preregistered numerical payoff/reservation-input requirement: https://osf.io/wtgxc/.",
+    "original_payoff_record": {
+      "payoff_id": "martin_raugh_2020_robot",
+      "negotiation_exercise": "Robot",
+      "payoff_source": "Martin-Raugh et al. (2020), appendix task structure",
+      "reservation_values_or_rule": "No binding minimum; the platform requires a complete matching agreement.",
+      "components": [],
+      "raw_payoff_status": "Exact source-supported structural proof; full numerical role tables not supplied",
+      "needed_piece": "The complete option-level schedules for both administered roles are not supplied. Table 1 shows generic issue-type examples; Appendices A and B show one role per task and per-issue extrema. Those are not a full six-issue matrix.",
+      "structural_proof": {
+        "kind": "All listed complete offers are allowed; no walk-away option",
+        "source_table_locator": "Martin-Raugh et al. (2020), section 2.3, PDF p. 5; issue types/counts on PDF p. 4",
+        "evidence": "The platform required matching selections on every issue for points to be awarded, and the source explicitly states that participants could not complete the task without agreement or walk away from a deal.",
+        "number_of_issues": 6,
+        "options_per_issue": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "number_of_parties": 2,
+        "compatible_issues": 2,
+        "reservation_interpretation": "There is no binding minimum-score acceptance filter. No numerical reservation value is assigned, and negative possible scores do not create rejected packages under this implemented rule."
+      }
+    },
+    "withdrawn_acceptability_proof": {
+      "payoff_id": "martin_raugh_2020_robot",
+      "kind": "all_complete_offers_allowed",
+      "source": "Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",
+      "explanation": "The platform requires both participants to choose matching options for all six issues and explicitly offers no possibility of walking away. No numerical threshold filters complete agreements. The coded operative rule permits every complete package.",
+      "source_verified_controls": {
+        "issues": 6,
+        "parties": 2,
+        "compatible": 2
+      },
+      "controls_source": "Martin-Raugh et al. (2020), section 2.1, printed/PDF p. 3: dyads; section 2.3, printed/PDF p. 4: each task has six issues, two compatible, two integrative and two distributive.",
+      "source_pdf_sha256": "2fd674846794379b8765030104d0a790e28b9f60a70b3cf1fcb74c28f1bec1b4"
+    },
+    "withdrawn_structural_scores": {
+      "payoff_id": "martin_raugh_2020_robot",
+      "bargaining_zone_share": "1.0",
+      "search_complexity": "0.0"
+    },
+    "structure_record_before_exclusion": {
+      "payoff_id": "martin_raugh_2020_robot",
+      "negotiation_exercise": "Robot",
+      "number_of_issues": "6.0",
+      "number_of_parties": "2.0",
+      "number_of_compatible_issues": "2.0",
+      "automated_counterpart": "0.0",
+      "non_unanimous_rule": "0.0",
+      "main_eligible": "True",
+      "reservation_values_or_rule": "No binding minimum; the platform requires a complete matching agreement.",
+      "payoff_source": "Martin-Raugh et al. (2020), appendix task structure"
+    },
+    "source_outcome_ledger": "data/sources/study_outcomes.csv; original observed outcomes retained without reinterpretation"
+  }
+]

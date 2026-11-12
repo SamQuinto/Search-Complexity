@@ -25,7 +25,7 @@ patent_license_r0_r0,0.0,1.0,Option-level payoff catalogue,Acar-Burkay et al. (2
 specialty_bulbs,0.0,1.0,Option-level payoff catalogue,"Elfenbein et al. (2007), appendix payoff schedules",True,
 sweet_shops_r4000_r4000,0.0,0.8021164021164021,Option-level payoff catalogue,Sweet Shops instructor materials,True,
 sweet_shops_r8000_r8000,0.3577601410934744,0.06728395061728396,Option-level payoff catalogue,Sweet Shops instructor materials,True,
-player7_kern,0.0,0.8505015432098766,Option-level payoff catalogue,"Kern (2005), appendixed payoff schedules",True,
+player7_kern,0.0,0.7805555555555556,Option-level payoff catalogue,"Kern (2005), Appendix A, printed pp.95 and98 (PDF pp.105 and108); role-specific payoffs aligned by named option",True,
 ma_appliance,0.17832647462277096,0.08641975308641975,Option-level payoff catalogue,"Ma (2005), role payoff tables",True,
 appliance_shipment_r4_r4,0.0,0.7311385459533608,Option-level payoff catalogue,Brooks and Schweitzer (2011) study materials and DRRC teaching scenario,True,
 mediation_unequal,0.0,0.8576,Option-level payoff catalogue,"Arunachalam, Lytle, and Wall (2001), Appendix",True,
@@ -37,8 +37,6 @@ northcraft_1998_employment_increasing_r0_r0,0.0,1.0,Source-based acceptability p
 murnighan_1999_development_pooled,0.0,1.0,Option-level payoff catalogue,"Murnighan et al. (1999), Table 2 and Experiment 2",True,
 mumpower_2004_two_issue_versions_pooled,0.0,1.0,Option-level payoff catalogue,"Mumpower et al. (2004), Table 3",True,
 zhang_mental_accounting_power_plant_two_versions_pooled,0.0,1.0,Option-level payoff catalogue,"Zhang et al., Mental Accounting preprint, Appendix Table 2 and public OSF files",True,
-martin_raugh_2020_fundraiser,0.0,1.0,Source-based acceptability proof,"Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",True,
-martin_raugh_2020_robot,0.0,1.0,Source-based acceptability proof,"Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",True,
 sale_cafe_buyer_cap_1550,1.0,0.0,Reconstructed programmed acceptance rule,"Petrowsky et al. (2025), Study 2b, implemented buyer role, Exp2b.sav and source syntax. https://doi.org/10.1016/j.obhdp.2025.104448; https://osf.io/b4r36/",True,9261.0
 sale_cafe_buyer_cap_3500,1.0,0.0,Reconstructed programmed acceptance rule,"Petrowsky et al. (2025), Study 2b, implemented buyer role, Exp2b.sav and source syntax. https://doi.org/10.1016/j.obhdp.2025.104448; https://osf.io/b4r36/",True,9261.0
 sale_cafe_buyer_cap_5450,1.0,0.0,Reconstructed programmed acceptance rule,"Petrowsky et al. (2025), Study 2b, implemented buyer role, Exp2b.sav and source syntax. https://doi.org/10.1016/j.obhdp.2025.104448; https://osf.io/b4r36/",True,9261.0

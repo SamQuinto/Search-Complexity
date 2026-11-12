@@ -11,7 +11,14 @@
       0
     ],
     "source": "Northcraft et al. (1998), Tables 1–2 and Methods, printed pp. 66–67. https://doi.org/10.1006/obhd.1998.2750",
-    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds."
+    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds.",
+    "source_verified_controls": {
+      "issues": 6,
+      "parties": 2,
+      "compatible": 1
+    },
+    "controls_source": "Northcraft et al. (1998), Experimental Materials, printed p. 66 / PDF p. 13: Applicant and Recruiter negotiate six five-option issues: four integrative, one distributive, one congruent.",
+    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86"
   },
   {
     "payoff_id": "northcraft_1998_employment_linear_r0_r0",
@@ -25,7 +32,14 @@
       0
     ],
     "source": "Northcraft et al. (1998), Tables 1–2 and Methods, printed pp. 66–67. https://doi.org/10.1006/obhd.1998.2750",
-    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds."
+    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds.",
+    "source_verified_controls": {
+      "issues": 6,
+      "parties": 2,
+      "compatible": 1
+    },
+    "controls_source": "Northcraft et al. (1998), Experimental Materials, printed p. 66 / PDF p. 13: Applicant and Recruiter negotiate six five-option issues: four integrative, one distributive, one congruent.",
+    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86"
   },
   {
     "payoff_id": "northcraft_1998_employment_increasing_r0_r0",
@@ -39,7 +53,14 @@
       0
     ],
     "source": "Northcraft et al. (1998), Tables 1–2 and Methods, printed pp. 66–67. https://doi.org/10.1006/obhd.1998.2750",
-    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds."
+    "explanation": "Every issue has nonnegative payoffs. The unprinted scaled issues also have nonnegative endpoints and the stated positive preference function. The instructions explicitly give zero for impasse. Therefore every complete offer meets both thresholds.",
+    "source_verified_controls": {
+      "issues": 6,
+      "parties": 2,
+      "compatible": 1
+    },
+    "controls_source": "Northcraft et al. (1998), Experimental Materials, printed p. 66 / PDF p. 13: Applicant and Recruiter negotiate six five-option issues: four integrative, one distributive, one congruent.",
+    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86"
   },
   {
     "payoff_id": "murnighan_1999_development_pooled",
@@ -82,17 +103,5 @@
     ],
     "source": "Zhang et al. (2022), Power Plant numerical role materials, corresponding to the study records retained in Warsitzka et al. (2024). https://osf.io/56a8h/",
     "explanation": "Both complete eight-issue point schedules have nonnegative outcomes and stated zero-point disagreement outcomes. Their allocation cannot change either measure."
-  },
-  {
-    "payoff_id": "martin_raugh_2020_fundraiser",
-    "kind": "all_complete_offers_allowed",
-    "source": "Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",
-    "explanation": "The platform requires both participants to choose matching options for all six issues and explicitly offers no possibility of walking away. No numerical threshold filters complete agreements. The coded operative rule permits every complete package."
-  },
-  {
-    "payoff_id": "martin_raugh_2020_robot",
-    "kind": "all_complete_offers_allowed",
-    "source": "Martin-Raugh et al. (2020), Negotiation tasks, printed pp. 3–5. https://doi.org/10.1016/j.chb.2019.03.030",
-    "explanation": "The platform requires both participants to choose matching options for all six issues and explicitly offers no possibility of walking away. No numerical threshold filters complete agreements. The coded operative rule permits every complete package."
   }
 ]

@@ -105,6 +105,9 @@ def input_records(root):
     schedules = {r['payoff_id']: r for r in
                  [read_json(path) for path in sorted((root / 'data/payoff_schedules').glob('*.json'))]}
     structures = pd.read_csv(root / 'data/sources/structure_inputs.csv').set_index('payoff_id')
+    active_ids = {entry['payoff_id'] for entry in catalog}
+    if len(active_ids) != len(catalog) or active_ids != set(structures.index[structures.main_eligible.eq(True)]):
+        raise ValueError('The active payoff catalogue must match the eligible structures; excluded source records stay in the inventory.')
     approval = pd.read_csv(root / 'data/approval_rules.csv').fillna('').set_index('payoff_id')
     allocation = pd.read_csv(root / 'data/within_payoff_weights.csv').astype(object)
     allocation = allocation.where(allocation.notna(), None)
@@ -135,18 +138,13 @@ def input_records(root):
             if coded['number_of_parties'] != 2 or approval.loc[payoff_id, 'non_unanimous_share'] != 0:
                 raise ValueError(f'{payoff_id}: encode its approval rule explicitly.')
             value['required_approvals'] = 2
-        if entry.get('components') and all(p['reservation_values'] is not None for p in entry['components']):
-            counts = [table_controls([np.asarray([o['payoffs'] for o in i['options']])
-                                     for i in p['schedule']['issues']], len(p['schedule']['parties']))[
-                                         'number_of_compatible_issues'] for p in entry['components']]
-            if all(n == counts[0] for n in counts) and counts[0] != coded['number_of_compatible_issues']:
-                value['input_issues'] = ['compatibility_source_check_required']
         if value['coverage'] == 'proof_only':
-            value['input_issues'] = ['complete_numerical_schedule_missing', 'compatibility_not_recomputable']
+            value['input_issues'] = ['complete_numerical_schedule_missing']
         if payoff_id == 'kray2004_player_two_power_orders_pooled':
             value['calculation_settings'] = {'starting_offer_draws': 65536, 'seed': 20260827,
                                              'method': 'Sampled starts; all permitted two-party path changes'}
         value['catalog'] = pack_catalog(entry)
+        validate_controls(record_controls(value), value['source_coding'], payoff_id)
         records[payoff_id] = value
     return records
 
@@ -161,6 +159,12 @@ def attach_payoff_info(frame, root, components):
         counts = rows.negotiations.to_numpy(float) if complete else np.ones(len(rows))
         weights = counts / counts.sum()
         ids = list(dict.fromkeys(rows.payoff_id))
+        for name in MEASURES[2:]:
+            expected = float(np.dot(weights, [records[i]['source_coding'][name] for i in rows.payoff_id]))
+            for observation in frame.loc[frame.observation_id.eq(study_id)].itertuples(index=False):
+                actual = float(getattr(observation, name))
+                if not np.isclose(actual, expected, atol=1e-12, rtol=0):
+                    raise ValueError(f'{study_id}: {name} differs from verified payoff/source controls; rebuild the coded data.')
         payload = {'schema_version': 1,
                    'coverage': 'numerical' if all(records[i]['coverage'] == 'numerical' for i in ids) else 'includes_proof_only',
                    'weighting': 'negotiation_counts' if complete else 'equal_documented_components',
@@ -181,6 +185,48 @@ def table_controls(issues, parties):
     compatible = sum(np.all(issue == issue.max(axis=0), axis=1).any() for issue in issues)
     return {'number_of_issues': len(issues), 'number_of_parties': parties,
             'number_of_compatible_issues': int(compatible)}
+
+
+def validate_controls(actual, coded, payoff_id):
+    for name in MEASURES[2:]:
+        if actual.get(name) is None or not np.isclose(actual[name], coded[name], atol=1e-12, rtol=0):
+            raise ValueError(f'{payoff_id}: {name} from payoff/source evidence ({actual.get(name)}) '
+                             f'disagrees with source coding ({coded[name]}). Check physical option alignment and source evidence.')
+
+
+def reported_controls(proof):
+    counts = proof.get('source_verified_controls', {})
+    keys = ['issues', 'parties', 'compatible']
+    if set(counts) != set(keys) or not proof.get('controls_source'):
+        raise ValueError('A proof-only input needs directly reported controls and exact source pages.')
+    if any(type(counts[k]) is not int or counts[k] < 0 for k in keys):
+        raise ValueError('Reported control counts must be nonnegative integers.')
+    if counts['issues'] < 2 or counts['parties'] < 2 or counts['compatible'] > counts['issues']:
+        raise ValueError('Invalid directly reported control counts.')
+    return dict(zip(MEASURES[2:], [counts[k] for k in keys]))
+
+
+def record_controls(record):
+    """Validate tables/formulas or directly reported proof controls cheaply."""
+    entry = unpack_catalog(record['catalog'])
+    if record['coverage'] == 'proof_only':
+        return reported_controls(record['proof'])
+    model = entry.get('payoff_function_input')
+    if model is not None:
+        if fingerprint(model) != FUNCTION_CONTRACTS.get(entry['payoff_id']):
+            raise ValueError(f"{entry['payoff_id']}: changed/unsupported source function.")
+        return function_controls(model, record)
+    rows = [table_controls([np.asarray([o['payoffs'] for o in issue['options']])
+                            for issue in part['schedule']['issues']], len(part['schedule']['parties']))
+            for part in entry['components']]
+    weights = [part.get('aggregation_weight') for part in entry['components']]
+    if any(w is None for w in weights):
+        if not all(np.ptp([row[name] for row in rows]) <= 1e-12 for name in MEASURES[2:]):
+            raise ValueError('Unknown allocation changes a requested control.')
+        weights = np.ones(len(rows)) / len(rows)
+    if not np.isclose(sum(weights), 1, atol=1e-12, rtol=0) or any(w < 0 for w in weights):
+        raise ValueError('Within-payoff weights must sum to one.')
+    return {name: float(np.dot(weights, [r[name] for r in rows])) for name in MEASURES[2:]}
 
 
 def table_parts(entry, settings=None):
@@ -318,9 +364,8 @@ def calculate_record(serialized):
     warnings = [entry['needed_piece']] if entry.get('needed_piece') else []
     if record['coverage'] == 'proof_only':
         values = metrics_from_source_proof(record['proof'])
-        values.update({name: record['source_coding'][name] for name in MEASURES[2:4]})
-        values['number_of_compatible_issues'] = None
-        basis = 'Issue/party counts from cited source coding; no complete numerical table for compatibility.'
+        values.update(reported_controls(record['proof']))
+        basis = 'Directly reported source controls; complete numerical schedules unavailable. ' + record['proof']['controls_source']
     elif entry.get('payoff_function_input') or payoff_id == 'kong_2011_disciplinary_bounded_rv_grid':
         values = function_metrics(entry, record)
         basis = 'Logical issues in the documented formula; optional Juniors inclusion is the common-benefit direction in Cartoon/Moms.com.'
@@ -331,9 +376,7 @@ def calculate_record(serialized):
         values = table_parts(entry, record.get('calculation_settings'))
         basis = 'Shared best choice in the supplied additive-utility table; all parties maximize the encoded payoff.'
     coded = record['source_coding']['number_of_compatible_issues']
-    computed = values['number_of_compatible_issues']
-    if computed is not None and not np.isclose(computed, coded, atol=1e-12, rtol=0):
-        warnings.append(f'Compatibility discrepancy: encoded payoff model gives {computed:g}; source coding gives {coded:g}. Check the original role option alignment, value/cost direction and source version; neither value is silently corrected.')
+    validate_controls(values, record['source_coding'], payoff_id)
     return {**{name: values[name] for name in MEASURES},
             'coded_number_of_compatible_issues': coded,
             'control_basis': basis, 'warnings': warnings}
@@ -394,7 +437,7 @@ def main():
         print(json.dumps({'observations': len(rows), 'matching_released_values': matches,
                           'discrepancies': mismatches,
                           'unavailable_from_complete_payoffs': unavailable}, indent=2))
-        if any(r['measure'] != 'number_of_compatible_issues' for r in mismatches + unavailable):
+        if mismatches or unavailable:
             raise SystemExit(1)
 
 

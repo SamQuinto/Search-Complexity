@@ -51,13 +51,14 @@ def replay_acceptance_inputs(source_dir):
 
 def metrics_from_source_proof(proof):
     """Calculate from a supplied source proof, without needing a file path."""
-    if proof['kind'] == 'all_payoffs_meet_reservations':
-        lower = np.asarray(proof['lower_payoff_bounds'], dtype=float)
-        reservations = np.asarray(proof['reservation_values'], dtype=float)
-        if lower.shape != reservations.shape or not np.all(lower >= reservations):
-            raise ValueError('The documented bounds do not prove acceptability for every party')
-    elif proof['kind'] != 'all_complete_offers_allowed':
-        raise ValueError('Unknown source-proof rule')
+    if proof.get('kind') != 'all_payoffs_meet_reservations':
+        raise ValueError('Numerical lower bounds and reservation values are required; formal offer legality is not an acceptability proof')
+    lower = np.asarray(proof['lower_payoff_bounds'], dtype=float)
+    reservations = np.asarray(proof['reservation_values'], dtype=float)
+    if (lower.ndim != 1 or len(lower) < 2 or lower.shape != reservations.shape
+            or not np.isfinite(lower).all() or not np.isfinite(reservations).all()
+            or not np.all(lower >= reservations) or not proof.get('source')):
+        raise ValueError('The documented bounds do not prove acceptability for every party')
     return {'bargaining_zone_share': 1.0, 'search_complexity': 0.0}
 
 

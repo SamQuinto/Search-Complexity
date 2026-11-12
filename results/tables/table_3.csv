@@ -1,15 +1,15 @@
 Check,Data,N,Search-complexity coefficient or 95% interval,p value or omission count,R²,R² difference or 95% interval
-Strict inclusion,Strict,126,−.130,p < .001,.519,".330
-[.097, .431]"
-"5,000 observation resamples",Main,141,"[−.154, −.053]",—,—,"[.025, .361]"
-"5,000 observation resamples",Strict,126,"[−.181, −.069]",—,—,"[.097, .431]"
-Single-observation omissions,Main,141,"[−.114, −.093]",141/141 p < .05,—,"[.152, .241]"
-Single-observation omissions,Strict,126,"[−.133, −.113]",126/126 p < .05,—,"[.292, .358]"
-Negotiation-count weights (Model 6),Main,140,−.102,p < .001,.812,—
-Weighted observation resamples,Main,140,"[−.157, −.052]",—,—,—
-Negotiation-count weights (Model 6),Strict,125,−.112,p < .001,.483,—
-Weighted observation resamples,Strict,125,"[−.175, −.055]",—,—,—
-Weighted omissions,Main,140,"[−.122, −.087]",140/140 p < .05,—,—
-Weighted omissions,Strict,125,"[−.135, −.097]",125/125 p < .05,—,—
-Mean outcome for identical payoffs,Combined payoffs,103,−.149,p = .005,.659,.181
-Mean outcome for identical payoffs,Strict combined payoffs,87,−.169,p < .001,.586,.358
+Strict inclusion,Strict,125,−.133,p < .001,.527,".332
+[.089, .435]"
+"5,000 observation resamples",Main,140,"[−.158, −.056]",—,—,"[.027, .359]"
+"5,000 observation resamples",Strict,125,"[−.182, −.072]",—,—,"[.089, .435]"
+Single-observation omissions,Main,140,"[−.117, −.095]",140/140 p < .05,—,"[.152, .242]"
+Single-observation omissions,Strict,125,"[−.137, −.116]",125/125 p < .05,—,"[.294, .360]"
+Negotiation-count weights (Model 6),Main,139,−.103,p < .001,.814,—
+Weighted observation resamples,Main,139,"[−.160, −.053]",—,—,—
+Negotiation-count weights (Model 6),Strict,124,−.114,p < .001,.488,—
+Weighted observation resamples,Strict,124,"[−.181, −.056]",—,—,—
+Weighted omissions,Main,139,"[−.124, −.089]",139/139 p < .05,—,—
+Weighted omissions,Strict,124,"[−.137, −.098]",124/124 p < .05,—,—
+Mean outcome for identical payoffs,Combined payoffs,101,−.151,p = .005,.657,.183
+Mean outcome for identical payoffs,Strict combined payoffs,85,−.171,p < .001,.584,.361

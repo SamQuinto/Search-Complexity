@@ -103,6 +103,8 @@ def build_data(root, output_dir):
     outcomes = pd.read_csv(source / 'study_outcomes.csv').rename(
         columns={'structure_id': 'payoff_id', 'negotiation_scenario': 'negotiation_exercise'})
     structures = pd.read_csv(source / 'structure_inputs.csv').rename(columns={'observation_id': 'payoff_id'})
+    from .payoff_info import input_records
+    input_records(root)  # Stop before rebuilding if payoff/source controls disagree.
     scores = pd.read_csv(source / 'structural_scores.csv').rename(columns={'observation_id': 'payoff_id'})
     decisions = pd.read_csv(root / 'data/component_decisions.csv', keep_default_na=False)
     from .payoff_metrics import (calculate_payoff_file, replay_acceptance_inputs,
@@ -181,15 +183,20 @@ def build_data(root, output_dir):
             set(decisions.component_id) == set(outcomes.component_id),
             'Every outcome needs one explicit inclusion decision')
 
+    structures = structures.loc[structures.main_eligible.eq(True)].copy()
+    require(set(structures.payoff_id) == set(scores.payoff_id),
+            'Active structures and structural scores do not match')
     structures = structures.merge(scores, on='payoff_id', validate='one_to_one')
     columns = ['payoff_id', *PREDICTORS, 'main_eligible', 'payoff_source',
                'reservation_values_or_rule']
-    components = outcomes.merge(structures[columns], on='payoff_id', how='left', validate='many_to_one')
-    components = components.merge(
+    # Keep every outcome in the source ledger, but require active payoff inputs
+    # only for components explicitly included by the coding decision.
+    components = outcomes.merge(
         decisions[['component_id', 'main_included', 'participant_sample_identified',
                    'strict_included', 'strict_reason', 'strict_evidence']],
         on='component_id', validate='one_to_one')
     components = components.loc[components.main_included.eq('Y')].copy()
+    components = components.merge(structures[columns], on='payoff_id', how='left', validate='many_to_one')
     metric_records = list({record['payoff_id']: record for record in metric_records}.values())
     replayed = {record['payoff_id'] for record in metric_records}
     for payoff_id in components.payoff_id.unique():
@@ -339,6 +346,9 @@ def prepare_analysis_data(root, output_dir):
     root, output_dir = Path(root), Path(output_dir)
     released = pd.read_csv(root / 'data/regression_data.csv', float_precision='round_trip')
     components = pd.read_csv(root / 'data/derived/component_evidence.csv')
+    decisions = pd.read_csv(root / 'data/component_decisions.csv', keep_default_na=False)
+    require(set(components.component_id) == set(decisions.loc[decisions.main_included.eq('Y'), 'component_id']),
+            'Derived evidence does not match active inclusion decisions; rebuild from the coded sources.')
     require(released.observation_id.is_unique, 'The main dataset has repeated observation IDs.')
     require(components.component_id.is_unique, 'The condition records have repeated IDs.')
     require(components.strict_included.isin([True, False]).all(), 'A strict-inclusion decision is missing.')

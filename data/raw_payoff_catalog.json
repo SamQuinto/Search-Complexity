@@ -14182,7 +14182,7 @@
   {
     "payoff_id": "player7_kern",
     "negotiation_exercise": "The Player",
-    "payoff_source": "Kern (2005), appendixed payoff schedules",
+    "payoff_source": "Kern (2005), Appendix A, printed pp.95 and98 (PDF pp.105 and108); role-specific payoffs aligned by named option",
     "reservation_values_or_rule": "Party thresholds: 3000 and 3000.",
     "components": [
       {
@@ -14190,258 +14190,258 @@
         "schedule": {
           "kind": "additive_discrete",
           "parties": [
-            "party_1",
-            "party_2"
+            "Director",
+            "Producer"
           ],
           "issues": [
             {
-              "name": "1",
+              "name": "Male Lead",
               "options": [
                 {
-                  "option": "1",
+                  "option": "Tom Cruise",
                   "payoffs": [
-                    2200.0,
-                    1250.0
+                    2200,
+                    100
                   ]
                 },
                 {
-                  "option": "2",
+                  "option": "Denzel Washington",
                   "payoffs": [
-                    1100.0,
-                    800.0
+                    1100,
+                    500
                   ]
                 },
                 {
-                  "option": "3",
+                  "option": "Harrison Ford",
                   "payoffs": [
-                    600.0,
-                    500.0
+                    600,
+                    800
                   ]
                 },
                 {
-                  "option": "4",
+                  "option": "Bruce Willis",
                   "payoffs": [
-                    400.0,
-                    100.0
+                    400,
+                    1250
                   ]
                 }
               ]
             },
             {
-              "name": "2",
+              "name": "Post-production Schedule",
               "options": [
                 {
-                  "option": "1",
+                  "option": "12 months",
                   "payoffs": [
-                    2000.0,
-                    400.0
+                    2000,
+                    0
                   ]
                 },
                 {
-                  "option": "2",
+                  "option": "6 months",
                   "payoffs": [
-                    1000.0,
-                    300.0
+                    1000,
+                    100
                   ]
                 },
                 {
-                  "option": "3",
+                  "option": "4 months",
                   "payoffs": [
-                    500.0,
-                    200.0
+                    500,
+                    150
                   ]
                 },
                 {
-                  "option": "4",
+                  "option": "3 months",
                   "payoffs": [
-                    200.0,
-                    150.0
+                    200,
+                    200
                   ]
                 },
                 {
-                  "option": "5",
+                  "option": "2 months",
                   "payoffs": [
-                    100.0,
-                    100.0
+                    100,
+                    300
                   ]
                 },
                 {
-                  "option": "6",
+                  "option": "1 month",
                   "payoffs": [
-                    0.0,
-                    0.0
+                    0,
+                    400
                   ]
                 }
               ]
             },
             {
-              "name": "3",
+              "name": "Director's Salary",
               "options": [
                 {
-                  "option": "1",
+                  "option": "$500,000",
                   "payoffs": [
-                    1600.0,
-                    1600.0
+                    1600,
+                    0
                   ]
                 },
                 {
-                  "option": "2",
+                  "option": "$450,000",
                   "payoffs": [
-                    1200.0,
-                    1200.0
+                    1200,
+                    400
                   ]
                 },
                 {
-                  "option": "3",
+                  "option": "$400,000",
                   "payoffs": [
-                    800.0,
-                    800.0
+                    800,
+                    800
                   ]
                 },
                 {
-                  "option": "4",
+                  "option": "$350,000",
                   "payoffs": [
-                    400.0,
-                    400.0
+                    400,
+                    1200
                   ]
                 },
                 {
-                  "option": "5",
+                  "option": "$300,000",
                   "payoffs": [
-                    0.0,
-                    0.0
+                    0,
+                    1600
                   ]
                 }
               ]
             },
             {
-              "name": "4",
+              "name": "Location",
               "options": [
                 {
-                  "option": "1",
+                  "option": "3 exotic locations",
                   "payoffs": [
-                    1000.0,
-                    2100.0
+                    1000,
+                    300
                   ]
                 },
                 {
-                  "option": "2",
+                  "option": "2 exotic locations",
                   "payoffs": [
-                    700.0,
-                    1100.0
+                    700,
+                    500
                   ]
                 },
                 {
-                  "option": "3",
+                  "option": "1 exotic location",
                   "payoffs": [
-                    400.0,
-                    500.0
+                    400,
+                    1100
                   ]
                 },
                 {
-                  "option": "4",
+                  "option": "Hollywood sets",
                   "payoffs": [
-                    100.0,
-                    300.0
+                    100,
+                    2100
                   ]
                 }
               ]
             },
             {
-              "name": "5",
+              "name": "Female Lead",
               "options": [
                 {
-                  "option": "1",
+                  "option": "Jennifer Lopez",
                   "payoffs": [
-                    850.0,
-                    850.0
+                    850,
+                    750
                   ]
                 },
                 {
-                  "option": "2",
+                  "option": "Cameron Diaz",
                   "payoffs": [
-                    800.0,
-                    800.0
+                    800,
+                    800
                   ]
                 },
                 {
-                  "option": "3",
+                  "option": "Julia Roberts",
                   "payoffs": [
-                    750.0,
-                    750.0
+                    750,
+                    850
                   ]
                 }
               ]
             },
             {
-              "name": "6",
+              "name": "Production Assistant",
               "options": [
                 {
-                  "option": "1",
+                  "option": "Sandra Neal",
                   "payoffs": [
-                    600.0,
-                    450.0
+                    600,
+                    450
                   ]
                 },
                 {
-                  "option": "2",
+                  "option": "Anita Kurilla",
                   "payoffs": [
-                    400.0,
-                    350.0
+                    400,
+                    300
                   ]
                 },
                 {
-                  "option": "3",
+                  "option": "Rebecca Flint",
                   "payoffs": [
-                    200.0,
-                    300.0
+                    200,
+                    350
                   ]
                 }
               ]
             },
             {
-              "name": "7",
+              "name": "Pre-production Budget",
               "options": [
                 {
-                  "option": "1",
+                  "option": "$500,000",
                   "payoffs": [
-                    400.0,
-                    2000.0
+                    400,
+                    0
                   ]
                 },
                 {
-                  "option": "2",
+                  "option": "$400,000",
                   "payoffs": [
-                    300.0,
-                    1000.0
+                    300,
+                    100
                   ]
                 },
                 {
-                  "option": "3",
+                  "option": "$375,000",
                   "payoffs": [
-                    200.0,
-                    500.0
+                    200,
+                    200
                   ]
                 },
                 {
-                  "option": "4",
+                  "option": "$350,000",
                   "payoffs": [
-                    150.0,
-                    200.0
+                    150,
+                    500
                   ]
                 },
                 {
-                  "option": "5",
+                  "option": "$300,000",
                   "payoffs": [
-                    100.0,
-                    100.0
+                    100,
+                    1000
                   ]
                 },
                 {
-                  "option": "6",
+                  "option": "$250,000",
                   "payoffs": [
-                    0.0,
-                    0.0
+                    0,
+                    2000
                   ]
                 }
               ]
@@ -14452,8 +14452,8 @@
           3000,
           3000
         ],
-        "source_table_locator": "minimal_analysis_database.csv, payoff_schedule_json",
-        "note": "",
+        "source_table_locator": "Kern (2005), Appendix A: director printed p.95/PDF p.105; producer printed p.98/PDF p.108. Role reservation values printed pp.93 and97/PDF pp.103 and107.",
+        "note": "Payoffs are aligned by the same named option across roles. Both sheets sort options by personal preference, so row positions differ. Production Assistant is the sole compatible issue; salary, female lead, and the other issues oppose roles. All numerical scores are transcribed unchanged from the printed role sheets.",
         "reservation_evidence": "Party thresholds: 3000 and 3000.",
         "required_approvals": 2,
         "mandatory_parties": [],
@@ -14463,7 +14463,16 @@
       }
     ],
     "raw_payoff_status": "Numerical issue table recovered",
-    "needed_piece": ""
+    "needed_piece": "",
+    "source_audit": {
+      "source_pdf": "Kern (2005) - The illusion of transparency in negotiation",
+      "source_pages": [
+        105,
+        108
+      ],
+      "correction_date": "2026-11-12",
+      "correction": "Align option labels across the director and producer sheets. The earlier transcription paired independently sorted preference rows."
+    }
   },
   {
     "payoff_id": "mediation_unequal",
@@ -16834,32 +16843,6 @@
     ],
     "raw_payoff_status": "Numerical issue table recovered",
     "needed_piece": ""
-  },
-  {
-    "payoff_id": "martin_raugh_2020_fundraiser",
-    "negotiation_exercise": "Fundraiser",
-    "payoff_source": "Martin-Raugh et al. (2020), appendix task structure",
-    "reservation_values_or_rule": "No binding minimum; the platform requires a complete matching agreement.",
-    "components": [],
-    "raw_payoff_status": "Exact source-supported structural proof; full numerical role tables not supplied",
-    "needed_piece": "The complete option-level schedules for both administered roles are not supplied. Table 1 shows generic issue-type examples; Appendices A and B show one role per task and per-issue extrema. Those are not a full six-issue matrix.",
-    "structural_proof": {
-      "kind": "All listed complete offers are allowed; no walk-away option",
-      "source_table_locator": "Martin-Raugh et al. (2020), section 2.3, PDF p. 5; issue types/counts on PDF p. 4",
-      "evidence": "The platform required matching selections on every issue for points to be awarded, and the source explicitly states that participants could not complete the task without agreement or walk away from a deal.",
-      "number_of_issues": 6,
-      "options_per_issue": [
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-      ],
-      "number_of_parties": 2,
-      "compatible_issues": 2,
-      "reservation_interpretation": "There is no binding minimum-score acceptance filter. No numerical reservation value is assigned, and negative possible scores do not create rejected packages under this implemented rule."
-    }
   },
   {
     "payoff_id": "hong_kong_equal_low",
@@ -20273,78 +20256,78 @@
     "payoff_id": "murnighan_1999_development_pooled",
     "negotiation_exercise": "Real Estate Development",
     "payoff_source": "Murnighan et al. (1999), Table 2 and Experiment 2",
-    "reservation_values_or_rule": "The paper reports one agreement count across two fully known 48-dyad payoff versions; their metrics are averaged with equal weights and the row is removed from the strict dataset.",
+    "reservation_values_or_rule": "City planner and development company reservation values are both 0 points. The combined agreement result covers both printed payoff versions; representative equal weights are valid because their structural measures and controls are invariant to allocation.",
     "components": [
       {
         "component": "murnighan_development_integrative",
         "schedule": {
           "kind": "additive_discrete",
           "parties": [
-            "Party 1",
-            "Party 2"
+            "City planner",
+            "Development company"
           ],
           "issues": [
             {
-              "name": "Issue 1",
+              "name": "Financing",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "$500000",
                   "payoffs": [
                     4000.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "$600000",
                   "payoffs": [
                     3500.0,
                     50.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "$700000",
                   "payoffs": [
                     3000.0,
                     100.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "$800000",
                   "payoffs": [
                     2500.0,
                     150.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "$900000",
                   "payoffs": [
                     2000.0,
                     200.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "$1000000",
                   "payoffs": [
                     1500.0,
                     250.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "$1100000",
                   "payoffs": [
                     1000.0,
                     300.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "$1200000",
                   "payoffs": [
                     500.0,
                     350.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "$1300000",
                   "payoffs": [
                     0.0,
                     400.0
@@ -20353,134 +20336,134 @@
               ]
             },
             {
-              "name": "Issue 2",
+              "name": "Retail Space",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "12000 ft",
                   "payoffs": [
                     2400.0,
-                    0.0
+                    2400.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "10500 ft",
                   "payoffs": [
                     2100.0,
-                    300.0
+                    2100.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "9000 ft",
                   "payoffs": [
                     1800.0,
-                    600.0
+                    1800.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "7500 ft",
                   "payoffs": [
                     1500.0,
-                    900.0
+                    1500.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "6000 ft",
                   "payoffs": [
                     1200.0,
                     1200.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "4500 ft",
                   "payoffs": [
                     900.0,
-                    1500.0
+                    900.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "3000 ft",
                   "payoffs": [
                     600.0,
-                    1800.0
+                    600.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "1500 ft",
                   "payoffs": [
                     300.0,
-                    2100.0
+                    300.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "0 ft",
                   "payoffs": [
                     0.0,
-                    2400.0
+                    0.0
                   ]
                 }
               ]
             },
             {
-              "name": "Issue 3",
+              "name": "Open Space",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "26%",
                   "payoffs": [
                     1000.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "24%",
                   "payoffs": [
                     875.0,
                     125.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "22%",
                   "payoffs": [
                     750.0,
                     250.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "20%",
                   "payoffs": [
                     625.0,
                     375.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "18%",
                   "payoffs": [
                     500.0,
                     500.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "16%",
                   "payoffs": [
                     375.0,
                     625.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "14%",
                   "payoffs": [
                     250.0,
                     750.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "12%",
                   "payoffs": [
                     125.0,
                     875.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "10%",
                   "payoffs": [
                     0.0,
                     1000.0
@@ -20489,66 +20472,66 @@
               ]
             },
             {
-              "name": "Issue 4",
+              "name": "Height",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "2 stories",
                   "payoffs": [
                     800.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "3 stories",
                   "payoffs": [
                     700.0,
                     100.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "4 stories",
                   "payoffs": [
                     600.0,
                     200.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "5 stories",
                   "payoffs": [
                     500.0,
                     300.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "6 stories",
                   "payoffs": [
                     400.0,
                     400.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "7 stories",
                   "payoffs": [
                     300.0,
                     500.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "8 stories",
                   "payoffs": [
                     200.0,
                     600.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "9 stories",
                   "payoffs": [
                     100.0,
                     700.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "10 stories",
                   "payoffs": [
                     0.0,
                     800.0
@@ -20557,134 +20540,134 @@
               ]
             },
             {
-              "name": "Issue 5",
+              "name": "Inspector",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "Mayer",
                   "payoffs": [
                     600.0,
-                    0.0
+                    600.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "Stevens",
                   "payoffs": [
                     525.0,
-                    75.0
+                    525.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "Burrows",
                   "payoffs": [
                     450.0,
-                    150.0
+                    450.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "Young",
                   "payoffs": [
                     375.0,
-                    225.0
+                    375.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "Conibear",
                   "payoffs": [
                     300.0,
                     300.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "Hawes",
                   "payoffs": [
                     225.0,
-                    375.0
+                    225.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "Gillespie",
                   "payoffs": [
                     150.0,
-                    450.0
+                    150.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "DeWitt",
                   "payoffs": [
                     75.0,
-                    525.0
+                    75.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "Wottle",
                   "payoffs": [
                     0.0,
-                    600.0
+                    0.0
                   ]
                 }
               ]
             },
             {
-              "name": "Issue 6",
+              "name": "Subcontractors",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "8",
                   "payoffs": [
                     400.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "7",
                   "payoffs": [
                     350.0,
                     500.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "6",
                   "payoffs": [
                     300.0,
                     1000.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "5",
                   "payoffs": [
                     250.0,
                     1500.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "4",
                   "payoffs": [
                     200.0,
                     2000.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "3",
                   "payoffs": [
                     150.0,
                     2500.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "2",
                   "payoffs": [
                     100.0,
                     3000.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "1",
                   "payoffs": [
                     50.0,
                     3500.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "0",
                   "payoffs": [
                     0.0,
                     4000.0
@@ -20698,8 +20681,8 @@
           0,
           0
         ],
-        "source_table_locator": "build_new_observations.py, definitions()[murnighan_development_integrative]",
-        "note": "",
+        "source_table_locator": "Murnighan et al. (1999), Table 2, printed p. 321 / PDF p. 9, panels A-B; paired by physical alternatives across roles",
+        "note": "Retail Space and Inspector are printed in reverse physical-option order in the two role panels. Payoff columns are aligned by the same retail area or inspector name, not by printed row position.",
         "required_approvals": 2,
         "mandatory_parties": [],
         "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
@@ -20711,71 +20694,71 @@
         "schedule": {
           "kind": "additive_discrete",
           "parties": [
-            "Party 1",
-            "Party 2"
+            "City planner",
+            "Development company"
           ],
           "issues": [
             {
-              "name": "Issue 1",
+              "name": "Financing",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "$500000",
                   "payoffs": [
                     1000.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "$600000",
                   "payoffs": [
                     875.0,
                     100.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "$700000",
                   "payoffs": [
                     750.0,
                     200.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "$800000",
                   "payoffs": [
                     625.0,
                     300.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "$900000",
                   "payoffs": [
                     500.0,
                     400.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "$1000000",
                   "payoffs": [
                     375.0,
                     500.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "$1100000",
                   "payoffs": [
                     250.0,
                     600.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "$1200000",
                   "payoffs": [
                     125.0,
                     700.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "$1300000",
                   "payoffs": [
                     0.0,
                     800.0
@@ -20784,134 +20767,134 @@
               ]
             },
             {
-              "name": "Issue 2",
+              "name": "Retail Space",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "12000 ft",
                   "payoffs": [
                     2400.0,
-                    0.0
+                    2400.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "10500 ft",
                   "payoffs": [
                     2100.0,
-                    300.0
+                    2100.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "9000 ft",
                   "payoffs": [
                     1800.0,
-                    600.0
+                    1800.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "7500 ft",
                   "payoffs": [
                     1500.0,
-                    900.0
+                    1500.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "6000 ft",
                   "payoffs": [
                     1200.0,
                     1200.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "4500 ft",
                   "payoffs": [
                     900.0,
-                    1500.0
+                    900.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "3000 ft",
                   "payoffs": [
                     600.0,
-                    1800.0
+                    600.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "1500 ft",
                   "payoffs": [
                     300.0,
-                    2100.0
+                    300.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "0 ft",
                   "payoffs": [
                     0.0,
-                    2400.0
+                    0.0
                   ]
                 }
               ]
             },
             {
-              "name": "Issue 3",
+              "name": "Open Space",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "26%",
                   "payoffs": [
                     4000.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "24%",
                   "payoffs": [
                     3500.0,
                     500.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "22%",
                   "payoffs": [
                     3000.0,
                     1000.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "20%",
                   "payoffs": [
                     2500.0,
                     1500.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "18%",
                   "payoffs": [
                     2000.0,
                     2000.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "16%",
                   "payoffs": [
                     1500.0,
                     2500.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "14%",
                   "payoffs": [
                     1000.0,
                     3000.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "12%",
                   "payoffs": [
                     500.0,
                     3500.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "10%",
                   "payoffs": [
                     0.0,
                     4000.0
@@ -20920,66 +20903,66 @@
               ]
             },
             {
-              "name": "Issue 4",
+              "name": "Height",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "2 stories",
                   "payoffs": [
                     400.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "3 stories",
                   "payoffs": [
                     350.0,
                     50.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "4 stories",
                   "payoffs": [
                     300.0,
                     100.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "5 stories",
                   "payoffs": [
                     250.0,
                     150.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "6 stories",
                   "payoffs": [
                     200.0,
                     200.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "7 stories",
                   "payoffs": [
                     150.0,
                     250.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "8 stories",
                   "payoffs": [
                     100.0,
                     300.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "9 stories",
                   "payoffs": [
                     50.0,
                     350.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "10 stories",
                   "payoffs": [
                     0.0,
                     400.0
@@ -20988,134 +20971,134 @@
               ]
             },
             {
-              "name": "Issue 5",
+              "name": "Inspector",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "Mayer",
                   "payoffs": [
                     600.0,
-                    0.0
+                    600.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "Stevens",
                   "payoffs": [
                     525.0,
-                    75.0
+                    525.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "Burrows",
                   "payoffs": [
                     450.0,
-                    150.0
+                    450.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "Young",
                   "payoffs": [
                     375.0,
-                    225.0
+                    375.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "Conibear",
                   "payoffs": [
                     300.0,
                     300.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "Hawes",
                   "payoffs": [
                     225.0,
-                    375.0
+                    225.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "Gillespie",
                   "payoffs": [
                     150.0,
-                    450.0
+                    150.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "DeWitt",
                   "payoffs": [
                     75.0,
-                    525.0
+                    75.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "Wottle",
                   "payoffs": [
                     0.0,
-                    600.0
+                    0.0
                   ]
                 }
               ]
             },
             {
-              "name": "Issue 6",
+              "name": "Subcontractors",
               "options": [
                 {
-                  "option": "Option 1",
+                  "option": "8",
                   "payoffs": [
                     800.0,
                     0.0
                   ]
                 },
                 {
-                  "option": "Option 2",
+                  "option": "7",
                   "payoffs": [
                     700.0,
                     125.0
                   ]
                 },
                 {
-                  "option": "Option 3",
+                  "option": "6",
                   "payoffs": [
                     600.0,
                     250.0
                   ]
                 },
                 {
-                  "option": "Option 4",
+                  "option": "5",
                   "payoffs": [
                     500.0,
                     375.0
                   ]
                 },
                 {
-                  "option": "Option 5",
+                  "option": "4",
                   "payoffs": [
                     400.0,
                     500.0
                   ]
                 },
                 {
-                  "option": "Option 6",
+                  "option": "3",
                   "payoffs": [
                     300.0,
                     625.0
                   ]
                 },
                 {
-                  "option": "Option 7",
+                  "option": "2",
                   "payoffs": [
                     200.0,
                     750.0
                   ]
                 },
                 {
-                  "option": "Option 8",
+                  "option": "1",
                   "payoffs": [
                     100.0,
                     875.0
                   ]
                 },
                 {
-                  "option": "Option 9",
+                  "option": "0",
                   "payoffs": [
                     0.0,
                     1000.0
@@ -21129,8 +21112,8 @@
           0,
           0
         ],
-        "source_table_locator": "build_new_observations.py, definitions()[murnighan_development_distributive]",
-        "note": "",
+        "source_table_locator": "Murnighan et al. (1999), Table 2, printed p. 321 / PDF p. 9, panels C-D; paired by physical alternatives across roles",
+        "note": "Retail Space and Inspector are printed in reverse physical-option order in the two role panels. Payoff columns are aligned by the same retail area or inspector name, not by printed row position.",
         "required_approvals": 2,
         "mandatory_parties": [],
         "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
@@ -21139,32 +21122,14 @@
       }
     ],
     "raw_payoff_status": "Numerical issue table recovered",
-    "needed_piece": ""
-  },
-  {
-    "payoff_id": "martin_raugh_2020_robot",
-    "negotiation_exercise": "Robot",
-    "payoff_source": "Martin-Raugh et al. (2020), appendix task structure",
-    "reservation_values_or_rule": "No binding minimum; the platform requires a complete matching agreement.",
-    "components": [],
-    "raw_payoff_status": "Exact source-supported structural proof; full numerical role tables not supplied",
-    "needed_piece": "The complete option-level schedules for both administered roles are not supplied. Table 1 shows generic issue-type examples; Appendices A and B show one role per task and per-issue extrema. Those are not a full six-issue matrix.",
-    "structural_proof": {
-      "kind": "All listed complete offers are allowed; no walk-away option",
-      "source_table_locator": "Martin-Raugh et al. (2020), section 2.3, PDF p. 5; issue types/counts on PDF p. 4",
-      "evidence": "The platform required matching selections on every issue for points to be awarded, and the source explicitly states that participants could not complete the task without agreement or walk away from a deal.",
-      "number_of_issues": 6,
-      "options_per_issue": [
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-      ],
-      "number_of_parties": 2,
-      "compatible_issues": 2,
-      "reservation_interpretation": "There is no binding minimum-score acceptance filter. No numerical reservation value is assigned, and negative possible scores do not create rejected packages under this implemented rule."
+    "needed_piece": "",
+    "source_correction": {
+      "date": "2026-11-12",
+      "source": "Murnighan et al. (1999), Table 2, printed p. 321 / PDF p. 9; Experiment 2 task, printed p. 326 / PDF p. 14",
+      "doi": "10.1108/eb022828",
+      "pdf_sha256": "b307e1b1c5754a34738bc280f6d5660b8924159250d940b02ede17bf8eb1c4d0",
+      "correction": "Aligned Development Company values for Retail Space and Inspector with the same physical alternatives in both printed task versions. The earlier catalogue paired role panels by row rank.",
+      "unchanged_inputs": "Reservation values [0,0], required approvals 2, aggregation weights .5/.5 and the observed agreement result remain unchanged."
     }
   },
   {
@@ -30491,8 +30456,189 @@
     "payoff_source": "Northcraft et al. (1998), Tables 1-2 and Methods",
     "reservation_values_or_rule": "Applicant and recruiter receive 0 points if they do not reach agreement on all six issues.",
     "components": [],
-    "raw_payoff_status": "Payoff table not transcribed",
-    "needed_piece": "Transcribe the four printed issue templates and recover the numerical scaling for the other two issues if supplied. The current structural result uses the source-supported proof that all six issues have nonnegative payoffs and both reservation values are zero."
+    "raw_payoff_status": "Four printed numerical templates; two integrative schedules unprinted; valid source acceptability proof",
+    "needed_piece": "Exact option schedules and physical-issue mapping for the two unprinted integrative issues. The nonlinear maximum is printed as 259; no unverified 255 correction or full array is supplied. The reported issue/party/compatible counts and inclusive acceptability proof are source-verified.",
+    "partial_source_tables": {
+      "coverage": "four_printed_templates_per_variant; two_integrative_schedules_unprinted",
+      "expected_issues": 6,
+      "source_table_role_order": [
+        "Buyer",
+        "Seller"
+      ],
+      "issue_name_mapping": "Methods names four integrative issues but does not identify which uses each printed or unprinted template. Initial list says job assignment; later classification calls the distributive issue salary. No mapping is invented.",
+      "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86",
+      "printed_templates": [
+        {
+          "name": "Integrative template 1",
+          "source": "Table 1, printed p.59 / PDF p.6",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              1275,
+              0
+            ],
+            [
+              1260,
+              384
+            ],
+            [
+              1200,
+              480
+            ],
+            [
+              960,
+              504
+            ],
+            [
+              0,
+              510
+            ]
+          ]
+        },
+        {
+          "name": "Integrative template 2",
+          "source": "Table 1, printed p.59 / PDF p.6",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              510,
+              0
+            ],
+            [
+              504,
+              960
+            ],
+            [
+              480,
+              1200
+            ],
+            [
+              384,
+              1260
+            ],
+            [
+              0,
+              1275
+            ]
+          ]
+        },
+        {
+          "name": "Distributive template",
+          "source": "Table 2, printed p.62 / PDF p.9",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              2125,
+              0
+            ],
+            [
+              2100,
+              1600
+            ],
+            [
+              2000,
+              2000
+            ],
+            [
+              1600,
+              2100
+            ],
+            [
+              0,
+              2125
+            ]
+          ]
+        },
+        {
+          "name": "Congruent template",
+          "source": "Table 2, printed p.62 / PDF p.9",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            500,
+            400,
+            300,
+            200,
+            100
+          ],
+          "payoffs": [
+            [
+              850,
+              850
+            ],
+            [
+              840,
+              840
+            ],
+            [
+              800,
+              800
+            ],
+            [
+              640,
+              640
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "unprinted_integrative_issues": {
+        "count": 2,
+        "stated_maxima_per_issue": [
+          1020,
+          259
+        ],
+        "description": "Methods says similar payoffs. Exact role schedules and physical issue-name mapping are not printed.",
+        "numerical_payoffs": null
+      }
+    }
   },
   {
     "payoff_id": "northcraft_1998_employment_linear_r0_r0",
@@ -30500,8 +30646,189 @@
     "payoff_source": "Northcraft et al. (1998), Tables 1-2 and Methods",
     "reservation_values_or_rule": "Applicant and recruiter receive 0 points if they do not reach agreement on all six issues.",
     "components": [],
-    "raw_payoff_status": "Payoff table not transcribed",
-    "needed_piece": "Transcribe the four printed issue templates and recover the numerical scaling for the other two issues if supplied. The current structural result uses the source-supported proof that all six issues have nonnegative payoffs and both reservation values are zero."
+    "raw_payoff_status": "Four printed numerical templates; two integrative schedules unprinted; valid source acceptability proof",
+    "needed_piece": "Exact option schedules and physical-issue mapping for the two unprinted integrative issues. The nonlinear maximum is printed as 259; no unverified 255 correction or full array is supplied. The reported issue/party/compatible counts and inclusive acceptability proof are source-verified.",
+    "partial_source_tables": {
+      "coverage": "four_printed_templates_per_variant; two_integrative_schedules_unprinted",
+      "expected_issues": 6,
+      "source_table_role_order": [
+        "Buyer",
+        "Seller"
+      ],
+      "issue_name_mapping": "Methods names four integrative issues but does not identify which uses each printed or unprinted template. Initial list says job assignment; later classification calls the distributive issue salary. No mapping is invented.",
+      "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86",
+      "printed_templates": [
+        {
+          "name": "Integrative template 1",
+          "source": "Table 1, printed p.59 / PDF p.6",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              4000,
+              0
+            ],
+            [
+              3000,
+              400
+            ],
+            [
+              2000,
+              800
+            ],
+            [
+              1000,
+              1200
+            ],
+            [
+              0,
+              1600
+            ]
+          ]
+        },
+        {
+          "name": "Integrative template 2",
+          "source": "Table 1, printed p.59 / PDF p.6",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              1600,
+              0
+            ],
+            [
+              1200,
+              1000
+            ],
+            [
+              800,
+              2000
+            ],
+            [
+              400,
+              3000
+            ],
+            [
+              0,
+              4000
+            ]
+          ]
+        },
+        {
+          "name": "Distributive template",
+          "source": "Table 2, printed p.62 / PDF p.9",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              6000,
+              0
+            ],
+            [
+              4500,
+              1500
+            ],
+            [
+              3000,
+              3000
+            ],
+            [
+              1500,
+              4500
+            ],
+            [
+              0,
+              6000
+            ]
+          ]
+        },
+        {
+          "name": "Congruent template",
+          "source": "Table 2, printed p.62 / PDF p.9",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            500,
+            400,
+            300,
+            200,
+            100
+          ],
+          "payoffs": [
+            [
+              2000,
+              2000
+            ],
+            [
+              1500,
+              1500
+            ],
+            [
+              1000,
+              1000
+            ],
+            [
+              500,
+              500
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "unprinted_integrative_issues": {
+        "count": 2,
+        "stated_maxima_per_issue": [
+          3200,
+          800
+        ],
+        "description": "Methods says similar payoffs. Exact role schedules and physical issue-name mapping are not printed.",
+        "numerical_payoffs": null
+      }
+    }
   },
   {
     "payoff_id": "northcraft_1998_employment_increasing_r0_r0",
@@ -30509,8 +30836,189 @@
     "payoff_source": "Northcraft et al. (1998), Tables 1-2 and Methods",
     "reservation_values_or_rule": "Applicant and recruiter receive 0 points if they do not reach agreement on all six issues.",
     "components": [],
-    "raw_payoff_status": "Payoff table not transcribed",
-    "needed_piece": "Transcribe the four printed issue templates and recover the numerical scaling for the other two issues if supplied. The current structural result uses the source-supported proof that all six issues have nonnegative payoffs and both reservation values are zero."
+    "raw_payoff_status": "Four printed numerical templates; two integrative schedules unprinted; valid source acceptability proof",
+    "needed_piece": "Exact option schedules and physical-issue mapping for the two unprinted integrative issues. The nonlinear maximum is printed as 259; no unverified 255 correction or full array is supplied. The reported issue/party/compatible counts and inclusive acceptability proof are source-verified.",
+    "partial_source_tables": {
+      "coverage": "four_printed_templates_per_variant; two_integrative_schedules_unprinted",
+      "expected_issues": 6,
+      "source_table_role_order": [
+        "Buyer",
+        "Seller"
+      ],
+      "issue_name_mapping": "Methods names four integrative issues but does not identify which uses each printed or unprinted template. Initial list says job assignment; later classification calls the distributive issue salary. No mapping is invented.",
+      "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86",
+      "printed_templates": [
+        {
+          "name": "Integrative template 1",
+          "source": "Table 1, printed p.59 / PDF p.6",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              1275,
+              0
+            ],
+            [
+              315,
+              6
+            ],
+            [
+              75,
+              30
+            ],
+            [
+              15,
+              126
+            ],
+            [
+              0,
+              510
+            ]
+          ]
+        },
+        {
+          "name": "Integrative template 2",
+          "source": "Table 1, printed p.59 / PDF p.6",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              510,
+              0
+            ],
+            [
+              126,
+              15
+            ],
+            [
+              30,
+              75
+            ],
+            [
+              6,
+              315
+            ],
+            [
+              0,
+              1275
+            ]
+          ]
+        },
+        {
+          "name": "Distributive template",
+          "source": "Table 2, printed p.62 / PDF p.9",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            100,
+            200,
+            300,
+            400,
+            500
+          ],
+          "payoffs": [
+            [
+              2125,
+              0
+            ],
+            [
+              525,
+              25
+            ],
+            [
+              125,
+              125
+            ],
+            [
+              25,
+              525
+            ],
+            [
+              0,
+              2125
+            ]
+          ]
+        },
+        {
+          "name": "Congruent template",
+          "source": "Table 2, printed p.62 / PDF p.9",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "objective_values": [
+            500,
+            400,
+            300,
+            200,
+            100
+          ],
+          "payoffs": [
+            [
+              850,
+              850
+            ],
+            [
+              210,
+              210
+            ],
+            [
+              50,
+              50
+            ],
+            [
+              10,
+              10
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        }
+      ],
+      "unprinted_integrative_issues": {
+        "count": 2,
+        "stated_maxima_per_issue": [
+          1020,
+          259
+        ],
+        "description": "Methods says similar payoffs. Exact role schedules and physical issue-name mapping are not printed.",
+        "numerical_payoffs": null
+      }
+    }
   },
   {
     "payoff_id": "aaldering_2018_employment_five_issue_r0_r0",

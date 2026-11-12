@@ -1,5 +1,5 @@
 Original hypothesis,Model,Estimate,p value,95% resampling interval,Omissions passing,Full criteria met
-H1: Bargaining-zone size (+),M4,.079,p = .003,"[.028, .128]",103/103,Yes
-H2: Search complexity (−),M1,−.135,p < .001,"[−.192, −.064]",103/103,Yes
-H3: Explained-variation comparison,M2 minus M5,.181,—,"[.024, .337]",103/103,Yes
-H4: Search complexity with both predictors (−),M3,−.149,p = .005,"[−.250, −.058]",103/103,Yes
+H1: Bargaining-zone size (+),M4,.078,p = .004,"[.027, .128]",101/101,Yes
+H2: Search complexity (−),M1,−.135,p < .001,"[−.194, −.063]",101/101,Yes
+H3: Explained-variation comparison,M2 minus M5,.183,—,"[.023, .348]",101/101,Yes
+H4: Search complexity with both predictors (−),M3,−.151,p = .005,"[−.253, −.061]",101/101,Yes
