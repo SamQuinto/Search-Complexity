@@ -13,10 +13,15 @@ from tempfile import TemporaryDirectory
 import numpy as np
 import pandas as pd
 
-from .prepare_data import build_data
-from .analysis import run_analysis
-from .original_main_analysis import run_original_main
-from .presentation import build_tables
+# Support both the repository command and running run.py from this folder.
+REPOSITORY = Path(__file__).resolve().parents[1]
+if str(REPOSITORY) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY))
+
+from scripts.supporting.prepare_data import build_data
+from scripts.supporting.analysis import run_analysis
+from scripts.supporting.original_main_analysis import run_original_main
+from scripts.supporting.presentation import build_tables
 
 
 def publish_files(root, working):

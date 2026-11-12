@@ -2,7 +2,7 @@
 
 ## Reproduce Study 1
 
-[Download the files](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), extract the ZIP, and open a terminal inside the extracted folder. With Python 3.12, run:
+[Download the complete Study 1 folder](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), extract the ZIP, and open a terminal inside the extracted folder. With Python 3.12, run:
 
 ```bash
 python -m pip install -r requirements.txt
@@ -11,7 +11,7 @@ python -m scripts.run
 
 This rebuilds the analysis datasets from the coded sources, checks both structural measures, and reproduces **Tables 1–3, Tables C1–C4, Figure 2, and the regression and robustness checks**. It includes the 5,000-draw resampling and single-observation omission checks. No account, API key, or original computer path is needed.
 
-You can also open [analysis.ipynb](analysis.ipynb) and choose **Run all** after installing the requirements. It runs the same code.
+You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **Run all** after installing the requirements. It runs the same code.
 
 - **Use the final data:** [data/regression_data.csv](data/regression_data.csv). The stricter dataset is [data/strict_regression_data.csv](data/strict_regression_data.csv).
 - **Read the reproduced tables:** [results/tables](results/tables/).
@@ -34,12 +34,12 @@ You can also open [analysis.ipynb](analysis.ipynb) and choose **Run all** after 
 | [Strict inclusion](data/derived/observation_eligibility.csv) | The decision and reason for each observation |
 | [Metric checks](data/derived/payoff_metric_checks.csv) | Recalculation of the structural measures |
 | [Approval rules](data/approval_rules.csv) | The agreement rule and its source for each payoff record |
-| [Notebook](analysis.ipynb) | The complete replication, with short explanations |
+| [Notebook](scripts/analysis.ipynb) | The complete replication, with short explanations |
 
 ## Folder guide
 
 - `data/`: coded sources, inventories, and analysis datasets. `data/derived/` is rebuilt by the code.
-- `scripts/`: all Python code. `scripts/run.py` runs the complete replication.
+- `scripts/`: start with [analysis.ipynb](scripts/analysis.ipynb) or [run.py](scripts/run.py). The [scripts README](scripts/README.md) explains both. Helper code is in `scripts/supporting/`.
 - `results/`: current tables, Figure 2, and detailed statistical checks.
 - `archive/`: earlier materials; these are not used by the replication and are omitted from the download ZIP.
 

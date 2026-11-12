@@ -41,6 +41,7 @@ Thumbs.db
 # Local build helpers
 _*.mjs
 _*.py
+!scripts/**/__init__.py
 !scripts/__init__.py
 
 # The two numerical evidence workbooks
