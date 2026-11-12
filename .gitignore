@@ -32,6 +32,7 @@ analysis.executed.ipynb
 venv/
 node_modules/
 outputs/
+archive/local-*/
 logs/
 *.log
 .DS_Store
@@ -40,6 +41,7 @@ Thumbs.db
 # Local build helpers
 _*.mjs
 _*.py
+!scripts/__init__.py
 
 # The two numerical evidence workbooks
 !data/Paper_inventory.xlsx

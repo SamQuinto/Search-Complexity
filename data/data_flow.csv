@@ -1,5 +1,8 @@
 Stage,Count,Unit,File
 Starting review records,479,Review records,data/inventory/starting_study_registry.csv
+Starting review records represented in the final data,144,Review records,data/inventory/registry_observation_links.csv
+Observations from the starting review records,126,Observations,data/inventory/registry_observation_links.csv
+Additional observations outside the starting review records,15,Observations,data/inventory/observation_papers.csv
 Papers in the starting review records,330,Papers,data/inventory/starting_study_registry.csv
 Papers in the combined search,371,Papers,data/Paper_inventory.xlsx
 Verified full texts or complete chapters,345,Papers,data/Paper_inventory.xlsx
@@ -11,7 +14,7 @@ Underlying agreement results,169,Source-result records,data/Observation_data.xls
 Main analysis,141,Observations,data/regression_data.csv
 Payoff information linked to the observations,103,Payoff records,data/raw_payoff_catalog.json
 Named negotiation exercises,66,Exercise names,data/inventory/exercise_inventory.csv
-Strict analysis,126,Observations,outputs/strict_regression_data.csv
-Strict observations using a subset of conditions,1,Observations,outputs/observation_eligibility.csv
-Combined-payoff comparison,103,Combined payoff records,outputs/aggregate_main.csv
-Strict combined-payoff comparison,87,Combined payoff records,outputs/aggregate_strict.csv
+Strict analysis,126,Observations,data/strict_regression_data.csv
+Strict observations using a subset of conditions,1,Observations,data/derived/observation_eligibility.csv
+Combined-payoff comparison,103,Combined payoff records,data/derived/aggregate_main.csv
+Strict combined-payoff comparison,87,Combined payoff records,data/derived/aggregate_strict.csv

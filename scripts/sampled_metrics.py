@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 import numpy as np
-from source_functions import halton as shifted_halton
+from .source_functions import halton as shifted_halton
 
 
 def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827):

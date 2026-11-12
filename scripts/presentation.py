@@ -274,8 +274,19 @@ def build_flow(root, outputs):
         raise ValueError('Each observation needs one paper link')
     if int(papers.observations_contributed.sum()) != len(main):
         raise ValueError('Paper contributions do not match the observation count')
+    links = pd.read_csv(inventory/'registry_observation_links.csv')
+    if not links.registry_record_id.is_unique:
+        raise ValueError('A starting record is linked more than once')
+    if not set(links.registry_record_id).issubset(registry.registry_record_id):
+        raise ValueError('A linked starting record is not in the fixed registry')
+    if not set(links.observation_id).issubset(main.observation_id):
+        raise ValueError('A starting record is linked to an absent observation')
+    from_registry = links.observation_id.nunique()
     records = [
         ('Starting review records',len(registry),'Review records','data/inventory/starting_study_registry.csv'),
+        ('Starting review records represented in the final data',len(links),'Review records','data/inventory/registry_observation_links.csv'),
+        ('Observations from the starting review records',from_registry,'Observations','data/inventory/registry_observation_links.csv'),
+        ('Additional observations outside the starting review records',len(main)-from_registry,'Observations','data/inventory/observation_papers.csv'),
         ('Papers in the starting review records',registry.paper_id.nunique(),'Papers','data/inventory/starting_study_registry.csv'),
         ('Papers in the combined search',len(papers),'Papers','data/Paper_inventory.xlsx'),
         ('Verified full texts or complete chapters',int(full.sum()),'Papers','data/Paper_inventory.xlsx'),
@@ -287,10 +298,10 @@ def build_flow(root, outputs):
         ('Main analysis',len(main),'Observations','data/regression_data.csv'),
         ('Payoff information linked to the observations',components.payoff_id.nunique(),'Payoff records','data/raw_payoff_catalog.json'),
         ('Named negotiation exercises',components.negotiation_exercise.nunique(),'Exercise names','data/inventory/exercise_inventory.csv'),
-        ('Strict analysis',len(strict),'Observations','outputs/strict_regression_data.csv'),
-        ('Strict observations using a subset of conditions',int(eligibility.strict_coverage.eq('Recoverable subset of conditions').sum()),'Observations','outputs/observation_eligibility.csv'),
-        ('Combined-payoff comparison',len(pd.read_csv(outputs/'aggregate_main.csv')),'Combined payoff records','outputs/aggregate_main.csv'),
-        ('Strict combined-payoff comparison',len(pd.read_csv(outputs/'aggregate_strict.csv')),'Combined payoff records','outputs/aggregate_strict.csv')]
+        ('Strict analysis',len(strict),'Observations','data/strict_regression_data.csv'),
+        ('Strict observations using a subset of conditions',int(eligibility.strict_coverage.eq('Recoverable subset of conditions').sum()),'Observations','data/derived/observation_eligibility.csv'),
+        ('Combined-payoff comparison',len(pd.read_csv(outputs/'aggregate_main.csv')),'Combined payoff records','data/derived/aggregate_main.csv'),
+        ('Strict combined-payoff comparison',len(pd.read_csv(outputs/'aggregate_strict.csv')),'Combined payoff records','data/derived/aggregate_strict.csv')]
     pd.DataFrame(records,columns=['Stage','Count','Unit','File']).to_csv(outputs/'data_flow.csv',index=False)
     sources = sorted({item.strip() for value in papers.discovery_sources.dropna()
                       for item in str(value).split('|') if item.strip()})
@@ -326,8 +337,3 @@ def build_tables(root, outputs):
     figures=make_figures(root,outputs)
     build_flow(root,outputs)
     return tables,figures
-
-
-if __name__=='__main__':
-    root=Path(__file__).resolve().parent
-    build_tables(root,root/'outputs')

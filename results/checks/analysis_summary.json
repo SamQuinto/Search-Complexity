@@ -1,0 +1,22 @@
+{
+  "bootstrap_draws": 5000,
+  "base_seed": 20261111,
+  "samples": {
+    "main": {
+      "n": 141,
+      "weighted_n": 140
+    },
+    "strict": {
+      "n": 126,
+      "weighted_n": 125
+    },
+    "aggregate_main": {
+      "n": 103,
+      "weighted_n": null
+    },
+    "aggregate_strict": {
+      "n": 87,
+      "weighted_n": null
+    }
+  }
+}

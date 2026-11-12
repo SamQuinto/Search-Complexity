@@ -5,8 +5,8 @@ from pathlib import Path
 
 import numpy as np
 
-from payoff_metrics import metrics_from_acceptance
-from source_functions import first_primes, radical_inverse, payment_profiles, payoff_grid
+from .payoff_metrics import metrics_from_acceptance
+from .source_functions import first_primes, radical_inverse, payment_profiles, payoff_grid
 
 
 def cartoon_metrics(record):

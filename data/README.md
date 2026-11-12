@@ -1,18 +1,20 @@
-# Study 1 data and analysis
+# Data and coding
 
 Preregistration: https://osf.io/wtgxc
 
-The paper's Appendix A explains data collection and coding; Appendix B explains the structural calculations; Appendix C explains the supplementary analyses. This file connects those explanations to the released inputs and code. Tables 1–3 are the main tables, and Tables C1–C4 contain the full supplementary results.
+The paper's Appendix A explains data collection and coding; Appendix B explains the structural calculations; Appendix C explains the supplementary analyses. Paths below are relative to the repository's main folder. To reproduce the analysis, follow the [main README](../README.md). The code is in [scripts](../scripts/) and the tables are in [results/tables](../results/tables/).
 
 ## From the search to the observations
 
 The search starts with the replication data shared by Warsitzka et al. (2024), [OSF 2c9gf](https://osf.io/2c9gf/), and adds papers identified through Majer et al. (2022), Petrowsky et al. (2025), and the research team's search. Schweinsberg et al. (2022) was also consulted; the available discovery records do not separately attribute additional papers to that review.
 
-The fixed starting list has 479 review records linked to 330 papers. A review record need not be an independent experiment: some papers contribute several experiments or condition results. The combined inventory has 371 distinct papers. Local file checks verify 345 complete articles or relevant complete chapters. Eight contributing papers have usable research evidence without a verified local full article. Therefore, 112 contributing papers are not simply a subset of the 345 locally verified full texts. `outputs/data_flow.csv` reproduces the counts and identifies their units.
+The fixed starting list has 479 review records linked to 330 papers. A review record need not be an independent experiment: some papers contribute several experiments or condition results. The combined inventory has 371 distinct papers. Local file checks verify 345 complete articles or relevant complete chapters. Eight contributing papers have usable research evidence without a verified local full article. Therefore, 112 contributing papers are not simply a subset of the 345 locally verified full texts. `data/data_flow.csv` reproduces the counts and identifies their units.
 
 The retained evidence contains 169 agreement-result records. Combining the results within each experiment gives 141 observations. These use 103 payoff records across 66 named negotiation exercises. A payoff record identifies a table or function with its reservation values and agreement rule. Some records contain a documented combination of conditions when their agreement outcomes cannot be separated. They are not additional observations in the main regression.
 
-The [paper workbook](data/Paper_inventory.xlsx) is the readable inventory. Its machine-readable counterpart is `data/inventory/paper_inventory.csv`. `observation_papers.csv` links each observation to its paper. Discovery-source tags can overlap; they identify how a paper entered the search, not necessarily where its agreement rate was obtained.
+`data/inventory/registry_observation_links.csv` connects 144 original review records to 126 current observations. Another 15 observations come from outside those starting records. These are final-data links, not a dated record of how many matches existed on the search stopping date.
+
+The [paper workbook](Paper_inventory.xlsx) is the readable inventory. Its machine-readable counterpart is `data/inventory/paper_inventory.csv`. `observation_papers.csv` links each observation to its paper. Discovery-source tags can overlap; they identify how a paper entered the search, not necessarily where its agreement rate was obtained.
 
 ## What can enter
 
@@ -36,7 +38,7 @@ We calculate the structural measures for each payoff table and reservation-value
 
 If only a combined agreement rate is available within an experiment, it is used once and matched to the conditions it covers. Missing condition sizes lead to equal structural weights, with an assumption note, unless every predictor is identical across conditions. Several experiments using the same exercise retain separate outcomes. An inseparable agreement outcome across independent experiments does not enter the main observations. Repeated tasks performed by one sample stay together in one observation; their attempt count is recorded.
 
-`data/within_payoff_weights.csv` records combinations inside a payoff record. `outputs/component_evidence.csv` records how source results are combined within each observation. For Arunachalam et al. (1998), the 13 remaining reservation-value cells have an exact combined outcome of 270/276 agreements; their allocation across cells is unknown. The main observation uses 291/338 agreements for the full experiment. Its strict counterpart retains the separately recoverable three cells and their 21/62 outcome.
+`data/within_payoff_weights.csv` records combinations inside a payoff record. `data/derived/component_evidence.csv` records how source results are combined within each observation. For Arunachalam et al. (1998), the 13 remaining reservation-value cells have an exact combined outcome of 270/276 agreements; their allocation across cells is unknown. The main observation uses 291/338 agreements for the full experiment. Its strict counterpart retains the separately recoverable three cells and their 21/62 outcome.
 
 ## Structural calculations
 
@@ -44,7 +46,7 @@ Bargaining-zone size is the share of complete offers satisfying the reservation 
 
 Search complexity is the share of starting offers that cannot reach agreement through revisions that change one issue and strictly increase the number of parties whose payoffs meet their reservation values. Offers differing on one issue have Hamming distance one (Hamming, 1950); the size of the change on that issue can be large or small. The calculation checks whether any improving path exists, and an offer already in the bargaining zone is reachable. This adapts the local-search intuition of Kauffman and Levin (1987) and Levinthal (1997) to acceptance in negotiations.
 
-All 103 structural calculations can be rebuilt from the supplied inputs. Ninety-eight payoff records contain numerical tables or functions. Five use source-supported proofs that the measures are fixed even without a complete numerical table: three Northcraft et al. (1998) versions have nonnegative payoffs and zero reservation values; two Martin-Raugh et al. (2020) tasks require agreement and provide no walk-away option. Unprinted point values are not invented. `outputs/payoff_metric_checks.csv` identifies the calculation used for each record.
+All 103 structural calculations can be rebuilt from the supplied inputs. Ninety-eight payoff records contain numerical tables or functions. Five use source-supported proofs that the measures are fixed even without a complete numerical table: three Northcraft et al. (1998) versions have nonnegative payoffs and zero reservation values; two Martin-Raugh et al. (2020) tasks require agreement and provide no walk-away option. Unprinted point values are not invented. `data/derived/payoff_metric_checks.csv` identifies the calculation used for each record.
 
 `data/raw_payoff_catalog.json` holds the payoff data, functions, rules, sources and assumptions. The Python modules supply the declared numerical procedures. For The Player in Kray et al. (2004), the main calculation averages the 6,000/3,000 and 3,000/6,000 role assignments with equal weights because their separate sample sizes are unavailable. The historical study's exact table match remains uncertain. For Sale of a Café, both payoff functions are verified from the study data, but the automated buyer-score acceptance cap is a reconstruction; its program logic is unavailable. Both ambiguities remain visible and do not enter the strict data.
 
@@ -60,7 +62,7 @@ H1 requires a negative search-complexity coefficient in Model 3 with a two-sided
 
 Each resampling draw selects whole observations with replacement, retaining the dataset's size. Both comparison models use the same draw. The percentile interval uses 5,000 draws (Efron & Tibshirani, 1993); the large number reduces variation caused by the resampling procedure itself. Removing one observation at a time checks whether any individual result is essential, following the logic of case-deletion diagnostics (Cook, 1977). The paper's Appendix C explains these procedures and how to read their results.
 
-Supplementary checks start with the 126 strict observations. Source-supported arithmetic, a sampled structural measure, or an unknown condition allocation that cannot change any predictor can qualify. Unresolved numerical matches, reconstruction assumptions and unknown allocations that affect a predictor cannot. One strict observation uses a recoverable subset of its conditions. `outputs/observation_eligibility.csv` records every decision.
+Supplementary checks start with the 126 strict observations. Source-supported arithmetic, a sampled structural measure, or an unknown condition allocation that cannot change any predictor can qualify. Unresolved numerical matches, reconstruction assumptions and unknown allocations that affect a predictor cannot. One strict observation uses a recoverable subset of its conditions. `data/derived/observation_eligibility.csv` records every decision.
 
 The main and strict observations receive resampling and single-observation omission checks for Model 3 and the Model 2 versus Model 5 comparison. Model 6 repeats Model 3 with negotiation-count weights, retains 140/125 observations, and receives the corresponding resampling and omission checks. Weights count negotiation attempts, not individual participants.
 

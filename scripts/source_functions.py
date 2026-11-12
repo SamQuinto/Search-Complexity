@@ -12,7 +12,7 @@ from pathlib import Path
 
 import numpy as np
 
-from payoff_metrics import metrics_from_acceptance
+from .payoff_metrics import metrics_from_acceptance
 
 
 SEED = 20260818

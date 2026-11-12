@@ -12,7 +12,7 @@ import json
 import numpy as np
 import pandas as pd
 
-from analysis import (SC, BZ, PREDICTORS, OUTCOME, complete_sample,
+from .analysis import (SC, BZ, PREDICTORS, OUTCOME, complete_sample,
                       standardized_predictors, design, fit)
 
 
@@ -89,7 +89,7 @@ def run_original_main(root, output_dir=None, draws=5000):
     output.mkdir(parents=True, exist_ok=True)
     data_path = output / 'aggregate_main.csv'
     if not data_path.exists():
-        from prepare_data import build_data
+        from .prepare_data import build_data
         build_data(root, output)
     sample = complete_sample(pd.read_csv(data_path))
     primary, coefficients, fits = hypothesis_estimates(sample)
@@ -184,8 +184,3 @@ def run_original_main(root, output_dir=None, draws=5000):
     (output / 'original_main_summary.json').write_text(
         json.dumps(summary, indent=2, ensure_ascii=False, allow_nan=False), encoding='utf-8')
     return results
-
-
-if __name__ == '__main__':
-    location = Path(__file__).resolve().parent
-    print(run_original_main(location).to_string(index=False))

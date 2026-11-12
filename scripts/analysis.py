@@ -13,7 +13,7 @@ import pandas as pd
 from scipy import stats
 import statsmodels.api as sm
 
-from prepare_data import CONTROLS, PREDICTORS
+from .prepare_data import CONTROLS, PREDICTORS
 
 
 SC = 'search_complexity'
@@ -336,11 +336,3 @@ def run_analysis(datasets, output_dir, draws=5000):
         json.dumps({'bootstrap_draws': draws, 'base_seed': SEED, 'samples': summary}, indent=2),
         encoding='utf-8')
     return result
-
-
-if __name__ == '__main__':
-    from prepare_data import build_data
-
-    root = Path(__file__).resolve().parent
-    datasets = build_data(root, root / 'outputs')
-    run_analysis(datasets, root / 'outputs')

@@ -105,7 +105,7 @@ def build_data(root, output_dir):
     structures = pd.read_csv(source / 'structure_inputs.csv').rename(columns={'observation_id': 'payoff_id'})
     scores = pd.read_csv(source / 'structural_scores.csv').rename(columns={'observation_id': 'payoff_id'})
     decisions = pd.read_csv(root / 'data/component_decisions.csv', keep_default_na=False)
-    from payoff_metrics import (calculate_payoff_file, replay_acceptance_inputs,
+    from .payoff_metrics import (calculate_payoff_file, replay_acceptance_inputs,
                                 calculate_acceptability_proofs, calculate_programmed_rules,
                                 calculate_catalog_inputs)
 
@@ -160,9 +160,9 @@ def build_data(root, output_dir):
     # A few source tasks use payoff functions, continuous issues, or a graph
     # too large to enumerate. Replay their recorded grids and sampling rules.
     # These checks never substitute a newly chosen grid or a different seed.
-    from source_functions import calculate_formula_inputs
-    from additional_functions import calculate_additional_inputs
-    from sampled_metrics import calculate_player_input
+    from .source_functions import calculate_formula_inputs
+    from .additional_functions import calculate_additional_inputs
+    from .sampled_metrics import calculate_player_input
 
     function_values = calculate_formula_inputs(root) + calculate_additional_inputs(root)
     player_value, player_components = calculate_player_input(root / 'data/raw_payoff_catalog.json')
@@ -315,10 +315,3 @@ def build_data(root, output_dir):
     catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False)
     pd.DataFrame(player_components).to_csv(output_dir / 'player_component_metrics.csv', index=False)
     return {'main': main, 'strict': strict, **aggregates}
-
-
-if __name__ == '__main__':
-    root = Path(__file__).resolve().parent
-    data = build_data(root, root / 'outputs')
-    for name, sample in data.items():
-        print(f'{name}: {len(sample)} observations')
