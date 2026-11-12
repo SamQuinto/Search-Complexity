@@ -2,14 +2,18 @@
 
 ## Reproduce Study 1
 
+**Main analysis dataset:** [data/regression_data.csv](data/regression_data.csv).
+
+**Run either:** [scripts/run.py](scripts/run.py) in Python, or [scripts/analysis.ipynb](scripts/analysis.ipynb) with **Run all**. Both load the main dataset, prepare the comparison datasets, and produce the same tables and figure.
+
 [Download the complete Study 1 folder](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), extract the ZIP, and open a terminal inside the extracted folder. With Python 3.12, run:
 
 ```bash
 python -m pip install -r requirements.txt
-python -m scripts.run
+python scripts/run.py
 ```
 
-This rebuilds the analysis datasets from the coded sources, checks both structural measures, and reproduces **Tables 1–3, Tables C1–C4, Figure 2, and the regression and robustness checks**. It includes the 5,000-draw resampling and single-observation omission checks. No account, API key, or original computer path is needed.
+The code reproduces **Tables 1–3, Tables C1–C4, Figure 2, and the regression and robustness checks**. It includes the 5,000-draw resampling and single-observation omission checks. No account, API key, or original computer path is needed.
 
 You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **Run all** after installing the requirements. It runs the same code.
 
@@ -38,11 +42,11 @@ You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **
 
 ## Folder guide
 
-- `data/`: coded sources, inventories, and analysis datasets. `data/derived/` is rebuilt by the code.
+- `data/`: coded sources, inventories, and analysis datasets. The intermediate comparison datasets in `data/derived/` are rebuilt by the main analysis.
 - `scripts/`: start with [analysis.ipynb](scripts/analysis.ipynb) or [run.py](scripts/run.py). The [scripts README](scripts/README.md) explains both. Helper code is in `scripts/supporting/`.
 - `results/`: current tables, Figure 2, and detailed statistical checks.
 - `archive/`: earlier materials; these are not used by the replication and are omitted from the download ZIP.
 
-The code begins with the numerical evidence transcribed from research papers and negotiation materials. The workbooks and [data documentation](data/README.md) identify those sources and coding decisions. The papers and licensed teaching documents themselves are not redistributed here. Figure 1 is a conceptual illustration in the paper; Figure 2 is the empirical figure reproduced here.
+The main replication reads the released analysis data. Add `--rebuild-data` to the command to recalculate the structural measures from the coded payoff and outcome sources before running the analyses. The workbooks and [data documentation](data/README.md) identify those sources and coding decisions. The papers and licensed teaching documents themselves are not redistributed here. Figure 1 is a conceptual illustration in the paper; Figure 2 is the empirical figure reproduced here.
 
 Preregistration: https://osf.io/wtgxc

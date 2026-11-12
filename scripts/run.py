@@ -3,6 +3,7 @@
 Both this command and analysis.ipynb use the same procedure. Temporary working
 files are removed automatically; only the current data and results are kept.
 """
+import argparse
 from importlib.metadata import version
 import json
 from pathlib import Path
@@ -18,7 +19,7 @@ REPOSITORY = Path(__file__).resolve().parents[1]
 if str(REPOSITORY) not in sys.path:
     sys.path.insert(0, str(REPOSITORY))
 
-from scripts.supporting.prepare_data import build_data
+from scripts.supporting.prepare_data import build_data, prepare_analysis_data
 from scripts.supporting.analysis import run_analysis
 from scripts.supporting.original_main_analysis import run_original_main
 from scripts.supporting.presentation import build_tables
@@ -59,7 +60,10 @@ def publish_files(root, working):
         assert old.observation_id.equals(new.observation_id), 'The observations changed.'
         np.testing.assert_allclose(old.iloc[:, 1:], new.iloc[:, 1:], atol=1e-12, rtol=0,
                                    equal_nan=True, err_msg='The rebuilt data differ from the released data.')
+    optional = {'payoff_metric_checks.csv', 'catalog_component_metrics.csv', 'player_component_metrics.csv'}
     for source, destination in files.items():
+        if source in optional and not (working / source).exists():
+            continue
         target = root / destination
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(working / source, target)
@@ -70,12 +74,16 @@ def publish_files(root, working):
         json.dumps(versions, indent=2) + '\n', encoding='utf-8')
 
 
-def reproduce():
+def reproduce(rebuild_data=False):
     root = Path(__file__).resolve().parents[1]
     with TemporaryDirectory(prefix='search-complexity-') as temporary:
         working = Path(temporary)
-        print('Rebuilding the data and checking the payoff calculations...', flush=True)
-        datasets = build_data(root, working)
+        if rebuild_data:
+            print('Rebuilding from the coded payoff and outcome sources...', flush=True)
+            datasets = build_data(root, working)
+        else:
+            print('Loading data/regression_data.csv and preparing the comparison datasets...', flush=True)
+            datasets = prepare_analysis_data(root, working)
         run_analysis(datasets, working, draws=5000)
         print('Running the original-registration appendix checks...', flush=True)
         run_original_main(root, working, draws=5000)
@@ -86,4 +94,7 @@ def reproduce():
 
 
 if __name__ == '__main__':
-    reproduce()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--rebuild-data', action='store_true',
+                        help='Also reconstruct the analysis data from the coded payoff and outcome sources.')
+    reproduce(rebuild_data=parser.parse_args().rebuild_data)

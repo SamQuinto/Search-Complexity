@@ -270,6 +270,18 @@ def build_data(root, output_dir):
     require(set(strict.observation_id).issubset(main.observation_id),
             'The strict sample contains a new experiment')
 
+    eligibility = make_eligibility_table(components)
+    aggregates = {'aggregate_main': aggregate_identical_structures(components),
+                  'aggregate_strict': aggregate_identical_structures(strict_components)}
+
+    save_analysis_files(main, strict, aggregates, components, eligibility, output_dir)
+    pd.DataFrame(metric_records).to_csv(output_dir / 'payoff_metric_checks.csv', index=False)
+    catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False)
+    pd.DataFrame(player_components).to_csv(output_dir / 'player_component_metrics.csv', index=False)
+    return {'main': main, 'strict': strict, **aggregates}
+
+def make_eligibility_table(components):
+    """Describe the conditions retained for strict inclusion."""
     audit = []
     for study_id, rows in components.groupby('study_id', sort=False):
         retained = rows.loc[rows.strict_included]
@@ -293,9 +305,12 @@ def build_data(root, output_dir):
                       else distinct_text(retained.strict_reason),
         })
     eligibility = pd.DataFrame(audit)
-    aggregates = {'aggregate_main': aggregate_identical_structures(components),
-                  'aggregate_strict': aggregate_identical_structures(strict_components)}
+    return eligibility
 
+
+def save_analysis_files(main, strict, aggregates, components, eligibility, output_dir):
+    """Save the analysis datasets and their source links."""
+    output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     main.to_csv(output_dir / 'study_inputs.csv', index=False)
     main[MODEL_COLUMNS].to_csv(output_dir / 'regression_data.csv', index=False)
@@ -311,7 +326,45 @@ def build_data(root, output_dir):
                       'strict_evidence', 'main_weight', 'strict_weight', 'approval_rule',
                       'approval_rule_basis', 'approval_rule_source']
     components[public_columns].to_csv(output_dir / 'component_evidence.csv', index=False)
-    pd.DataFrame(metric_records).to_csv(output_dir / 'payoff_metric_checks.csv', index=False)
-    catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False)
-    pd.DataFrame(player_components).to_csv(output_dir / 'player_component_metrics.csv', index=False)
-    return {'main': main, 'strict': strict, **aggregates}
+
+
+def prepare_analysis_data(root, output_dir):
+    """Load the main dataset and construct the supplementary analysis datasets.
+
+    The condition records already contain the coded structural measures. We
+    do not need to recalculate the payoff tables to reproduce the findings.
+    """
+    root, output_dir = Path(root), Path(output_dir)
+    released = pd.read_csv(root / 'data/regression_data.csv')
+    components = pd.read_csv(root / 'data/derived/component_evidence.csv')
+    require(released.observation_id.is_unique, 'The main dataset has repeated observation IDs.')
+    require(components.component_id.is_unique, 'The condition records have repeated IDs.')
+    require(components.strict_included.isin([True, False]).all(), 'A strict-inclusion decision is missing.')
+
+    # Recalculate the weights rather than relying on the saved weight columns.
+    components['main_weight'] = np.nan
+    components['strict_weight'] = np.nan
+    for _, rows in components.groupby('study_id', sort=False):
+        components.loc[rows.index, 'main_weight'] = weights_for(rows)[0]
+        retained = rows.loc[rows.strict_included]
+        if len(retained):
+            components.loc[retained.index, 'strict_weight'] = weights_for(retained)[0]
+
+    rebuilt = combine_study_components(components)
+    expected = released.sort_values('observation_id').reset_index(drop=True)
+    actual = rebuilt[MODEL_COLUMNS].sort_values('observation_id').reset_index(drop=True)
+    require(expected.observation_id.equals(actual.observation_id),
+            'The condition records do not reproduce the main observations.')
+    np.testing.assert_allclose(expected.iloc[:, 1:], actual.iloc[:, 1:],
+                               atol=1e-12, rtol=0, equal_nan=True)
+
+    strict_components = components.loc[components.strict_included].copy()
+    strict = combine_study_components(strict_components)
+    aggregates = {'aggregate_main': aggregate_identical_structures(components),
+                  'aggregate_strict': aggregate_identical_structures(strict_components)}
+    eligibility = make_eligibility_table(components)
+    save_analysis_files(rebuilt, strict, aggregates, components, eligibility, output_dir)
+    # Keep the released primary dataset as the actual primary regression input.
+    released.to_csv(output_dir / 'regression_data.csv', index=False)
+    return {'main': released, 'strict': strict, **aggregates}
+

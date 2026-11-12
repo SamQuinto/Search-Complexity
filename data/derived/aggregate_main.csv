@@ -1,31 +1,31 @@
 observation_id,negotiation_exercise,agreement_rate,contributing_experiments,search_complexity,bargaining_zone_share,number_of_issues,number_of_parties,number_of_compatible_issues,automated_counterpart,non_unanimous_rule
 market_alternatives_s7500_b7500,Market Alternatives Transfer Pricing,0.05,1,1.0,0.0,3.0,2.0,0.0,0.0,0.0
-market_alternatives_s5000_b7500,Market Alternatives Transfer Pricing,0.6363636363636364,1,0.850480109739369,0.0027434842249657062,3.0,2.0,0.0,0.0,0.0
-market_alternatives_s7500_b5000,Market Alternatives Transfer Pricing,0.3,1,0.850480109739369,0.0027434842249657062,3.0,2.0,0.0,0.0,0.0
+market_alternatives_s5000_b7500,Market Alternatives Transfer Pricing,0.6363636363636364,1,0.850480109739369,0.0027434842249657,3.0,2.0,0.0,0.0,0.0
+market_alternatives_s7500_b5000,Market Alternatives Transfer Pricing,0.3,1,0.850480109739369,0.0027434842249657,3.0,2.0,0.0,0.0,0.0
 market_alternatives_remaining_13_pooled,Market Alternatives Transfer Pricing,0.9782608695652174,1,0.1899335232668566,0.476627624775773,3.0,2.0,0.0,0.0,0.0
 sale_cafe_buyer_cap_1550,Sale of a Café,0.208955223880597,1,1.0,0.0,3.0,2.0,0.0,1.0,0.0
 sale_cafe_buyer_cap_3500,Sale of a Café,0.22014925373134328,1,1.0,0.0,3.0,2.0,0.0,1.0,0.0
 sale_cafe_buyer_cap_5450,Sale of a Café,0.3320610687022901,1,1.0,0.0,3.0,2.0,0.0,1.0,0.0
-sale_cafe_buyer_cap_7400,Sale of a Café,0.4022140221402214,1,0.0004319187992657403,0.20537738905085845,3.0,2.0,0.0,1.0,0.0
+sale_cafe_buyer_cap_7400,Sale of a Café,0.4022140221402214,1,0.0004319187992657,0.2053773890508584,3.0,2.0,0.0,1.0,0.0
 new_recruit_r4500_r4500,New Recruit,0.7460815047021944,1,0.81021952,0.00653312,8.0,2.0,2.0,0.0,0.0
 new_recruit_r4500_r2200,New Recruit,0.709066421167485,2,0.54417408,0.04381696,8.0,2.0,2.0,0.0,0.0
 new_recruit_r2200_r2200,New Recruit,0.9309309309309309,1,0.25766656,0.16022016,8.0,2.0,2.0,0.0,0.0
-sweet_shops_r8000_r8000,Sweet Shops,0.9809523809523809,1,0.3577601410934744,0.06728395061728396,6.0,2.0,1.0,0.0,0.0
-ma_appliance,Samsung–Future Shop,1.0,1,0.17832647462277096,0.08641975308641975,3.0,2.0,0.0,0.0,0.0
-hong_kong_equal_high,Hong Kong–U.S. Transfer Pricing,1.0,1,0.37439999999999996,0.12,4.0,2.0,1.0,0.0,0.0
-hong_kong_unequal_high,Hong Kong–U.S. Transfer Pricing,1.0,1,0.37439999999999996,0.12,4.0,2.0,1.0,0.0,0.0
-van_den_abbeele_two_power_versions_pooled,Buyer–Supplier Machine Lease,0.8653846153846154,1,0.22169462910203652,0.12071330589849108,3.0,2.0,0.0,0.0,0.0
-pinkley_1995_new_recruit_4500_0,New Recruit,0.9475,1,0.35536895999999996,0.12519936,8.0,2.0,2.0,0.0,0.0
+sweet_shops_r8000_r8000,Sweet Shops,0.9809523809523809,1,0.3577601410934744,0.0672839506172839,6.0,2.0,1.0,0.0,0.0
+ma_appliance,Samsung–Future Shop,1.0,1,0.1783264746227709,0.0864197530864197,3.0,2.0,0.0,0.0,0.0
+hong_kong_equal_high,Hong Kong–U.S. Transfer Pricing,1.0,1,0.3743999999999999,0.12,4.0,2.0,1.0,0.0,0.0
+hong_kong_unequal_high,Hong Kong–U.S. Transfer Pricing,1.0,1,0.3743999999999999,0.12,4.0,2.0,1.0,0.0,0.0
+van_den_abbeele_two_power_versions_pooled,Buyer–Supplier Machine Lease,0.8653846153846154,1,0.2216946291020365,0.120713305898491,3.0,2.0,0.0,0.0,0.0
+pinkley_1995_new_recruit_4500_0,New Recruit,0.9475,1,0.3553689599999999,0.12519936,8.0,2.0,2.0,0.0,0.0
 kray2004_player_two_power_orders_pooled,The Player,0.9411764705882353,1,0.729949951171875,0.0157623291015625,11.0,2.0,2.0,0.0,0.0
-work_contract_r9000_r9000,Work Contract,0.99375,1,0.10046719999999998,0.2278656,7.0,2.0,2.0,0.0,0.0
-player_falcao_2019_r750_r750,The Player,1.0,1,0.15975680000000003,0.2377472,7.0,2.0,1.0,0.0,0.0
+work_contract_r9000_r9000,Work Contract,0.99375,1,0.1004671999999999,0.2278656,7.0,2.0,2.0,0.0,0.0
+player_falcao_2019_r750_r750,The Player,1.0,1,0.1597568,0.2377472,7.0,2.0,1.0,0.0,0.0
 wolfe_mcginn_new_recruit_four_reservation_versions_pooled,New Recruit,0.9137931034482759,1,0.1612752475247524,0.353240966796875,5.0,2.0,0.0,0.0,0.0
-at_your_service_full,At Your Service,0.9885057471264368,1,0.0022857142857143353,0.464,4.0,2.0,1.0,0.0,0.0
-brett_1996_new_recruit_pooled,New Recruit,0.8711656441717791,1,0.05339363555555555,0.50125312,8.0,2.0,2.0,0.0,0.0
-three_commodity_calhoun_1999_pooled_r0_r4500,Three-Commodity Bargaining,0.9925925925925926,1,0.14677640603566527,0.522633744855967,3.0,2.0,0.0,0.0,0.0
-job_contract_wong_howard_study2_unequal,Job Contract,1.0,1,0.022208000000000006,0.578496,6.0,2.0,1.0,0.0,0.0
+at_your_service_full,At Your Service,0.9885057471264368,1,0.0022857142857143,0.464,4.0,2.0,1.0,0.0,0.0
+brett_1996_new_recruit_pooled,New Recruit,0.8711656441717791,1,0.0533936355555555,0.50125312,8.0,2.0,2.0,0.0,0.0
+three_commodity_calhoun_1999_pooled_r0_r4500,Three-Commodity Bargaining,0.9925925925925926,1,0.1467764060356652,0.522633744855967,3.0,2.0,0.0,0.0,0.0
+job_contract_wong_howard_study2_unequal,Job Contract,1.0,1,0.022208,0.578496,6.0,2.0,1.0,0.0,0.0
 carnevale_lawler_1986_three_issue_r80_r80,Three-Commodity Bargaining,0.875,1,0.0,0.5857338820301783,3.0,2.0,0.0,0.0,0.0
-job_contract_wong_howard_study1_three_versions_pooled,Job Contract,1.0,1,0.041600000000000005,0.6064213333333333,6.0,2.0,1.0,0.0,0.0
+job_contract_wong_howard_study1_three_versions_pooled,Job Contract,1.0,1,0.0416,0.6064213333333333,6.0,2.0,1.0,0.0,0.0
 gelfand_christakopoulou_pollution_controls,Pollution Controls Joint Venture,0.896551724137931,1,0.0,0.648,3.0,2.0,0.0,0.0,0.0
 leonardelli_soccer_exp5_owner_high,Soccer Player–Team Owner,1.0,1,0.0,0.67010498046875,3.0,2.0,0.0,0.0,0.0
 rothman_northcraft_new_recruit_6_issue,New Recruit,0.85,1,0.0,0.673728,6.0,2.0,0.0,0.0,0.0
@@ -55,14 +55,14 @@ mediation_equal,Transfer Pricing,0.9888888888888889,1,0.0,1.0,4.0,2.0,1.0,0.0,0.
 vacation_plans_packet,Vacation Plans,0.8978494623655914,1,0.0,1.0,5.0,2.0,1.0,0.0,0.0
 thompson_1991_exp1_new_car_r0_r0,New Car — Thompson,1.0,1,0.0,0.8592,4.0,2.0,0.0,0.0,0.0
 olekalns_smith_1999_employment_r0_r0,Employment Contract — Olekalns and Smith,0.8666666666666667,1,0.0,1.0,8.0,2.0,1.0,0.0,0.0
-jones_jelassi_1990_integrative_r44_r44,Roberts–Simo Contract,1.0,1,0.04336734693877553,0.2869897959183674,4.0,2.0,0.0,0.0,0.0
+jones_jelassi_1990_integrative_r44_r44,Roberts–Simo Contract,1.0,1,0.0433673469387755,0.2869897959183674,4.0,2.0,0.0,0.0,0.0
 kong_2011_disciplinary_bounded_rv_grid,Workplace Disciplinary Negotiation,0.88,1,0.3451710201652893,0.4326416925619835,8.0,2.0,2.0,0.0,0.0
 liu_2019_allred_employment_r925_r925,Allred Employment Contract,0.9411764705882353,1,0.4544,0.0224,4.0,2.0,1.0,0.0,0.0
 giebels_2000_refrigerator_four_issue_no_exit,Refrigerator Buyer–Seller Negotiation,0.9583333333333334,1,0.0,1.0,4.0,2.0,0.0,0.0,0.0
-kimmel_1980_appliances_two_rv_versions_pooled,Three-Appliance Negotiation,0.95,1,0.21947873799725653,0.08779149519890261,3.0,2.0,0.0,0.0,0.0
+kimmel_1980_appliances_two_rv_versions_pooled,Three-Appliance Negotiation,0.95,1,0.2194787379972565,0.0877914951989026,3.0,2.0,0.0,0.0,0.0
 mumpower_2004_two_issue_versions_pooled,Two-Company Acreage Negotiation,0.8666666666666667,1,0.0,1.0,2.0,2.0,0.0,0.0,0.0
 jaeger_2017_resource_allocation_scripted_acceptance,University Resource Allocation,0.9620253164556962,1,0.189453125,0.49609375,9.0,2.0,0.0,0.0,0.0
-harinck_dedreu_2008_car_r8000_r8000,Six-Issue New Car,0.9259398496240602,2,0.19129600000000002,0.167936,6.0,2.0,1.0,0.0,0.0
+harinck_dedreu_2008_car_r8000_r8000,Six-Issue New Car,0.9259398496240602,2,0.191296,0.167936,6.0,2.0,1.0,0.0,0.0
 cartoon_standard_us_us,Cartoon,0.9447162619353138,8,0.0,0.7161865234375,4.0,2.0,1.0,0.0,0.0
 schweitzer_gomberg_2001_job_offer,Junior Geologist Job Offer,0.96,2,0.0,0.7378472222222222,5.0,2.0,0.0,0.0,0.0
 sweet_shops_r4000_r4000,Sweet Shops,0.989342403628118,2,0.0,0.8021164021164021,6.0,2.0,1.0,0.0,0.0
@@ -72,7 +72,7 @@ hatta_2007_employee_employer,Employee–Employer Contract,0.5660919540229885,2,0
 dedreu_1998_union_management,Union–Management Contract,0.9888888888888889,2,0.0,1.0,4.0,2.0,0.0,0.0,0.0
 giebels_2003_refrigerator_five_issue_no_exit,Refrigerator Buyer–Seller Negotiation,0.9421428571428572,2,0.0,1.0,5.0,2.0,0.0,0.0,0.0
 harinck_criminal_cases_five_issue_r0_r0,Five Criminal Cases,0.6116600790513834,2,0.0,1.0,5.0,2.0,1.0,0.0,0.0
-new_recruit_standard_r0_r0_studies,New Recruit,0.9667579955072381,31,0.015646720000000003,0.54825984,8.0,2.0,2.0,0.0,0.0
+new_recruit_standard_r0_r0_studies,New Recruit,0.9667579955072381,31,0.01564672,0.54825984,8.0,2.0,2.0,0.0,0.0
 martin_raugh_2020_fundraiser,Fundraiser,1.0,1,0.0,1.0,6.0,2.0,2.0,0.0,0.0
 martin_raugh_2020_robot,Robot,1.0,1,0.0,1.0,6.0,2.0,2.0,0.0,0.0
 warsitzka_2022_lni_r0_r0_assumed,Issue Bracketing — five issues,0.9955357142857143,4,0.0,1.0,5.0,2.0,0.0,0.0,0.0
@@ -88,15 +88,15 @@ beersma_de_dreu_2005_market_r0_unanimity,Market Rental Group Negotiation,0.83913
 graham_kelley_three_commodity_r28_r28,Three-Commodity Bargaining,0.9897959183673469,2,0.0,0.5281207133058985,3.0,2.0,0.0,0.0,0.0
 mohammed_2008_towers_market_r0_unanimity,Towers Market,0.75,1,0.0,1.0,5.0,4.0,0.0,0.0,0.0
 mohammed_2008_towers_market_r0_majority,Towers Market,0.6842105263157895,1,0.0,1.0,5.0,4.0,0.0,0.0,1.0
-reina_2003_two_number_treatment_a,Two-Number Integrative Negotiation,0.9285714285714286,1,0.0826446280991735,0.14049586776859505,2.0,2.0,0.0,0.0,0.0
-reina_2003_two_number_treatment_b,Two-Number Integrative Negotiation,0.8571428571428571,1,0.0826446280991735,0.23140495867768596,2.0,2.0,0.0,0.0,0.0
+reina_2003_two_number_treatment_a,Two-Number Integrative Negotiation,0.9285714285714286,1,0.0826446280991735,0.140495867768595,2.0,2.0,0.0,0.0,0.0
+reina_2003_two_number_treatment_b,Two-Number Integrative Negotiation,0.8571428571428571,1,0.0826446280991735,0.2314049586776859,2.0,2.0,0.0,0.0,0.0
 van_bunderen_2018_internal_consultancy_r0,Internal Consultancy Team Decision,0.9883720930232558,1,0.0,1.0,4.0,3.0,0.0,0.0,0.0
 towers_market_r50_unanimity,Towers Market,0.871031746031746,2,0.0,0.4544,5.0,4.0,0.0,0.0,0.0
 zhang_mental_accounting_exp2_raw_materials_r0,Fictional Raw Materials,0.9938271604938271,1,0.0,1.0,8.0,2.0,0.0,0.0,0.0
 zhang_mental_accounting_power_plant_two_versions_pooled,Power Plant Sale,0.9549911727616646,3,0.0,1.0,8.0,2.0,0.0,0.0,0.0
 aaldering_dedreu_2012_collective_employment_r0_r0,Collective Employment Negotiation,0.9534883720930233,1,0.0,1.0,5.0,2.0,1.0,0.0,0.0
 aaldering_2018_employment_five_issue_r0_r0,Collective Employment Negotiation,0.573170731707317,1,0.0,1.0,5.0,2.0,0.0,0.0,0.0
-wiltermuth_2018_exp1_merging_companies_r2200,Merging Companies,0.927536231884058,3,0.25151999999999997,0.134848,6.0,2.0,1.0,0.0,0.0
+wiltermuth_2018_exp1_merging_companies_r2200,Merging Companies,0.927536231884058,3,0.2515199999999999,0.134848,6.0,2.0,1.0,0.0,0.0
 confetti_five_issue_r780_r780,Confetti,0.40796125083889934,4,0.90528,0.00096,5.0,2.0,1.0,0.0,0.0
 honors_class_six_issue_unbounded,Honors Class,0.9083969465648855,1,0.0,1.0,6.0,2.0,1.0,0.0,0.0
 northcraft_1998_employment_decreasing_r0_r0,Nonlinear Employment Contract,1.0,1,0.0,1.0,6.0,2.0,1.0,0.0,0.0

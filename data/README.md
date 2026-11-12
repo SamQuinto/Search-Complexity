@@ -2,7 +2,7 @@
 
 Preregistration: https://osf.io/wtgxc
 
-The paper's Appendix A explains data collection and coding; Appendix B explains the structural calculations; Appendix C explains the supplementary analyses. Paths below are relative to the repository's main folder. To reproduce the analysis, follow the [main README](../README.md). The code is in [scripts](../scripts/) and the tables are in [results/tables](../results/tables/).
+The paper's Appendix A explains data collection and coding; Appendix B explains the structural calculations; Appendix C explains the supplementary analyses. Paths below are relative to the repository's main folder. The main script and notebook load `data/regression_data.csv` and reconstruct the stricter and combined-payoff datasets from the coded condition records. To also recalculate the structural measures from the payoff sources, use `--rebuild-data`. Follow the [main README](../README.md) for either route. The code is in [scripts](../scripts/) and the tables are in [results/tables](../results/tables/).
 
 ## From the search to the observations
 
@@ -30,7 +30,7 @@ For payoffs and acceptance rules, materials administered to participants take pr
 
 A reservation value is a stated minimum for acceptance or the payoff a party can secure without a deal. A numerical BATNA, outside-option payoff, or impasse payoff can supply it when it is on the negotiation's payoff scale. Zero requires an explicit source or a scale defined as gains above the outside option. A qualitative BATNA does not establish a numerical threshold. An opening offer is not a reservation value unless the study identifies it as one.
 
-For approval, use the rule in the study or matching exercise materials. If no alternative rule is stated, assume that all parties must agree. This convention applies to the main and strict data; reservation values still require numerical support. `data/approval_rules.csv` distinguishes the default from rules identified in the materials and reconstructed programmed acceptance. The workbook gives these descriptions beside every observation, condition, and payoff record. The control is zero for unanimity, one for non-unanimity, or the negotiation-count weighted share when an experiment uses both rules. The notebook checks that the descriptions agree with the numeric control.
+For approval, use the rule in the study or matching exercise materials. If no alternative rule is stated, assume that all parties must agree. This convention applies to the main and strict data; reservation values still require numerical support. `data/approval_rules.csv` distinguishes the default from rules identified in the materials and reconstructed programmed acceptance. The workbook gives these descriptions beside every observation, condition, and payoff record. The control is zero for unanimity, one for non-unanimity, or the negotiation-count weighted share when an experiment uses both rules. The data builder checks that the descriptions agree with the numeric control.
 
 ## Combining conditions
 

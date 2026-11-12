@@ -1,6 +1,6 @@
 # Run Study 1
 
-Start with **[analysis.ipynb](analysis.ipynb)** and choose **Run all**, or run **[run.py](run.py)**. Both execute the complete replication.
+Start with **[analysis.ipynb](analysis.ipynb)** and choose **Run all**, or run **[run.py](run.py)**. Both load [the main analysis dataset](../data/regression_data.csv), prepare the intermediate comparison datasets, and produce the same tables, empirical figure, and robustness checks.
 
 If your terminal is open in this `scripts` folder:
 
@@ -32,3 +32,7 @@ All helper code is in [supporting](supporting/). You do not need to run these fi
 | `analysis.py` | Fit the regressions and run the robustness checks |
 | `original_main_analysis.py` | Reproduce the original-registration appendix tests |
 | `presentation.py` | Create the paper's tables, empirical figure, and data-flow counts |
+
+## Optional data reconstruction
+
+From this folder, run `python run.py --rebuild-data` to also recalculate the structural measures from the coded payoff tables and outcome sources. This option then runs the same analyses. The regular command uses the released analysis dataset.
