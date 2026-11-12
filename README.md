@@ -4,7 +4,9 @@
 
 **Main analysis dataset:** [data/regression_data.csv](data/regression_data.csv).
 
-**Run either:** [scripts/run.py](scripts/run.py) in Python, or [scripts/analysis.ipynb](scripts/analysis.ipynb) with **Run all**. Both load the main dataset, prepare the comparison datasets, and produce the same tables and figure.
+**Main Python analysis script:** [scripts/run.py](scripts/run.py). It loads the main dataset, prepares the comparison datasets, and produces the paper's tables, empirical figure, and robustness checks.
+
+**Notebook version:** [scripts/analysis.ipynb](scripts/analysis.ipynb). Choose **Run all** to run the same analysis with short explanations.
 
 [Download the complete Study 1 folder](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), extract the ZIP, and open a terminal inside the extracted folder. With Python 3.12, run:
 
@@ -43,7 +45,7 @@ You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **
 ## Folder guide
 
 - `data/`: coded sources, inventories, and analysis datasets. The intermediate comparison datasets in `data/derived/` are rebuilt by the main analysis.
-- `scripts/`: start with [analysis.ipynb](scripts/analysis.ipynb) or [run.py](scripts/run.py). The [scripts README](scripts/README.md) explains both. Helper code is in `scripts/supporting/`.
+- `scripts/`: start with [run.py](scripts/run.py). The notebook version is [analysis.ipynb](scripts/analysis.ipynb), and the [scripts README](scripts/README.md) explains both. Helper code is in `scripts/supporting/`.
 - `results/`: current tables, Figure 2, and detailed statistical checks.
 - `archive/`: earlier materials; these are not used by the replication and are omitted from the download ZIP.
 

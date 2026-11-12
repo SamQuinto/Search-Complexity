@@ -1,6 +1,8 @@
 # Run Study 1
 
-Start with **[analysis.ipynb](analysis.ipynb)** and choose **Run all**, or run **[run.py](run.py)**. Both load [the main analysis dataset](../data/regression_data.csv), prepare the intermediate comparison datasets, and produce the same tables, empirical figure, and robustness checks.
+Start with **[run.py](run.py)**, the main Python analysis script, and **[data/regression_data.csv](../data/regression_data.csv)**, the main analysis dataset. The script loads this dataset, prepares the intermediate comparison datasets, and produces the paper's tables, empirical figure, and robustness checks.
+
+The notebook version, **[analysis.ipynb](analysis.ipynb)**, runs the same analysis with short explanations. Choose **Run all** after installing the requirements below.
 
 If your terminal is open in this `scripts` folder:
 
