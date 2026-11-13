@@ -13,7 +13,6 @@ WS0107,SRU0345,Falcao Filho (2019): the dissertation experiment is labelled Stud
 WS0455,SRU0220,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
 WS0123,SRU0346,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
 WS0050,SRU0189,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
-WS0058,SRU0032,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
 WS0458,SRU0424,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
 WS0063,SRU0366,Carnevale and Lawler (1986): the two nonoverlapping time-pressure conditions are combined. The agreement source explicitly identifies W0063 and W0064.
 WS0064,SRU0366,Carnevale and Lawler (1986): the two nonoverlapping time-pressure conditions are combined. The agreement source explicitly identifies W0063 and W0064.
@@ -136,6 +135,7 @@ WS0452,SRU0423,Same paper and experiment label; Study and Experiment are treated
 WS0289,SRU0128,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
 WS0290,SRU0129,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
 WS0291,SRU0130,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
-WS0293,OC2005_STUDY1,Same paper and experiment label; Study and Experiment are treated as equivalent labels.
+WS0293,OC2005_STUDY1,"Same independent Study 1 sample. The main observation retains only recoverable Confetti Time 1 (.282, N131); the registry rate refers to excluded Honors Time 2 and is not substituted for Time 1."
 WS0284,NORTHCRAFT1998_STUDY1,Northcraft et al. (1998): the linear group (22 dyads) and two nonlinear groups (44 dyads together) are combined into one experiment.
 WS0285,NORTHCRAFT1998_STUDY1,Northcraft et al. (1998): the linear group (22 dyads) and two nonlinear groups (44 dyads together) are combined into one experiment.
+WS0146,WS::10.1177/0146167213499236::Study 4,Exact independent Study 4 match; original protocol-compliant outcome 40/42 corroborates the Warsitzka coding row W0146. Distinct from Gunia Study 2.

@@ -4,7 +4,7 @@
 
 **Main analysis dataset:** [data/regression_data.csv](data/regression_data.csv).
 
-**Main Python analysis script:** [scripts/run.py](scripts/run.py). It loads the main dataset, prepares the comparison datasets, and produces the paper's tables, empirical figure, and robustness checks.
+**Main Python analysis script:** [scripts/run.py](scripts/run.py). It rebuilds the primary inputs, checks the payoff cells, and produces the paper's tables, empirical figure, and robustness checks.
 
 **Notebook version:** [scripts/analysis.ipynb](scripts/analysis.ipynb). Choose **Run all** to run the same analysis with short explanations.
 
@@ -15,7 +15,9 @@ python -m pip install -r requirements.txt
 python scripts/run.py
 ```
 
-The code reproduces **Tables 1–3, Tables C1–C4, Figure 2, and the regression and robustness checks**. It includes the 5,000-draw resampling and single-observation omission checks. No account, API key, or original computer path is needed.
+The code reproduces **Tables 1–3, Tables C1–C5, Figure 2, and the regression and robustness checks**. It includes the 5,000-draw resampling and single-observation omission checks. No account, API key, or original computer path is needed.
+
+Script and Notebook rebuild the primary calculation from the coded payoffs, using `payoff > RV`, and check that every payoff JSON cell reproduces its five numerical fields. The operative comparison is stored separately from authors' source instructions. They also produce an inclusive `>= RV` check, six source-bound checks and 123 point scenarios in [results/reservation_rule](results/reservation_rule/), summarized in Table C5. Beersma's assumed allocation average and Northcraft's endpoint inference remain explicit; their components are excluded from the evidence-restricted sample. Use `python scripts/run.py --skip-reservations`, or set `check_reservations=False` in the Notebook, to run Tables 1–3 and C1–C4 only. Figure 2 always uses the primary calculation.
 
 You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **Run all** after installing the requirements. It runs the same code.
 
@@ -49,7 +51,7 @@ You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **
 - `results/`: current tables, Figure 2, and detailed statistical checks.
 - `archive/`: earlier materials; these are not used by the replication and are omitted from the download ZIP.
 
-The main replication reads the released analysis data. Add `--rebuild-data` to the command to recalculate the structural measures from the coded payoff and outcome sources before running the analyses. The workbooks and [data documentation](data/README.md) identify those sources and coding decisions. The papers and licensed teaching documents themselves are not redistributed here. Figure 1 is a conceptual illustration in the paper; Figure 2 is the empirical figure reproduced here.
+The main replication rebuilds the structural measures from the coded payoff and outcome sources, checks every embedded payoff cell, and runs the analyses. `--use-released-data` loads the released primary dataset while retaining its payoff-cell checks. The workbooks and [data documentation](data/README.md) identify sources and coding decisions. The papers and licensed teaching documents themselves are not redistributed here. Figure 1 is a conceptual illustration; Figure 2 uses the primary calculation.
 
 ## Calculate from the payoff column
 
@@ -60,6 +62,6 @@ python scripts/supporting/payoff_info.py --observation SRU0286
 python scripts/supporting/payoff_info.py --check
 ```
 
-The helper checks both structural measures and all three counts for all 140 rows. Three Northcraft payoff records in one observation use valid source proofs and directly reported controls; their complete numerical schedules remain unavailable. [Input coverage](data/payoff_input_issues.csv) gives the observation, weights and missing material. Table options are paired by the same physical alternative across roles. Any control mismatch stops input preparation or the check command. See the [payoff-column notes](data/README.md#the-payoff-json-column) for the format and limitations.
+The active catalogue contains 97 numerical payoff records and three Northcraft records using an explicit endpoint assumption and directly reported controls. Complete Northcraft schedules remain unavailable. The helper checks both structural measures and all three counts for every included row. [Input coverage](data/payoff_input_issues.csv) gives the observations, weights and missing material. Table options are paired by the same physical alternative across roles; any control mismatch stops preparation or checking. See the [payoff-column notes](data/README.md#the-payoff-json-column) for the format and limitations.
 
 Preregistration: https://osf.io/wtgxc

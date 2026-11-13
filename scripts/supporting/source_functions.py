@@ -12,7 +12,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .payoff_metrics import metrics_from_acceptance
+from .payoff_metrics import metrics_from_acceptance, numeric_accepts
 
 
 SEED = 20260818
@@ -78,7 +78,7 @@ def payment_profiles(periods=4, units=4):
     return np.asarray(rows, dtype=float) / units
 
 
-def soccer_metrics(reservations):
+def soccer_metrics(reservations, strict=False):
     """Owner/player order, with the original separate volume and start samples."""
     volume_points = halton(16384, 3)
     owner = ((1 - volume_points[:, 0]) * 500000
@@ -86,7 +86,7 @@ def soccer_metrics(reservations):
              + (1 - volume_points[:, 2]) * 400000)
     player = (volume_points[:, 0] * 500000 + volume_points[:, 1] * 400000
               + volume_points[:, 2] * 200000)
-    zone_share = ((owner >= reservations[0]) & (player >= reservations[1])).mean()
+    zone_share = ((numeric_accepts(owner, reservations[0], strict)) & (numeric_accepts(player, reservations[1], strict))).mean()
     salary = np.linspace(500000, 1000000, 501)
     signing = np.linspace(0, 200000, 201)
     goals = np.linspace(0, 20000, 21)
@@ -98,7 +98,7 @@ def soccer_metrics(reservations):
     coordinates = np.minimum((starting_points * np.asarray(shape)).astype(int),
                              np.asarray(shape) - 1)
     starting_indices = np.ravel_multi_index(coordinates.T, shape)
-    metrics = metrics_from_acceptance(totals >= np.asarray(reservations), shape, 2,
+    metrics = metrics_from_acceptance(numeric_accepts(totals, np.asarray(reservations), strict), shape, 2,
                                      starting_indices=starting_indices)
     metrics['bargaining_zone_share'] = float(zone_share)
     return metrics
@@ -136,12 +136,12 @@ def moms_grid(contingencies=None):
     return np.column_stack([buyer, seller]), shape
 
 
-def moms_standard_metrics():
+def moms_standard_metrics(strict=False):
     totals, shape = moms_grid()
-    return metrics_from_acceptance(totals >= 0, shape, 2)
+    return metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2)
 
 
-def moms_exp6_metrics():
+def moms_exp6_metrics(strict=False):
     """Average the original four contingent-term strengths and sample settings."""
     observed = np.asarray([[0.0, 0.0], [-150000, 450000], [-1400000, 1400000],
                            [1890000, -690000], [50000, 1250000],
@@ -151,7 +151,7 @@ def moms_exp6_metrics():
     rows = []
     for scale in [0.25, 0.50, 0.75, 1.00]:
         totals, shape = moms_grid(observed * scale)
-        metrics = metrics_from_acceptance(totals >= 0, shape, 2)
+        metrics = metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2)
         price = 35.0 + 25.0 * points[:, 0]
         run_indices = np.minimum((points[:, 1] * len(runs)).astype(int), len(runs) - 1)
         exponentials = -np.log(np.clip(points[:, 2:6], 1e-12, 1 - 1e-12))
@@ -169,13 +169,13 @@ def moms_exp6_metrics():
                   - 0.25 * (runs[run_indices] - 6) - 2.5
                   + np.where(junior_included, (junior - 10.0) / 10.0, 0.0)
                   + contingent[:, 1])
-        metrics['bargaining_zone_share'] = float(((buyer >= 0) & (seller >= 0)).mean())
+        metrics['bargaining_zone_share'] = float(((numeric_accepts(buyer, 0, strict)) & (numeric_accepts(seller, 0, strict))).mean())
         rows.append(metrics)
     return {name: float(np.mean([row[name] for row in rows]))
             for name in ['bargaining_zone_share', 'search_complexity']}
 
 
-def wolfe_metrics():
+def wolfe_metrics(strict=False):
     """Recruiter/candidate order with four equally weighted reservation pairs."""
     discrete = [
         paired([0, 400, 800, 1200, 1600], [4000, 3000, 2000, 1000, 0]),
@@ -194,8 +194,8 @@ def wolfe_metrics():
     sampled += np.column_stack([8000 * (1 - points[:, 4]), 8000 * points[:, 4]])
     rows = []
     for reservations in [(9500, 5000), (5000, 9500), (9500, 9500), (5000, 5000)]:
-        metrics = metrics_from_acceptance(totals >= np.asarray(reservations), shape, 2)
-        metrics['bargaining_zone_share'] = float((sampled >= np.asarray(reservations)).all(axis=1).mean())
+        metrics = metrics_from_acceptance(numeric_accepts(totals, np.asarray(reservations), strict), shape, 2)
+        metrics['bargaining_zone_share'] = float((numeric_accepts(sampled, np.asarray(reservations), strict)).all(axis=1).mean())
         rows.append(metrics)
     return {name: float(np.mean([row[name] for row in rows]))
             for name in ['bargaining_zone_share', 'search_complexity']}
@@ -225,7 +225,7 @@ SOURCE_FUNCTION_SETTINGS = {
 }
 
 
-def calculate_formula_inputs(root):
+def calculate_formula_inputs(root, strict=False):
     """Return the five source-function metrics with portable provenance."""
     catalogue_path = Path(root) / 'data' / 'raw_payoff_catalog.json'
     sources = {}
@@ -233,9 +233,9 @@ def calculate_formula_inputs(root):
         sources = {entry['payoff_id']: entry['payoff_source']
                    for entry in json.loads(catalogue_path.read_text(encoding='utf-8'))}
     specifications = [
-        ('leonardelli_soccer_exp5_owner_high', lambda: soccer_metrics((350000, 350000)),
+        ('leonardelli_soccer_exp5_owner_high', lambda strict=False: soccer_metrics((350000, 350000), strict),
          'Leonardelli et al. (2019), Experiment 5 supplement and scoring footnote'),
-        ('leonardelli_soccer_exp5_owner_low', lambda: soccer_metrics((70000, 350000)),
+        ('leonardelli_soccer_exp5_owner_low', lambda strict=False: soccer_metrics((70000, 350000), strict),
          'Leonardelli et al. (2019), Experiment 5 supplement and scoring footnote'),
         ('leonardelli_moms_exp6_reconstructed_contingency', moms_exp6_metrics,
          'Leonardelli et al. (2019), Experiment 6 raw contingent terms and Moms.com role functions'),
@@ -244,7 +244,7 @@ def calculate_formula_inputs(root):
         ('wolfe_mcginn_new_recruit_four_reservation_versions_pooled', wolfe_metrics,
          'Wolfe and McGinn, printed five-issue schedule and four reservation conditions'),
     ]
-    return [{'payoff_id': payoff_id, **calculation(),
+    return [{'payoff_id': payoff_id, **calculation(strict=strict),
              'input_type': 'Source payoff function with recorded grid and sampling',
              'source': sources.get(payoff_id, fallback)}
             for payoff_id, calculation, fallback in specifications]

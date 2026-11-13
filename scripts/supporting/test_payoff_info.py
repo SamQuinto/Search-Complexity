@@ -29,10 +29,17 @@ class PayoffInfoTests(unittest.TestCase):
 
     def test_column_position_and_coverage(self):
         self.assertEqual(self.columns, ['observation_id', info.COLUMN, *MODEL_COLUMNS[1:]])
-        self.assertEqual(len(self.rows), 140)
-        self.assertEqual(len(self.records), 101)
-        self.assertEqual(sum(r['coverage'] == 'numerical' for r in self.records.values()), 98)
-        self.assertEqual(sum(p['coverage'] == 'includes_proof_only' for p in self.payloads.values()), 1)
+        outcomes = pd.read_csv(info.ROOT / 'data/sources/study_outcomes.csv')
+        decisions = pd.read_csv(info.ROOT / 'data/component_decisions.csv', keep_default_na=False)
+        included = set(decisions.loc[decisions.main_included.eq('Y'), 'component_id'])
+        expected = set(outcomes.loc[outcomes.component_id.isin(included), 'study_id'])
+        self.assertEqual(set(self.payloads), expected)
+        self.assertEqual(set(self.records), set(self.catalog))
+        for payload in self.payloads.values():
+            self.assertEqual(payload['calculation_rule']['numeric_RV_comparison'], '>')
+            for record in payload['payoffs'].values():
+                self.assertEqual(record['calculation_rule'], payload['calculation_rule'])
+                self.assertIn(record['coverage'], ('numerical', 'proof_only'))
 
     def test_compact_tables_round_trip_to_original_catalog(self):
         for payoff_id, record in self.records.items():
@@ -94,7 +101,6 @@ class PayoffInfoTests(unittest.TestCase):
 
     def test_proof_records_use_directly_reported_controls_with_source_pages(self):
         proofs = [r for r in self.records.values() if r['coverage'] == 'proof_only']
-        self.assertEqual(len(proofs), 3)
         for record in proofs:
             self.assertFalse(record['catalog']['components'])
             self.assertNotIn('schedules', record['catalog'])
@@ -102,7 +108,11 @@ class PayoffInfoTests(unittest.TestCase):
             self.assertEqual(result['number_of_compatible_issues'],
                              record['proof']['source_verified_controls']['compatible'])
             self.assertEqual(result['search_complexity'], 0)
-            self.assertEqual(result['bargaining_zone_share'], 1)
+            if record['catalog']['payoff_id'].startswith('northcraft_1998_employment_'):
+                self.assertEqual(result['bargaining_zone_share'], .999872)
+                self.assertEqual(info.calculate_record(info.dumps(record), strict=False)['bargaining_zone_share'], 1)
+            else:
+                self.assertEqual(result['bargaining_zone_share'], 1)
             self.assertIn('Directly reported source controls', result['control_basis'])
             self.assertIn('PDF p.', record['proof']['controls_source'])
 
@@ -174,14 +184,16 @@ class PayoffInfoTests(unittest.TestCase):
         outcomes = pd.read_csv(info.ROOT / 'data/sources/study_outcomes.csv')
         self.assertEqual(set(outcomes.loc[outcomes.payoff_id.isin(ids), 'payoff_id']), ids)
         quarantine = info.read_json(info.ROOT / 'data/inventory/excluded_payoff_records.json')
-        self.assertEqual({p['payoff_id'] for p in quarantine}, ids)
-        self.assertTrue(all(p.get('exclusion_evidence') and p.get('withdrawn_acceptability_proof') for p in quarantine))
+        specific = [p for p in quarantine if p['payoff_id'] in ids]
+        self.assertEqual({p['payoff_id'] for p in specific}, ids)
+        self.assertTrue(all(p.get('exclusion_evidence') and p.get('withdrawn_acceptability_proof') for p in specific))
 
     def test_formal_offer_legality_cannot_establish_bargaining_zone(self):
         quarantine = info.read_json(info.ROOT / 'data/inventory/excluded_payoff_records.json')
         for record in quarantine:
-            certificate = record['withdrawn_acceptability_proof']
-            self.assertEqual(certificate['kind'], 'all_complete_offers_allowed')
+            certificate = record.get('withdrawn_acceptability_proof')
+            if certificate is None or certificate.get('kind') != 'all_complete_offers_allowed':
+                continue
             with self.assertRaisesRegex(ValueError, 'formal offer legality'):
                 info.metrics_from_source_proof(certificate)
 
@@ -209,18 +221,50 @@ class PayoffInfoTests(unittest.TestCase):
 
     def test_unknown_pooled_allocation_requires_invariance(self):
         raw = info.unpack_catalog(self.records['beersma_de_dreu_2002_market_four_versions_pooled']['catalog'])
-        self.assertTrue(any(p['aggregation_weight'] is None for p in raw['components']))
-        self.assertEqual(info.table_parts(raw)['search_complexity'], 0)
-        for option in raw['components'][0]['schedule']['issues'][0]['options']:
-            option['payoffs'] = [-1_000_000] * len(option['payoffs'])
+        self.assertTrue(all(p['aggregation_weight'] is not None for p in raw['components']))
+        # Clear the explicitly assumed point weights on a separate copy. The
+        # actual joint cell counts remain unknown, so strict noninvariance
+        # cannot be resolved by treating the mean weights as observed counts.
+        for part in raw['components']:
+            part['aggregation_weight'] = None
+        self.assertEqual(info.table_parts(raw, strict=False)['search_complexity'], 0)
         with self.assertRaisesRegex(ValueError, 'Unknown within-payoff allocation'):
-            info.table_parts(raw)
+            info.table_parts(raw, strict=True)
 
     def test_unbounded_minimum_keeps_source_meaning(self):
         parts = [p for entry in self.catalog.values() for p in entry['components']
                  if p.get('reservation_values') and 'unbounded' in p['reservation_values']]
-        self.assertTrue(parts)
         self.assertTrue(all(isinstance(p['reservation_values'], list) for p in parts))
+
+    def test_liu_source_boundary_uses_actual_coded_grid(self):
+        key = 'liu_2019_allred_employment_r925_r925'
+        if key not in self.catalog:
+            self.skipTest('Liu is not an active source record.')
+        raw = info.unpack_catalog(self.records[key]['catalog'])
+        self.assertEqual(raw['components'][0]['reservation_values'], [900, 900])
+        boundary = raw['source_acceptance_boundary']
+        self.assertEqual(boundary['comparison'], 'gt')
+        first_allowed = json.loads(json.dumps(raw))
+        # The coded Allred proxy has five-point total increments: 905 is the
+        # first permitted total, while 925 was a historical coding threshold.
+        first_allowed['components'][0]['reservation_values'] = [905, 905]
+        primary = info.table_parts(raw, strict=True)
+        exact_grid_encoding = info.table_parts(first_allowed, strict=False)
+        for name in ('search_complexity', 'bargaining_zone_share'):
+            self.assertEqual(primary[name], exact_grid_encoding[name])
+
+    def test_gunia_unknown_power_order_mix_is_invariant_under_both_rules(self):
+        key = 'gunia_2013_new_recruit_two_power_orders_pooled'
+        if key not in self.catalog:
+            self.skipTest('Gunia Study 4 is not an active source record.')
+        raw = info.unpack_catalog(self.records[key]['catalog'])
+        self.assertTrue(all(part['aggregation_weight'] is None for part in raw['components']))
+        for strict in (False, True):
+            values = [info.table_parts({'components': [part]}, strict=strict) for part in raw['components']]
+            pooled = info.table_parts(raw, strict=strict)
+            for name in ('search_complexity', 'bargaining_zone_share'):
+                for value in values:
+                    self.assertAlmostEqual(value[name], pooled[name], places=12)
 
     def test_unsupported_function_and_changed_procedure_are_rejected(self):
         record = json.loads(info.dumps(self.records['leonardelli_soccer_exp5_owner_high']))

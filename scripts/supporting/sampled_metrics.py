@@ -10,9 +10,10 @@ from pathlib import Path
 
 import numpy as np
 from .source_functions import halton as shifted_halton
+from .payoff_metrics import numeric_accepts
 
 
-def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827):
+def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827, strict=False):
     issues = [np.asarray(issue, dtype=float) for issue in issues]
     reservations = np.asarray(reservations, dtype=float)
     if reservations.shape != (2,) or any(issue.shape[1] != 2 for issue in issues):
@@ -21,7 +22,7 @@ def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827):
     starts = np.minimum((shifted_halton(n, len(issues), seed) * sizes).astype(int), sizes - 1)
     current_values = [issue[starts[:, axis]] for axis, issue in enumerate(issues)]
     totals = sum(current_values)
-    approvals = totals >= reservations
+    approvals = numeric_accepts(totals, reservations, strict)
     agreement = approvals.all(axis=1)
     reachable = agreement.copy()
 
@@ -41,8 +42,8 @@ def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827):
             if axis == omit_issue:
                 continue
             needed = reservations - payoffs + current_values[axis][indices]
-            alternatives = np.searchsorted(a, needed[:, 0], side='left')
-            result |= best_b[alternatives] >= needed[:, 1]
+            alternatives = np.searchsorted(a, needed[:, 0], side='right' if strict else 'left')
+            result |= numeric_accepts(best_b[alternatives], needed[:, 1], strict)
         return result
 
     remaining = np.flatnonzero(~agreement)
@@ -54,7 +55,7 @@ def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827):
             if not len(remaining):
                 break
             revised = totals[remaining] + option - current_values[first_issue][remaining]
-            improved = (revised >= reservations).any(axis=1)
+            improved = (numeric_accepts(revised, reservations, strict)).any(axis=1)
             selected = remaining[improved]
             if len(selected):
                 second_change = one_change_reaches(selected, revised[improved], omit_issue=first_issue)
@@ -64,14 +65,14 @@ def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827):
             'possible_offers': int(np.prod(sizes)), 'sampled_starting_offers': n, 'seed': seed}
 
 
-def calculate_player_input(catalogue_path):
+def calculate_player_input(catalogue_path, strict=False):
     records = json.loads(Path(catalogue_path).read_text(encoding='utf-8'))
     entry = next(row for row in records if row['payoff_id'] == 'kray2004_player_two_power_orders_pooled')
     components = []
     for part in entry['components']:
         issues = [np.asarray([option['payoffs'] for option in issue['options']], dtype=float)
                   for issue in part['schedule']['issues']]
-        components.append(sampled_two_party_metrics(issues, part['reservation_values']))
+        components.append(sampled_two_party_metrics(issues, part['reservation_values'], strict=strict))
     weights = np.asarray([part['aggregation_weight'] for part in entry['components']])
     if not np.isclose(weights.sum(), 1, atol=1e-12, rtol=0):
         raise ValueError('Player reservation-order weights do not sum to one')

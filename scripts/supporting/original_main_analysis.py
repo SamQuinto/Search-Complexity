@@ -164,9 +164,9 @@ def run_original_main(root, output_dir=None, draws=5000):
                                           interval.criterion_met and omission_pass),
         })
     results = pd.DataFrame(results)
-    results.to_csv(output / 'original_main_hypotheses.csv', index=False)
-    intervals.reset_index().to_csv(output / 'original_main_bootstrap.csv', index=False)
-    omissions.to_csv(output / 'original_main_omissions.csv', index=False)
+    results.to_csv(output / 'original_main_hypotheses.csv', index=False, lineterminator='\n')
+    intervals.reset_index().to_csv(output / 'original_main_bootstrap.csv', index=False, lineterminator='\n')
+    omissions.to_csv(output / 'original_main_omissions.csv', index=False, lineterminator='\n')
     summary = {
         'analysis': 'Original registration main hypothesis tests only',
         'n': len(sample),
@@ -182,5 +182,5 @@ def run_original_main(root, output_dir=None, draws=5000):
         'hypotheses': results.replace({np.nan: None}).to_dict(orient='records'),
     }
     (output / 'original_main_summary.json').write_text(
-        json.dumps(summary, indent=2, ensure_ascii=False, allow_nan=False), encoding='utf-8')
+        json.dumps(summary, indent=2, ensure_ascii=False, allow_nan=False), encoding='utf-8', newline='\n')
     return results

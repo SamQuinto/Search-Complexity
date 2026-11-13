@@ -1,0 +1,761 @@
+[
+  {
+    "label": "Table 1",
+    "title": "Descriptive statistics and correlations",
+    "columns": [
+      "Variable",
+      "Mean",
+      "SD",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "rows": [
+      [
+        "1. Agreement rate",
+        ".91",
+        ".15",
+        "—",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "2. Search complexity",
+        ".09",
+        ".21",
+        "−.59***",
+        "—",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "3. Bargaining-zone size",
+        ".63",
+        ".32",
+        ".21*",
+        "−.70***",
+        "—",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "4. Number of issues",
+        "5.71",
+        "1.99",
+        ".17*",
+        ".04",
+        "−.21*",
+        "—",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "5. Number of parties",
+        "2.09",
+        ".36",
+        "−.08",
+        "−.11",
+        ".09",
+        "−.20*",
+        "—",
+        "",
+        "",
+        ""
+      ],
+      [
+        "6. Compatible issues",
+        ".92",
+        ".81",
+        ".07",
+        ".10",
+        "−.34***",
+        ".69***",
+        "−.30***",
+        "—",
+        "",
+        ""
+      ],
+      [
+        "7. Automated / AI counterpart",
+        ".01",
+        ".08",
+        "−.36***",
+        ".26**",
+        "−.15",
+        "−.12",
+        "−.02",
+        "−.10",
+        "—",
+        ""
+      ],
+      [
+        "8. Agreement without unanimity",
+        ".01",
+        ".07",
+        "−.01",
+        "−.06",
+        ".16",
+        "−.15",
+        ".51***",
+        "−.17*",
+        "−.01",
+        "—"
+      ]
+    ],
+    "landscape": true,
+    "widths": [
+      2.1,
+      0.55,
+      0.55,
+      0.55,
+      0.55,
+      0.55,
+      0.55,
+      0.55,
+      0.55,
+      0.55,
+      0.55
+    ],
+    "note": "Note. N = 140 observations. Agreement rate and both structural measures are on 0–1 scales. Counts are shown in their original units and can be averages across conditions. The last two controls are proportions when an observation combines different conditions. SD = standard deviation. * p < .05. ** p < .01. *** p < .001. Correlations are descriptive."
+  },
+  {
+    "label": "Table 2",
+    "title": "Agreement rates predicted by search complexity and bargaining-zone size",
+    "columns": [
+      "Predictor",
+      "(1)\nSearch complexity",
+      "(2)\n+ controls",
+      "(3)\nBoth + controls",
+      "(4)\nBargaining zone",
+      "(5)\n+ controls"
+    ],
+    "rows": [
+      [
+        "Search complexity",
+        "−.086***\n(.017)\np < .001",
+        "−.081***\n(.017)\np < .001",
+        "−.125***\n(.018)\np < .001",
+        "—",
+        "—"
+      ],
+      [
+        "Bargaining-zone size",
+        "—",
+        "—",
+        "−.066***\n(.015)\np < .001",
+        ".030\n(.019)\np = .107",
+        ".027\n(.020)\np = .176"
+      ],
+      [
+        "Number of issues",
+        "—",
+        ".028*\n(.013)\np = .037",
+        ".029*\n(.013)\np = .030",
+        "—",
+        ".029*\n(.013)\np = .025"
+      ],
+      [
+        "Number of parties",
+        "—",
+        "−.022*\n(.009)\np = .022",
+        "−.031***\n(.009)\np < .001",
+        "—",
+        "−.014\n(.011)\np = .220"
+      ],
+      [
+        "Compatible issues",
+        "—",
+        "−.009\n(.011)\np = .426",
+        "−.029*\n(.013)\np = .021",
+        "—",
+        "−.008\n(.013)\np = .534"
+      ],
+      [
+        "Automated / AI counterpart",
+        "—",
+        "−.350\nSE unavailable",
+        "−.354\nSE unavailable",
+        "—",
+        "−.549\nSE unavailable"
+      ],
+      [
+        "Agreement without unanimity",
+        "—",
+        ".106\n(.201)\np = .597",
+        ".237\n(.185)\np = .202",
+        "—",
+        ".060\n(.224)\np = .788"
+      ],
+      [
+        "Observations",
+        "140",
+        "140",
+        "140",
+        "140",
+        "140"
+      ],
+      [
+        "R²",
+        ".353",
+        ".444",
+        ".529",
+        ".043",
+        ".192"
+      ],
+      [
+        "Adjusted R²",
+        ".348",
+        ".419",
+        ".504",
+        ".036",
+        ".156"
+      ]
+    ],
+    "landscape": false,
+    "note": "Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; indicator controls retain their original scales. Every model includes a constant. — indicates that a predictor is not included or is constant in this sample. * p < .05. ** p < .01. *** p < .001. The automated-counterpart indicator identifies a single observation; its HC3 standard error and p value are unavailable. The other coefficients have estimable HC3 standard errors.",
+    "widths": [
+      1.8,
+      0.94,
+      0.94,
+      0.94,
+      0.94,
+      0.94
+    ]
+  },
+  {
+    "label": "Table 3",
+    "title": "Confirmation and supplementary checks of the agreement-rate results",
+    "columns": [
+      "Check",
+      "Data",
+      "N",
+      "Search-complexity coefficient or 95% interval",
+      "p value or omission count",
+      "R²",
+      "R² difference or 95% interval"
+    ],
+    "rows": [
+      [
+        "Strict inclusion",
+        "Strict",
+        "124",
+        "−.145",
+        "p < .001",
+        ".575",
+        ".355\n[.119, .450]"
+      ],
+      [
+        "5,000 observation resamples",
+        "Main",
+        "140",
+        "[−.177, −.063]",
+        "—",
+        "—",
+        "[.045, .398]"
+      ],
+      [
+        "5,000 observation resamples",
+        "Strict",
+        "124",
+        "[−.202, −.079]",
+        "—",
+        "—",
+        "[.119, .450]"
+      ],
+      [
+        "Single-observation omissions",
+        "Main",
+        "140",
+        "[−.129, −.106]",
+        "140/140 p < .05",
+        "—",
+        "[.192, .290]"
+      ],
+      [
+        "Single-observation omissions",
+        "Strict",
+        "124",
+        "[−.150, −.127]",
+        "124/124 p < .05",
+        "—",
+        "[.313, .381]"
+      ],
+      [
+        "Negotiation-count weights (Model 6)",
+        "Main",
+        "139",
+        "−.119",
+        "p < .001",
+        ".820",
+        "—"
+      ],
+      [
+        "Weighted observation resamples",
+        "Main",
+        "139",
+        "[−.183, −.056]",
+        "—",
+        "—",
+        "—"
+      ],
+      [
+        "Negotiation-count weights (Model 6)",
+        "Strict",
+        "123",
+        "−.133",
+        "p < .001",
+        ".554",
+        "—"
+      ],
+      [
+        "Weighted observation resamples",
+        "Strict",
+        "123",
+        "[−.202, −.064]",
+        "—",
+        "—",
+        "—"
+      ],
+      [
+        "Weighted omissions",
+        "Main",
+        "139",
+        "[−.137, −.094]",
+        "139/139 p < .05",
+        "—",
+        "—"
+      ],
+      [
+        "Weighted omissions",
+        "Strict",
+        "123",
+        "[−.152, −.108]",
+        "123/123 p < .05",
+        "—",
+        "—"
+      ],
+      [
+        "Mean outcome for identical payoffs",
+        "Combined payoffs",
+        "100",
+        "−.150",
+        "p = .001",
+        ".663",
+        ".189"
+      ],
+      [
+        "Mean outcome for identical payoffs",
+        "Strict combined payoffs",
+        "81",
+        "−.170",
+        "p < .001",
+        ".581",
+        ".363"
+      ]
+    ],
+    "landscape": true,
+    "widths": [
+      2.35,
+      1.0,
+      0.4,
+      1.65,
+      1.2,
+      0.6,
+      1.5
+    ],
+    "note": "Note. Main resampling and omission checks are required for confirmation. Intervals use 5,000 observation draws. Omission rows show ranges; their N counts checks and their p column counts negative coefficients with p < .05. Other N values are observations. R² difference is Model 2 minus Model 5. Model 6 uses negotiation-count weights."
+  },
+  {
+    "label": "Table C1",
+    "title": "Agreement rates with strict inclusion",
+    "columns": [
+      "Predictor",
+      "(1)\nSearch complexity",
+      "(2)\n+ controls",
+      "(3)\nBoth + controls",
+      "(4)\nBargaining zone",
+      "(5)\n+ controls"
+    ],
+    "rows": [
+      [
+        "Search complexity",
+        "−.099***\n(.014)\np < .001",
+        "−.099***\n(.013)\np < .001",
+        "−.145***\n(.014)\np < .001",
+        "—",
+        "—"
+      ],
+      [
+        "Bargaining-zone size",
+        "—",
+        "—",
+        "−.069***\n(.016)\np < .001",
+        ".033\n(.021)\np = .124",
+        ".044\n(.025)\np = .079"
+      ],
+      [
+        "Number of issues",
+        "—",
+        ".030*\n(.012)\np = .014",
+        ".029*\n(.012)\np = .014",
+        "—",
+        ".039**\n(.014)\np = .007"
+      ],
+      [
+        "Number of parties",
+        "—",
+        "−.016*\n(.007)\np = .029",
+        "−.028***\n(.008)\np < .001",
+        "—",
+        "−.002\n(.010)\np = .885"
+      ],
+      [
+        "Compatible issues",
+        "—",
+        "−.007\n(.011)\np = .553",
+        "−.032*\n(.013)\np = .017",
+        "—",
+        ".001\n(.017)\np = .935"
+      ],
+      [
+        "Automated / AI counterpart",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—"
+      ],
+      [
+        "Agreement without unanimity",
+        "—",
+        "−.297\nSE unavailable",
+        "−.109\nSE unavailable",
+        "—",
+        "−.440\nSE unavailable"
+      ],
+      [
+        "Observations",
+        "124",
+        "124",
+        "124",
+        "124",
+        "124"
+      ],
+      [
+        "R²",
+        ".428",
+        ".490",
+        ".575",
+        ".049",
+        ".135"
+      ],
+      [
+        "Adjusted R²",
+        ".424",
+        ".469",
+        ".553",
+        ".041",
+        ".099"
+      ]
+    ],
+    "landscape": false,
+    "note": "Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; indicator controls retain their original scales. Every model includes a constant. — indicates that a predictor is not included or is constant in this sample. * p < .05. ** p < .01. *** p < .001. The non-unanimity control identifies a single observation; its HC3 standard error and p value are unavailable. The other coefficients have estimable HC3 standard errors. The automated-counterpart control is constant at zero and is omitted.",
+    "widths": [
+      1.8,
+      0.94,
+      0.94,
+      0.94,
+      0.94,
+      0.94
+    ]
+  },
+  {
+    "label": "Table C2",
+    "title": "Agreement rates after combining identical payoff tables and reservation values",
+    "columns": [
+      "Predictor",
+      "(1)\nSearch complexity",
+      "(2)\n+ controls",
+      "(3)\nBoth + controls",
+      "(4)\nBargaining zone",
+      "(5)\n+ controls"
+    ],
+    "rows": [
+      [
+        "Search complexity",
+        "−.134***\n(.024)\np < .001",
+        "−.110***\n(.032)\np < .001",
+        "−.150**\n(.045)\np = .001",
+        "—",
+        "—"
+      ],
+      [
+        "Bargaining-zone size",
+        "—",
+        "—",
+        "−.053*\n(.024)\np = .031",
+        ".076**\n(.026)\np = .004",
+        ".049\n(.027)\np = .070"
+      ],
+      [
+        "Number of issues",
+        "—",
+        ".018\n(.013)\np = .147",
+        ".021\n(.013)\np = .103",
+        "—",
+        ".015\n(.012)\np = .220"
+      ],
+      [
+        "Number of parties",
+        "—",
+        "−.025*\n(.012)\np = .047",
+        "−.027**\n(.009)\np = .005",
+        "—",
+        "−.017\n(.018)\np = .349"
+      ],
+      [
+        "Compatible issues",
+        "—",
+        ".015\n(.016)\np = .332",
+        ".009\n(.015)\np = .540",
+        "—",
+        ".009\n(.018)\np = .620"
+      ],
+      [
+        "Automated / AI counterpart",
+        "—",
+        "−.345*\n(.133)\np = .011",
+        "−.345\n(.177)\np = .055",
+        "—",
+        "−.519***\n(.087)\np < .001"
+      ],
+      [
+        "Agreement without unanimity",
+        "—",
+        "−.004\n(.296)\np = .990",
+        ".041\n(.315)\np = .897",
+        "—",
+        "−.045\n(.300)\np = .881"
+      ],
+      [
+        "Observations",
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ],
+      [
+        "R²",
+        ".465",
+        ".633",
+        ".663",
+        ".148",
+        ".444"
+      ],
+      [
+        "Adjusted R²",
+        ".459",
+        ".609",
+        ".638",
+        ".139",
+        ".408"
+      ]
+    ],
+    "landscape": false,
+    "note": "Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; indicator controls retain their original scales. Every model includes a constant. — indicates that a predictor is not included or is constant in this sample. * p < .05. ** p < .01. *** p < .001.",
+    "widths": [
+      1.8,
+      0.94,
+      0.94,
+      0.94,
+      0.94,
+      0.94
+    ]
+  },
+  {
+    "label": "Table C3",
+    "title": "Strict observations after combining identical payoff tables and reservation values",
+    "columns": [
+      "Predictor",
+      "(1)\nSearch complexity",
+      "(2)\n+ controls",
+      "(3)\nBoth + controls",
+      "(4)\nBargaining zone",
+      "(5)\n+ controls"
+    ],
+    "rows": [
+      [
+        "Search complexity",
+        "−.107***\n(.030)\np < .001",
+        "−.116***\n(.030)\np < .001",
+        "−.170***\n(.036)\np < .001",
+        "—",
+        "—"
+      ],
+      [
+        "Bargaining-zone size",
+        "—",
+        "—",
+        "−.075***\n(.020)\np < .001",
+        ".044\n(.028)\np = .114",
+        ".052\n(.031)\np = .097"
+      ],
+      [
+        "Number of issues",
+        "—",
+        ".021*\n(.011)\np = .047",
+        ".024*\n(.010)\np = .025",
+        "—",
+        ".021\n(.013)\np = .102"
+      ],
+      [
+        "Number of parties",
+        "—",
+        "−.026\n(.013)\np = .054",
+        "−.031**\n(.010)\np = .002",
+        "—",
+        "−.015\n(.020)\np = .458"
+      ],
+      [
+        "Compatible issues",
+        "—",
+        ".018\n(.017)\np = .288",
+        ".008\n(.016)\np = .612",
+        "—",
+        ".012\n(.021)\np = .586"
+      ],
+      [
+        "Automated / AI counterpart",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—"
+      ],
+      [
+        "Agreement without unanimity",
+        "—",
+        "−.141\nSE unavailable",
+        "−.087\nSE unavailable",
+        "—",
+        "−.186\nSE unavailable"
+      ],
+      [
+        "Observations",
+        "81",
+        "81",
+        "81",
+        "81",
+        "81"
+      ],
+      [
+        "R²",
+        ".401",
+        ".496",
+        ".581",
+        ".068",
+        ".133"
+      ],
+      [
+        "Adjusted R²",
+        ".394",
+        ".463",
+        ".547",
+        ".056",
+        ".075"
+      ]
+    ],
+    "landscape": false,
+    "note": "Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; indicator controls retain their original scales. Every model includes a constant. — indicates that a predictor is not included or is constant in this sample. * p < .05. ** p < .01. *** p < .001. The non-unanimity control identifies a single observation; its HC3 standard error and p value are unavailable. The other coefficients have estimable HC3 standard errors. The automated-counterpart control is constant at zero and is omitted.",
+    "widths": [
+      1.8,
+      0.94,
+      0.94,
+      0.94,
+      0.94,
+      0.94
+    ]
+  },
+  {
+    "label": "Table C4",
+    "title": "Main hypothesis tests specified in the original registration",
+    "columns": [
+      "Original hypothesis",
+      "Model",
+      "Estimate",
+      "p value",
+      "95% resampling interval",
+      "Omissions passing",
+      "Full criteria met"
+    ],
+    "rows": [
+      [
+        "H1: Bargaining-zone size (+)",
+        "M4",
+        ".076",
+        "p = .004",
+        "[.026, .124]",
+        "100/100",
+        "Yes"
+      ],
+      [
+        "H2: Search complexity (−)",
+        "M1",
+        "−.134",
+        "p < .001",
+        "[−.192, −.064]",
+        "100/100",
+        "Yes"
+      ],
+      [
+        "H3: Explained-variation comparison",
+        "M2 minus M5",
+        ".189",
+        "—",
+        "[.025, .345]",
+        "100/100",
+        "Yes"
+      ],
+      [
+        "H4: Search complexity with both predictors (−)",
+        "M3",
+        "−.150",
+        "p = .001",
+        "[−.244, −.061]",
+        "100/100",
+        "Yes"
+      ]
+    ],
+    "landscape": true,
+    "widths": [
+      2.7,
+      1,
+      0.7,
+      0.9,
+      1.5,
+      1,
+      1
+    ],
+    "note": "Note. N = 100 payoff records using the corrected research evidence. Coefficient rows report b for a standardized predictor; H3 reports R²(Model 2) − R²(Model 5). Each interval uses 5,000 individual-payoff-row draws. The original criteria require the full-sample test, an interval entirely in the predicted direction, and the required direction and significance after every single-row omission. H3 requires a positive difference after each omission. The five regressions appear in Table C2. These original hypothesis numbers are separate from H1 and H2 in the main text."
+  }
+]

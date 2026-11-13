@@ -7,15 +7,15 @@
       "weighted_n": 139
     },
     "strict": {
-      "n": 125,
-      "weighted_n": 124
+      "n": 124,
+      "weighted_n": 123
     },
     "aggregate_main": {
-      "n": 101,
+      "n": 100,
       "weighted_n": null
     },
     "aggregate_strict": {
-      "n": 85,
+      "n": 81,
       "weighted_n": null
     }
   }

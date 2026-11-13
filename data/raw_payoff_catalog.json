@@ -10187,471 +10187,6 @@
     "needed_piece": ""
   },
   {
-    "payoff_id": "three_commodity_calhoun_1999_pooled_r0_r4500",
-    "negotiation_exercise": "Three-Commodity Bargaining",
-    "payoff_source": "Guang (2003), Lim (1997), and Calhoun and Smith (1999)",
-    "reservation_values_or_rule": "Party thresholds: 0 and 0.",
-    "components": [
-      {
-        "component": "No limit instructions",
-        "schedule": {
-          "kind": "additive_discrete",
-          "parties": [
-            "Buyer",
-            "Seller"
-          ],
-          "issues": [
-            {
-              "name": "Televisions",
-              "options": [
-                {
-                  "option": "A",
-                  "payoffs": [
-                    4000.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "B",
-                  "payoffs": [
-                    3500.0,
-                    200.0
-                  ]
-                },
-                {
-                  "option": "C",
-                  "payoffs": [
-                    3000.0,
-                    400.0
-                  ]
-                },
-                {
-                  "option": "D",
-                  "payoffs": [
-                    2500.0,
-                    600.0
-                  ]
-                },
-                {
-                  "option": "E",
-                  "payoffs": [
-                    2000.0,
-                    800.0
-                  ]
-                },
-                {
-                  "option": "F",
-                  "payoffs": [
-                    1500.0,
-                    1000.0
-                  ]
-                },
-                {
-                  "option": "G",
-                  "payoffs": [
-                    1000.0,
-                    1200.0
-                  ]
-                },
-                {
-                  "option": "H",
-                  "payoffs": [
-                    500.0,
-                    1400.0
-                  ]
-                },
-                {
-                  "option": "I",
-                  "payoffs": [
-                    0.0,
-                    1600.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Computers",
-              "options": [
-                {
-                  "option": "A",
-                  "payoffs": [
-                    2400.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "B",
-                  "payoffs": [
-                    2100.0,
-                    300.0
-                  ]
-                },
-                {
-                  "option": "C",
-                  "payoffs": [
-                    1800.0,
-                    600.0
-                  ]
-                },
-                {
-                  "option": "D",
-                  "payoffs": [
-                    1500.0,
-                    900.0
-                  ]
-                },
-                {
-                  "option": "E",
-                  "payoffs": [
-                    1200.0,
-                    1200.0
-                  ]
-                },
-                {
-                  "option": "F",
-                  "payoffs": [
-                    900.0,
-                    1500.0
-                  ]
-                },
-                {
-                  "option": "G",
-                  "payoffs": [
-                    600.0,
-                    1800.0
-                  ]
-                },
-                {
-                  "option": "H",
-                  "payoffs": [
-                    300.0,
-                    2100.0
-                  ]
-                },
-                {
-                  "option": "I",
-                  "payoffs": [
-                    0.0,
-                    2400.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Stereos",
-              "options": [
-                {
-                  "option": "A",
-                  "payoffs": [
-                    1600.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "B",
-                  "payoffs": [
-                    1400.0,
-                    500.0
-                  ]
-                },
-                {
-                  "option": "C",
-                  "payoffs": [
-                    1200.0,
-                    1000.0
-                  ]
-                },
-                {
-                  "option": "D",
-                  "payoffs": [
-                    1000.0,
-                    1500.0
-                  ]
-                },
-                {
-                  "option": "E",
-                  "payoffs": [
-                    800.0,
-                    2000.0
-                  ]
-                },
-                {
-                  "option": "F",
-                  "payoffs": [
-                    600.0,
-                    2500.0
-                  ]
-                },
-                {
-                  "option": "G",
-                  "payoffs": [
-                    400.0,
-                    3000.0
-                  ]
-                },
-                {
-                  "option": "H",
-                  "payoffs": [
-                    200.0,
-                    3500.0
-                  ]
-                },
-                {
-                  "option": "I",
-                  "payoffs": [
-                    0.0,
-                    4000.0
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "reservation_values": [
-          "unbounded",
-          "unbounded"
-        ],
-        "source_table_locator": "Calhoun and Smith (1999), Table 3 and Conditions, PDF pp. 8–9, printed pp. 210–211",
-        "note": "The printed payoffs double the earlier Pruitt-Lewis template. Low/control conditions impose no limit; -inf represents that stated rule. Exact allocations between limit versions are not reported.",
-        "aggregation_weight": 0.5,
-        "weight_basis": "Recorded equal-version average; encounter allocation not observed",
-        "required_approvals": 2,
-        "mandatory_parties": [],
-        "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
-        "reservation_interpretation": "Unbounded means the source explicitly assigns no binding numerical minimum; the analysis treats that role as willing to accept every listed payoff. It is not an assigned zero reservation value."
-      },
-      {
-        "component": "High self-concern",
-        "schedule": {
-          "kind": "additive_discrete",
-          "parties": [
-            "Buyer",
-            "Seller"
-          ],
-          "issues": [
-            {
-              "name": "Televisions",
-              "options": [
-                {
-                  "option": "A",
-                  "payoffs": [
-                    4000.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "B",
-                  "payoffs": [
-                    3500.0,
-                    200.0
-                  ]
-                },
-                {
-                  "option": "C",
-                  "payoffs": [
-                    3000.0,
-                    400.0
-                  ]
-                },
-                {
-                  "option": "D",
-                  "payoffs": [
-                    2500.0,
-                    600.0
-                  ]
-                },
-                {
-                  "option": "E",
-                  "payoffs": [
-                    2000.0,
-                    800.0
-                  ]
-                },
-                {
-                  "option": "F",
-                  "payoffs": [
-                    1500.0,
-                    1000.0
-                  ]
-                },
-                {
-                  "option": "G",
-                  "payoffs": [
-                    1000.0,
-                    1200.0
-                  ]
-                },
-                {
-                  "option": "H",
-                  "payoffs": [
-                    500.0,
-                    1400.0
-                  ]
-                },
-                {
-                  "option": "I",
-                  "payoffs": [
-                    0.0,
-                    1600.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Computers",
-              "options": [
-                {
-                  "option": "A",
-                  "payoffs": [
-                    2400.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "B",
-                  "payoffs": [
-                    2100.0,
-                    300.0
-                  ]
-                },
-                {
-                  "option": "C",
-                  "payoffs": [
-                    1800.0,
-                    600.0
-                  ]
-                },
-                {
-                  "option": "D",
-                  "payoffs": [
-                    1500.0,
-                    900.0
-                  ]
-                },
-                {
-                  "option": "E",
-                  "payoffs": [
-                    1200.0,
-                    1200.0
-                  ]
-                },
-                {
-                  "option": "F",
-                  "payoffs": [
-                    900.0,
-                    1500.0
-                  ]
-                },
-                {
-                  "option": "G",
-                  "payoffs": [
-                    600.0,
-                    1800.0
-                  ]
-                },
-                {
-                  "option": "H",
-                  "payoffs": [
-                    300.0,
-                    2100.0
-                  ]
-                },
-                {
-                  "option": "I",
-                  "payoffs": [
-                    0.0,
-                    2400.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Stereos",
-              "options": [
-                {
-                  "option": "A",
-                  "payoffs": [
-                    1600.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "B",
-                  "payoffs": [
-                    1400.0,
-                    500.0
-                  ]
-                },
-                {
-                  "option": "C",
-                  "payoffs": [
-                    1200.0,
-                    1000.0
-                  ]
-                },
-                {
-                  "option": "D",
-                  "payoffs": [
-                    1000.0,
-                    1500.0
-                  ]
-                },
-                {
-                  "option": "E",
-                  "payoffs": [
-                    800.0,
-                    2000.0
-                  ]
-                },
-                {
-                  "option": "F",
-                  "payoffs": [
-                    600.0,
-                    2500.0
-                  ]
-                },
-                {
-                  "option": "G",
-                  "payoffs": [
-                    400.0,
-                    3000.0
-                  ]
-                },
-                {
-                  "option": "H",
-                  "payoffs": [
-                    200.0,
-                    3500.0
-                  ]
-                },
-                {
-                  "option": "I",
-                  "payoffs": [
-                    0.0,
-                    4000.0
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "reservation_values": [
-          4500,
-          4500
-        ],
-        "source_table_locator": "Calhoun and Smith (1999), Table 3 and Conditions, PDF pp. 8–9, printed pp. 210–211",
-        "note": "The printed payoffs double the earlier Pruitt-Lewis template. Low/control conditions impose no limit; -inf represents that stated rule. Exact allocations between limit versions are not reported.",
-        "aggregation_weight": 0.5,
-        "weight_basis": "Recorded equal-version average; encounter allocation not observed",
-        "required_approvals": 2,
-        "mandatory_parties": [],
-        "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value"
-      }
-    ],
-    "raw_payoff_status": "Numerical issue table recovered",
-    "needed_piece": ""
-  },
-  {
     "payoff_id": "new_recruit_standard_r0_r0_studies",
     "negotiation_exercise": "New Recruit",
     "payoff_source": "New Recruit teaching note and complete DRRC points sheet",
@@ -22468,8 +22003,8 @@
         "required_approvals": 3,
         "mandatory_parties": [],
         "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
-        "aggregation_weight": null,
-        "weight_basis": "Joint allocation across the listed components is not reported; see marginal allocations"
+        "aggregation_weight": 0.26373626373626374,
+        "weight_basis": "Assumed mean weight from a uniform average over 41 source-feasible joint allocations; actual cell count unreported."
       },
       {
         "component": "symmetrical, 2 approvals",
@@ -22628,8 +22163,8 @@
         "required_approvals": 2,
         "mandatory_parties": [],
         "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
-        "aggregation_weight": null,
-        "weight_basis": "Joint allocation across the listed components is not reported; see marginal allocations"
+        "aggregation_weight": 0.25274725274725274,
+        "weight_basis": "Assumed mean weight from a uniform average over 41 source-feasible joint allocations; actual cell count unreported."
       },
       {
         "component": "asymmetrical, 3 approvals",
@@ -22788,8 +22323,8 @@
         "required_approvals": 3,
         "mandatory_parties": [],
         "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
-        "aggregation_weight": null,
-        "weight_basis": "Joint allocation across the listed components is not reported; see marginal allocations"
+        "aggregation_weight": 0.24175824175824176,
+        "weight_basis": "Assumed mean weight from a uniform average over 41 source-feasible joint allocations; actual cell count unreported."
       },
       {
         "component": "asymmetrical, 2 approvals",
@@ -22948,8 +22483,8 @@
         "required_approvals": 2,
         "mandatory_parties": [],
         "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
-        "aggregation_weight": null,
-        "weight_basis": "Joint allocation across the listed components is not reported; see marginal allocations"
+        "aggregation_weight": 0.24175824175824176,
+        "weight_basis": "Assumed mean weight from a uniform average over 41 source-feasible joint allocations; actual cell count unreported."
       }
     ],
     "raw_payoff_status": "Numerical issue table recovered",
@@ -22970,7 +22505,53 @@
         "source": "Beersma and De Dreu (2002), Methods"
       }
     ],
-    "aggregation_note": "The joint four-cell allocations are unavailable. All four numerical measures and controls except the decision rule are invariant. Non-unanimous rule is exactly 45/91."
+    "aggregation_note": "The main calculation uniformly averages all 41 source-feasible joint allocations. The marginal rule counts are observed; the four joint weights are assumed mean weights.",
+    "allocation_assumption": {
+      "kind": "uniform_over_source_feasible_integer_allocations",
+      "calculation_comparison": "gt",
+      "observed_joint_cell_counts_available": false,
+      "total_groups": 91,
+      "source_verified_symmetry_marginals": {
+        "symmetrical": 47,
+        "asymmetrical": 44
+      },
+      "source_verified_rule_marginals": {
+        "unanimity": 46,
+        "majority": 45
+      },
+      "component_order": [
+        "symmetrical, 3 approvals",
+        "symmetrical, 2 approvals",
+        "asymmetrical, 3 approvals",
+        "asymmetrical, 2 approvals"
+      ],
+      "joint_count_formulas": [
+        "x",
+        "47-x",
+        "46-x",
+        "x-2"
+      ],
+      "feasible_integer_parameter": {
+        "name": "x",
+        "minimum": 4,
+        "maximum": 44,
+        "count": 41
+      },
+      "nonempty_cell_constraint": "Each symmetry-by-rule cell combines two nonempty social-motive cells; each full factorial cell has at least one group.",
+      "point_method": "Uniform average over all 41 feasible integer allocations; mean weights used for the main gt calculation.",
+      "mean_count_numerators": [
+        24,
+        23,
+        22,
+        22
+      ],
+      "weight_denominator": 91,
+      "mean_counts_are_observed": false,
+      "strict_eligible": false,
+      "source": "Beersma (2002), Chapter 4, printed p. 63 / PDF p. 10 (design); p. 71 / PDF p. 18 (marginals); Tables 5-6, printed pp. 73,78 / PDF pp. 20,25 (all eight cells populated). Beersma and De Dreu (2002), DOI 10.1006/obhd.2001.2964.",
+      "assumption": "The actual joint allocation is not identified. Uniform averaging is an explicit calculation assumption, not reported cell counts or revised author instructions."
+    },
+    "strict_eligible": false
   },
   {
     "payoff_id": "beersma_de_dreu_2003_exp2_two_rules_pooled",
@@ -28156,7 +27737,7 @@
     "payoff_id": "liu_2019_allred_employment_r925_r925",
     "negotiation_exercise": "Allred Employment Contract",
     "payoff_source": "Allred et al. (1997), Table 1, linked and described by Liu et al. (2019)",
-    "reservation_values_or_rule": "Deals of 900 points or lower are unacceptable for both roles; on the 25-point schedule this is coded as 925/925.",
+    "reservation_values_or_rule": "Both roles reject totals of 900 points or lower: the binding reservation boundary is 900/900 with payoff > 900. The historical r925_r925 payoff ID is an alias. The stored 925-point threshold was a past encoding, not the source boundary; the linked proxy schedule permits 905, 910, 915 and 920. The exact modified-study grid remains unrecovered.",
     "components": [
       {
         "component": "Schedule",
@@ -28330,20 +27911,45 @@
           ]
         },
         "reservation_values": [
-          925,
-          925
+          900,
+          900
         ],
         "source_table_locator": "add_five_more_versions.py, liu_allred_core_tables()",
         "note": "",
         "required_approvals": 2,
         "mandatory_parties": [],
-        "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
+        "acceptance_rule": "Both parties must obtain strictly more than 900 points; 900 or lower is unacceptable.",
         "aggregation_weight": 1,
         "weight_basis": "One numerical version"
       }
     ],
     "raw_payoff_status": "Numerical issue table recovered",
-    "needed_piece": ""
+    "needed_piece": "",
+    "source_acceptance_boundary": {
+      "comparison": "gt",
+      "reservation_values": [
+        900,
+        900
+      ],
+      "numeric_no_agreement_payoffs": [
+        0,
+        0
+      ],
+      "source": "Liu, Zhu, and Cionea (2019), printed p. 564 / PDF p. 10, states 900 points or lower are unacceptable for both roles; no-agreement payoff is zero. The binding boundary is therefore 900 each. Allred et al. (1997), Table 1 supplies the linked four-issue schedule; the exact modified numerical-version match remains main-only. Correct original PDF SHA-256 0ab287bf49f89d786d9bb5505a92c73ce2ead7264646d72e863446e927a8f951.",
+      "historical_payoff_id_alias_retained": true,
+      "note": "The source rule is payoff > 900. The linked proxy admits 905, 910, 915 and 920; the stored >= 925 encoding is not equivalent. The historical ID is retained; the administered modified schedule remains unrecovered.",
+      "legacy_stored_threshold": [
+        925,
+        925
+      ],
+      "legacy_encoding_equivalent_to_source_rule": false,
+      "linked_proxy_total_increment": 5,
+      "linked_proxy_lowest_total_above_boundary": [
+        905,
+        905
+      ],
+      "modified_study_numeric_grid_recovered": false
+    }
   },
   {
     "payoff_id": "giebels_2000_refrigerator_four_issue_no_exit",
@@ -30177,287 +29783,13 @@
     "needed_piece": ""
   },
   {
-    "payoff_id": "honors_class_six_issue_unbounded",
-    "negotiation_exercise": "Honors Class",
-    "payoff_source": "O'Connor, Arnold, and Burris (2005), Appendix B",
-    "reservation_values_or_rule": "The paper states that neither role has a limit or walk-away price; every complete listed package is acceptable.",
-    "components": [
-      {
-        "component": "Schedule",
-        "schedule": {
-          "kind": "additive_discrete",
-          "parties": [
-            "Strategy representative",
-            "Entrepreneurship representative"
-          ],
-          "issues": [
-            {
-              "name": "Number of sites",
-              "options": [
-                {
-                  "option": "5",
-                  "payoffs": [
-                    440.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "7",
-                  "payoffs": [
-                    330.0,
-                    30.0
-                  ]
-                },
-                {
-                  "option": "9",
-                  "payoffs": [
-                    220.0,
-                    60.0
-                  ]
-                },
-                {
-                  "option": "11",
-                  "payoffs": [
-                    110.0,
-                    90.0
-                  ]
-                },
-                {
-                  "option": "13",
-                  "payoffs": [
-                    0.0,
-                    120.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Location",
-              "options": [
-                {
-                  "option": "1",
-                  "payoffs": [
-                    220.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "2",
-                  "payoffs": [
-                    165.0,
-                    55.0
-                  ]
-                },
-                {
-                  "option": "3",
-                  "payoffs": [
-                    110.0,
-                    110.0
-                  ]
-                },
-                {
-                  "option": "4",
-                  "payoffs": [
-                    55.0,
-                    165.0
-                  ]
-                },
-                {
-                  "option": "5",
-                  "payoffs": [
-                    0.0,
-                    220.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Assignment",
-              "options": [
-                {
-                  "option": "Journal",
-                  "payoffs": [
-                    200.0,
-                    200.0
-                  ]
-                },
-                {
-                  "option": "Group paper",
-                  "payoffs": [
-                    150.0,
-                    150.0
-                  ]
-                },
-                {
-                  "option": "Individual paper",
-                  "payoffs": [
-                    100.0,
-                    100.0
-                  ]
-                },
-                {
-                  "option": "Class presentation",
-                  "payoffs": [
-                    50.0,
-                    50.0
-                  ]
-                },
-                {
-                  "option": "In-depth analysis",
-                  "payoffs": [
-                    0.0,
-                    0.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Budget",
-              "options": [
-                {
-                  "option": "50",
-                  "payoffs": [
-                    240.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "75",
-                  "payoffs": [
-                    180.0,
-                    60.0
-                  ]
-                },
-                {
-                  "option": "100",
-                  "payoffs": [
-                    120.0,
-                    120.0
-                  ]
-                },
-                {
-                  "option": "125",
-                  "payoffs": [
-                    60.0,
-                    180.0
-                  ]
-                },
-                {
-                  "option": "150",
-                  "payoffs": [
-                    0.0,
-                    240.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Mix",
-              "options": [
-                {
-                  "option": "E",
-                  "payoffs": [
-                    120.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "D",
-                  "payoffs": [
-                    90.0,
-                    110.0
-                  ]
-                },
-                {
-                  "option": "C",
-                  "payoffs": [
-                    60.0,
-                    220.0
-                  ]
-                },
-                {
-                  "option": "B",
-                  "payoffs": [
-                    30.0,
-                    330.0
-                  ]
-                },
-                {
-                  "option": "A",
-                  "payoffs": [
-                    0.0,
-                    440.0
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Week",
-              "options": [
-                {
-                  "option": "8",
-                  "payoffs": [
-                    160.0,
-                    0.0
-                  ]
-                },
-                {
-                  "option": "9",
-                  "payoffs": [
-                    120.0,
-                    40.0
-                  ]
-                },
-                {
-                  "option": "10",
-                  "payoffs": [
-                    80.0,
-                    80.0
-                  ]
-                },
-                {
-                  "option": "11",
-                  "payoffs": [
-                    40.0,
-                    120.0
-                  ]
-                },
-                {
-                  "option": "12",
-                  "payoffs": [
-                    0.0,
-                    160.0
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "reservation_values": [
-          "unbounded",
-          "unbounded"
-        ],
-        "source_table_locator": "O'Connor et al. (2005), Appendix B, printed p. 361 / PDF p. 12; Study 1 Method printed p. 353 states neither role received a limit or walk-away price",
-        "note": "Role tables print different row orders. Values are paired using the shared option labels; no reservation value is invented.",
-        "required_approvals": 2,
-        "mandatory_parties": [],
-        "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
-        "aggregation_weight": 1,
-        "weight_basis": "One numerical version",
-        "reservation_interpretation": "Unbounded means the source explicitly assigns no binding numerical minimum; the analysis treats that role as willing to accept every listed payoff. It is not an assigned zero reservation value."
-      }
-    ],
-    "raw_payoff_status": "Numerical issue table recovered",
-    "needed_piece": ""
-  },
-  {
     "payoff_id": "northcraft_1998_employment_decreasing_r0_r0",
     "negotiation_exercise": "Nonlinear Employment Contract",
     "payoff_source": "Northcraft et al. (1998), Tables 1-2 and Methods",
     "reservation_values_or_rule": "Applicant and recruiter receive 0 points if they do not reach agreement on all six issues.",
     "components": [],
     "raw_payoff_status": "Four printed numerical templates; two integrative schedules unprinted; valid source acceptability proof",
-    "needed_piece": "Exact option schedules and physical-issue mapping for the two unprinted integrative issues. The nonlinear maximum is printed as 259; no unverified 255 correction or full array is supplied. The reported issue/party/compatible counts and inclusive acceptability proof are source-verified.",
+    "needed_piece": "Complete numerical schedules and physical-issue mapping for the two unprinted integrative issues remain unavailable. Under payoff > 0, bargaining-zone share .999872 assumes unique zero-total endpoints; search complexity 0 follows from the sourced congruent-issue escape argument. Strict inclusion is N. Six issues, two parties and one compatible issue are directly reported. The nonlinear maximum 259 remains as printed; no full numerical array is supplied.",
     "partial_source_tables": {
       "coverage": "four_printed_templates_per_variant; two_integrative_schedules_unprinted",
       "expected_issues": 6,
@@ -30638,7 +29970,9 @@
         "description": "Methods says similar payoffs. Exact role schedules and physical issue-name mapping are not printed.",
         "numerical_payoffs": null
       }
-    }
+    },
+    "strict_eligible": false,
+    "calculation_assumption": "The gt calculation uses the explicitly recorded unique-zero-endpoint assumption in acceptability_proofs.json. Two complete numerical issue schedules remain unprinted; the main observation is retained and the strict-evidence sample excludes it."
   },
   {
     "payoff_id": "northcraft_1998_employment_linear_r0_r0",
@@ -30647,7 +29981,7 @@
     "reservation_values_or_rule": "Applicant and recruiter receive 0 points if they do not reach agreement on all six issues.",
     "components": [],
     "raw_payoff_status": "Four printed numerical templates; two integrative schedules unprinted; valid source acceptability proof",
-    "needed_piece": "Exact option schedules and physical-issue mapping for the two unprinted integrative issues. The nonlinear maximum is printed as 259; no unverified 255 correction or full array is supplied. The reported issue/party/compatible counts and inclusive acceptability proof are source-verified.",
+    "needed_piece": "Complete numerical schedules and physical-issue mapping for the two unprinted integrative issues remain unavailable. Under payoff > 0, bargaining-zone share .999872 assumes unique zero-total endpoints; search complexity 0 follows from the sourced congruent-issue escape argument. Strict inclusion is N. Six issues, two parties and one compatible issue are directly reported. The nonlinear maximum 259 remains as printed; no full numerical array is supplied.",
     "partial_source_tables": {
       "coverage": "four_printed_templates_per_variant; two_integrative_schedules_unprinted",
       "expected_issues": 6,
@@ -30828,7 +30162,9 @@
         "description": "Methods says similar payoffs. Exact role schedules and physical issue-name mapping are not printed.",
         "numerical_payoffs": null
       }
-    }
+    },
+    "strict_eligible": false,
+    "calculation_assumption": "The gt calculation uses the explicitly recorded unique-zero-endpoint assumption in acceptability_proofs.json. Two complete numerical issue schedules remain unprinted; the main observation is retained and the strict-evidence sample excludes it."
   },
   {
     "payoff_id": "northcraft_1998_employment_increasing_r0_r0",
@@ -30837,7 +30173,7 @@
     "reservation_values_or_rule": "Applicant and recruiter receive 0 points if they do not reach agreement on all six issues.",
     "components": [],
     "raw_payoff_status": "Four printed numerical templates; two integrative schedules unprinted; valid source acceptability proof",
-    "needed_piece": "Exact option schedules and physical-issue mapping for the two unprinted integrative issues. The nonlinear maximum is printed as 259; no unverified 255 correction or full array is supplied. The reported issue/party/compatible counts and inclusive acceptability proof are source-verified.",
+    "needed_piece": "Complete numerical schedules and physical-issue mapping for the two unprinted integrative issues remain unavailable. Under payoff > 0, bargaining-zone share .999872 assumes unique zero-total endpoints; search complexity 0 follows from the sourced congruent-issue escape argument. Strict inclusion is N. Six issues, two parties and one compatible issue are directly reported. The nonlinear maximum 259 remains as printed; no full numerical array is supplied.",
     "partial_source_tables": {
       "coverage": "four_printed_templates_per_variant; two_integrative_schedules_unprinted",
       "expected_issues": 6,
@@ -31018,7 +30354,9 @@
         "description": "Methods says similar payoffs. Exact role schedules and physical issue-name mapping are not printed.",
         "numerical_payoffs": null
       }
-    }
+    },
+    "strict_eligible": false,
+    "calculation_assumption": "The gt calculation uses the explicitly recorded unique-zero-endpoint assumption in acceptability_proofs.json. Two complete numerical issue schedules remain unprinted; the main observation is retained and the strict-evidence sample excludes it."
   },
   {
     "payoff_id": "aaldering_2018_employment_five_issue_r0_r0",
@@ -31294,5 +30632,723 @@
     ],
     "raw_payoff_status": "Numerical issue table recovered",
     "needed_piece": ""
+  },
+  {
+    "payoff_id": "gunia_2013_new_recruit_two_power_orders_pooled",
+    "negotiation_exercise": "New Recruit",
+    "payoff_source": "Gunia et al. (2013), Study 4, author-manuscript PDF p. 8; DRRC New Recruit Teaching Notes, p. 3, complete recruiter/candidate points sheet. The paper identifies the standard eight-issue New Recruit from negotiationexercises.com and explicitly assigns the two 4500/0 alternative orders.",
+    "reservation_values_or_rule": "Recruiter/Candidate alternatives are [4500,0] or [0,4500]; exact allocation is not reported. All five variables are invariant to that allocation.",
+    "components": [
+      {
+        "component": "Recruiter-better alternatives",
+        "schedule": {
+          "kind": "additive_discrete",
+          "parties": [
+            "Recruiter",
+            "Candidate"
+          ],
+          "issues": [
+            {
+              "name": "Bonus",
+              "options": [
+                {
+                  "option": "10%",
+                  "payoffs": [
+                    0.0,
+                    4000.0
+                  ]
+                },
+                {
+                  "option": "8%",
+                  "payoffs": [
+                    400.0,
+                    3000.0
+                  ]
+                },
+                {
+                  "option": "6%",
+                  "payoffs": [
+                    800.0,
+                    2000.0
+                  ]
+                },
+                {
+                  "option": "4%",
+                  "payoffs": [
+                    1200.0,
+                    1000.0
+                  ]
+                },
+                {
+                  "option": "2%",
+                  "payoffs": [
+                    1600.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Job Assignment",
+              "options": [
+                {
+                  "option": "Division A",
+                  "payoffs": [
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "option": "Division B",
+                  "payoffs": [
+                    -600.0,
+                    -600.0
+                  ]
+                },
+                {
+                  "option": "Division C",
+                  "payoffs": [
+                    -1200.0,
+                    -1200.0
+                  ]
+                },
+                {
+                  "option": "Division D",
+                  "payoffs": [
+                    -1800.0,
+                    -1800.0
+                  ]
+                },
+                {
+                  "option": "Division E",
+                  "payoffs": [
+                    -2400.0,
+                    -2400.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vacation Time",
+              "options": [
+                {
+                  "option": "25 days",
+                  "payoffs": [
+                    0.0,
+                    1600.0
+                  ]
+                },
+                {
+                  "option": "20 days",
+                  "payoffs": [
+                    1000.0,
+                    1200.0
+                  ]
+                },
+                {
+                  "option": "15 days",
+                  "payoffs": [
+                    2000.0,
+                    800.0
+                  ]
+                },
+                {
+                  "option": "10 days",
+                  "payoffs": [
+                    3000.0,
+                    400.0
+                  ]
+                },
+                {
+                  "option": "5 days",
+                  "payoffs": [
+                    4000.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Starting Date",
+              "options": [
+                {
+                  "option": "June 1",
+                  "payoffs": [
+                    0.0,
+                    2400.0
+                  ]
+                },
+                {
+                  "option": "June 15",
+                  "payoffs": [
+                    600.0,
+                    1800.0
+                  ]
+                },
+                {
+                  "option": "July 1",
+                  "payoffs": [
+                    1200.0,
+                    1200.0
+                  ]
+                },
+                {
+                  "option": "July 15",
+                  "payoffs": [
+                    1800.0,
+                    600.0
+                  ]
+                },
+                {
+                  "option": "August 1",
+                  "payoffs": [
+                    2400.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Moving Expenses Coverage",
+              "options": [
+                {
+                  "option": "100%",
+                  "payoffs": [
+                    0.0,
+                    3200.0
+                  ]
+                },
+                {
+                  "option": "90%",
+                  "payoffs": [
+                    200.0,
+                    2400.0
+                  ]
+                },
+                {
+                  "option": "80%",
+                  "payoffs": [
+                    400.0,
+                    1600.0
+                  ]
+                },
+                {
+                  "option": "70%",
+                  "payoffs": [
+                    600.0,
+                    800.0
+                  ]
+                },
+                {
+                  "option": "60%",
+                  "payoffs": [
+                    800.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Insurance Coverage",
+              "options": [
+                {
+                  "option": "Plan A",
+                  "payoffs": [
+                    0.0,
+                    800.0
+                  ]
+                },
+                {
+                  "option": "Plan B",
+                  "payoffs": [
+                    800.0,
+                    600.0
+                  ]
+                },
+                {
+                  "option": "Plan C",
+                  "payoffs": [
+                    1600.0,
+                    400.0
+                  ]
+                },
+                {
+                  "option": "Plan D",
+                  "payoffs": [
+                    2400.0,
+                    200.0
+                  ]
+                },
+                {
+                  "option": "Plan E",
+                  "payoffs": [
+                    3200.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Salary",
+              "options": [
+                {
+                  "option": "$90,000",
+                  "payoffs": [
+                    -6000.0,
+                    0.0
+                  ]
+                },
+                {
+                  "option": "$88,000",
+                  "payoffs": [
+                    -4500.0,
+                    -1500.0
+                  ]
+                },
+                {
+                  "option": "$86,000",
+                  "payoffs": [
+                    -3000.0,
+                    -3000.0
+                  ]
+                },
+                {
+                  "option": "$84,000",
+                  "payoffs": [
+                    -1500.0,
+                    -4500.0
+                  ]
+                },
+                {
+                  "option": "$82,000",
+                  "payoffs": [
+                    0.0,
+                    -6000.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Location",
+              "options": [
+                {
+                  "option": "San Francisco",
+                  "payoffs": [
+                    1200.0,
+                    1200.0
+                  ]
+                },
+                {
+                  "option": "Atlanta",
+                  "payoffs": [
+                    900.0,
+                    900.0
+                  ]
+                },
+                {
+                  "option": "Chicago",
+                  "payoffs": [
+                    600.0,
+                    600.0
+                  ]
+                },
+                {
+                  "option": "Boston",
+                  "payoffs": [
+                    300.0,
+                    300.0
+                  ]
+                },
+                {
+                  "option": "New York",
+                  "payoffs": [
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "reservation_values": [
+          4500,
+          0
+        ],
+        "source_table_locator": "Gunia et al. (2013), Study 4, author-manuscript PDF p. 8; DRRC New Recruit Teaching Notes, p. 3, complete recruiter/candidate points sheet. The paper identifies the standard eight-issue New Recruit from negotiationexercises.com and explicitly assigns the two 4500/0 alternative orders.",
+        "note": "Party order is Recruiter, Candidate; physical option labels and payoff vectors match the complete DRRC points sheet. Exact within-record allocation is unreported. Both reservation orders have identical five requested measures under >RV.",
+        "required_approvals": 2,
+        "mandatory_parties": [],
+        "acceptance_rule": "Both parties must agree; source alternatives are the stated role-specific 4500 or 0 points. The numeric comparison is declared separately by the analysis.",
+        "aggregation_weight": null,
+        "weight_basis": "One numerical version"
+      },
+      {
+        "component": "Candidate-better alternatives",
+        "schedule": {
+          "kind": "additive_discrete",
+          "parties": [
+            "Recruiter",
+            "Candidate"
+          ],
+          "issues": [
+            {
+              "name": "Bonus",
+              "options": [
+                {
+                  "option": "10%",
+                  "payoffs": [
+                    0.0,
+                    4000.0
+                  ]
+                },
+                {
+                  "option": "8%",
+                  "payoffs": [
+                    400.0,
+                    3000.0
+                  ]
+                },
+                {
+                  "option": "6%",
+                  "payoffs": [
+                    800.0,
+                    2000.0
+                  ]
+                },
+                {
+                  "option": "4%",
+                  "payoffs": [
+                    1200.0,
+                    1000.0
+                  ]
+                },
+                {
+                  "option": "2%",
+                  "payoffs": [
+                    1600.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Job Assignment",
+              "options": [
+                {
+                  "option": "Division A",
+                  "payoffs": [
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "option": "Division B",
+                  "payoffs": [
+                    -600.0,
+                    -600.0
+                  ]
+                },
+                {
+                  "option": "Division C",
+                  "payoffs": [
+                    -1200.0,
+                    -1200.0
+                  ]
+                },
+                {
+                  "option": "Division D",
+                  "payoffs": [
+                    -1800.0,
+                    -1800.0
+                  ]
+                },
+                {
+                  "option": "Division E",
+                  "payoffs": [
+                    -2400.0,
+                    -2400.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vacation Time",
+              "options": [
+                {
+                  "option": "25 days",
+                  "payoffs": [
+                    0.0,
+                    1600.0
+                  ]
+                },
+                {
+                  "option": "20 days",
+                  "payoffs": [
+                    1000.0,
+                    1200.0
+                  ]
+                },
+                {
+                  "option": "15 days",
+                  "payoffs": [
+                    2000.0,
+                    800.0
+                  ]
+                },
+                {
+                  "option": "10 days",
+                  "payoffs": [
+                    3000.0,
+                    400.0
+                  ]
+                },
+                {
+                  "option": "5 days",
+                  "payoffs": [
+                    4000.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Starting Date",
+              "options": [
+                {
+                  "option": "June 1",
+                  "payoffs": [
+                    0.0,
+                    2400.0
+                  ]
+                },
+                {
+                  "option": "June 15",
+                  "payoffs": [
+                    600.0,
+                    1800.0
+                  ]
+                },
+                {
+                  "option": "July 1",
+                  "payoffs": [
+                    1200.0,
+                    1200.0
+                  ]
+                },
+                {
+                  "option": "July 15",
+                  "payoffs": [
+                    1800.0,
+                    600.0
+                  ]
+                },
+                {
+                  "option": "August 1",
+                  "payoffs": [
+                    2400.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Moving Expenses Coverage",
+              "options": [
+                {
+                  "option": "100%",
+                  "payoffs": [
+                    0.0,
+                    3200.0
+                  ]
+                },
+                {
+                  "option": "90%",
+                  "payoffs": [
+                    200.0,
+                    2400.0
+                  ]
+                },
+                {
+                  "option": "80%",
+                  "payoffs": [
+                    400.0,
+                    1600.0
+                  ]
+                },
+                {
+                  "option": "70%",
+                  "payoffs": [
+                    600.0,
+                    800.0
+                  ]
+                },
+                {
+                  "option": "60%",
+                  "payoffs": [
+                    800.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Insurance Coverage",
+              "options": [
+                {
+                  "option": "Plan A",
+                  "payoffs": [
+                    0.0,
+                    800.0
+                  ]
+                },
+                {
+                  "option": "Plan B",
+                  "payoffs": [
+                    800.0,
+                    600.0
+                  ]
+                },
+                {
+                  "option": "Plan C",
+                  "payoffs": [
+                    1600.0,
+                    400.0
+                  ]
+                },
+                {
+                  "option": "Plan D",
+                  "payoffs": [
+                    2400.0,
+                    200.0
+                  ]
+                },
+                {
+                  "option": "Plan E",
+                  "payoffs": [
+                    3200.0,
+                    0.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Salary",
+              "options": [
+                {
+                  "option": "$90,000",
+                  "payoffs": [
+                    -6000.0,
+                    0.0
+                  ]
+                },
+                {
+                  "option": "$88,000",
+                  "payoffs": [
+                    -4500.0,
+                    -1500.0
+                  ]
+                },
+                {
+                  "option": "$86,000",
+                  "payoffs": [
+                    -3000.0,
+                    -3000.0
+                  ]
+                },
+                {
+                  "option": "$84,000",
+                  "payoffs": [
+                    -1500.0,
+                    -4500.0
+                  ]
+                },
+                {
+                  "option": "$82,000",
+                  "payoffs": [
+                    0.0,
+                    -6000.0
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Location",
+              "options": [
+                {
+                  "option": "San Francisco",
+                  "payoffs": [
+                    1200.0,
+                    1200.0
+                  ]
+                },
+                {
+                  "option": "Atlanta",
+                  "payoffs": [
+                    900.0,
+                    900.0
+                  ]
+                },
+                {
+                  "option": "Chicago",
+                  "payoffs": [
+                    600.0,
+                    600.0
+                  ]
+                },
+                {
+                  "option": "Boston",
+                  "payoffs": [
+                    300.0,
+                    300.0
+                  ]
+                },
+                {
+                  "option": "New York",
+                  "payoffs": [
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "reservation_values": [
+          0,
+          4500
+        ],
+        "source_table_locator": "Gunia et al. (2013), Study 4, author-manuscript PDF p. 8; DRRC New Recruit Teaching Notes, p. 3, complete recruiter/candidate points sheet. The paper identifies the standard eight-issue New Recruit from negotiationexercises.com and explicitly assigns the two 4500/0 alternative orders.",
+        "note": "Party order is Recruiter, Candidate; physical option labels and payoff vectors match the complete DRRC points sheet. Exact within-record allocation is unreported. Both reservation orders have identical five requested measures under >RV.",
+        "required_approvals": 2,
+        "mandatory_parties": [],
+        "acceptance_rule": "Both parties must agree; source alternatives are the stated role-specific 4500 or 0 points. The numeric comparison is declared separately by the analysis.",
+        "aggregation_weight": null,
+        "weight_basis": "One numerical version"
+      }
+    ],
+    "source_pdf_sha256": "ff8aece500c612ae06bd52caf70144837e8b6c73a67d6379a99ada55a1d00ade",
+    "source_verified_controls": {
+      "issues": 8,
+      "parties": 2,
+      "compatible": 2
+    },
+    "controls_source": "Gunia et al. (2013), Study 4, author-manuscript PDF p. 8; complete DRRC New Recruit Teaching Notes points sheet, p. 3.",
+    "allocation_evidence": {
+      "known": false,
+      "role_versions": [
+        [
+          4500,
+          0
+        ],
+        [
+          0,
+          4500
+        ]
+      ],
+      "invariant_requested_variables": true,
+      "comparison_verified": "gt",
+      "actual_counts_not_reported": true
+    },
+    "strict_eligible": true
   }
 ]

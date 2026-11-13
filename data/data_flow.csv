@@ -7,14 +7,14 @@ Papers in the starting review records,330,Papers,data/inventory/starting_study_r
 Papers in the combined search,371,Papers,data/Paper_inventory.xlsx
 Verified full texts or complete chapters,345,Papers,data/Paper_inventory.xlsx
 No locally verified full text,26,Papers,data/Paper_inventory.xlsx
-Papers contributing observations,111,Papers,data/inventory/observation_papers.csv
-Contributing papers with verified full texts,103,Papers,data/Paper_inventory.xlsx
+Papers contributing observations,110,Papers,data/inventory/observation_papers.csv
+Contributing papers with verified full texts,102,Papers,data/Paper_inventory.xlsx
 Contributing papers supported by other evidence,8,Papers,data/Paper_inventory.xlsx
-Underlying agreement results,167,Source-result records,data/Observation_data.xlsx
+Underlying agreement results,166,Source-result records,data/Observation_data.xlsx
 Main analysis,140,Observations,data/regression_data.csv
-Payoff information linked to the observations,101,Payoff records,data/raw_payoff_catalog.json
-Named negotiation exercises,64,Exercise names,data/inventory/exercise_inventory.csv
-Strict analysis,125,Observations,data/strict_regression_data.csv
+Payoff information linked to the observations,100,Payoff records,data/raw_payoff_catalog.json
+Named negotiation exercises,63,Exercise names,data/inventory/exercise_inventory.csv
+Strict analysis,124,Observations,data/strict_regression_data.csv
 Strict observations using a subset of conditions,1,Observations,data/derived/observation_eligibility.csv
-Combined-payoff comparison,101,Combined payoff records,data/derived/aggregate_main.csv
-Strict combined-payoff comparison,85,Combined payoff records,data/derived/aggregate_strict.csv
+Combined-payoff comparison,100,Combined payoff records,data/derived/aggregate_main.csv
+Strict combined-payoff comparison,81,Combined payoff records,data/derived/aggregate_strict.csv

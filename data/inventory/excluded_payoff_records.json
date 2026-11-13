@@ -126,5 +126,758 @@
       "payoff_source": "Martin-Raugh et al. (2020), appendix task structure"
     },
     "source_outcome_ledger": "data/sources/study_outcomes.csv; original observed outcomes retained without reinterpretation"
+  },
+  {
+    "payoff_id": "three_commodity_calhoun_1999_pooled_r0_r4500",
+    "observation_id": "SRU0032",
+    "status": "excluded_pending_numeric_reservation_evidence",
+    "exclusion_reason": "Excluded: the low-self and control conditions assign no profit limit, but the paper does not supply their numeric no-agreement payoff and does not require a compulsory settlement. The pooled 134/135 outcome cannot be separated into a high-self-only outcome because condition denominators and the sole impasse allocation are not reported.",
+    "exclusion_evidence": "Calhoun and Smith (1999), printed pp. 210–214 / PDF pp. 8–12: high-self conditions require at least 4500 per party; other conditions have no limit instructions; one pair fails to agree. Table 4 gives condition means and SDs, not encounter counts. DOI 10.1108/eb022824; PDF SHA-256 82399fec5c81c8e66811aa00ddd7cf110b85197377ebafa4cceb4e31006a2407.",
+    "original_payoff_record": {
+      "payoff_id": "three_commodity_calhoun_1999_pooled_r0_r4500",
+      "negotiation_exercise": "Three-Commodity Bargaining",
+      "payoff_source": "Guang (2003), Lim (1997), and Calhoun and Smith (1999)",
+      "reservation_values_or_rule": "Party thresholds: 0 and 0.",
+      "components": [
+        {
+          "component": "No limit instructions",
+          "schedule": {
+            "kind": "additive_discrete",
+            "parties": [
+              "Buyer",
+              "Seller"
+            ],
+            "issues": [
+              {
+                "name": "Televisions",
+                "options": [
+                  {
+                    "option": "A",
+                    "payoffs": [
+                      4000.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "B",
+                    "payoffs": [
+                      3500.0,
+                      200.0
+                    ]
+                  },
+                  {
+                    "option": "C",
+                    "payoffs": [
+                      3000.0,
+                      400.0
+                    ]
+                  },
+                  {
+                    "option": "D",
+                    "payoffs": [
+                      2500.0,
+                      600.0
+                    ]
+                  },
+                  {
+                    "option": "E",
+                    "payoffs": [
+                      2000.0,
+                      800.0
+                    ]
+                  },
+                  {
+                    "option": "F",
+                    "payoffs": [
+                      1500.0,
+                      1000.0
+                    ]
+                  },
+                  {
+                    "option": "G",
+                    "payoffs": [
+                      1000.0,
+                      1200.0
+                    ]
+                  },
+                  {
+                    "option": "H",
+                    "payoffs": [
+                      500.0,
+                      1400.0
+                    ]
+                  },
+                  {
+                    "option": "I",
+                    "payoffs": [
+                      0.0,
+                      1600.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Computers",
+                "options": [
+                  {
+                    "option": "A",
+                    "payoffs": [
+                      2400.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "B",
+                    "payoffs": [
+                      2100.0,
+                      300.0
+                    ]
+                  },
+                  {
+                    "option": "C",
+                    "payoffs": [
+                      1800.0,
+                      600.0
+                    ]
+                  },
+                  {
+                    "option": "D",
+                    "payoffs": [
+                      1500.0,
+                      900.0
+                    ]
+                  },
+                  {
+                    "option": "E",
+                    "payoffs": [
+                      1200.0,
+                      1200.0
+                    ]
+                  },
+                  {
+                    "option": "F",
+                    "payoffs": [
+                      900.0,
+                      1500.0
+                    ]
+                  },
+                  {
+                    "option": "G",
+                    "payoffs": [
+                      600.0,
+                      1800.0
+                    ]
+                  },
+                  {
+                    "option": "H",
+                    "payoffs": [
+                      300.0,
+                      2100.0
+                    ]
+                  },
+                  {
+                    "option": "I",
+                    "payoffs": [
+                      0.0,
+                      2400.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Stereos",
+                "options": [
+                  {
+                    "option": "A",
+                    "payoffs": [
+                      1600.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "B",
+                    "payoffs": [
+                      1400.0,
+                      500.0
+                    ]
+                  },
+                  {
+                    "option": "C",
+                    "payoffs": [
+                      1200.0,
+                      1000.0
+                    ]
+                  },
+                  {
+                    "option": "D",
+                    "payoffs": [
+                      1000.0,
+                      1500.0
+                    ]
+                  },
+                  {
+                    "option": "E",
+                    "payoffs": [
+                      800.0,
+                      2000.0
+                    ]
+                  },
+                  {
+                    "option": "F",
+                    "payoffs": [
+                      600.0,
+                      2500.0
+                    ]
+                  },
+                  {
+                    "option": "G",
+                    "payoffs": [
+                      400.0,
+                      3000.0
+                    ]
+                  },
+                  {
+                    "option": "H",
+                    "payoffs": [
+                      200.0,
+                      3500.0
+                    ]
+                  },
+                  {
+                    "option": "I",
+                    "payoffs": [
+                      0.0,
+                      4000.0
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "reservation_values": [
+            "unbounded",
+            "unbounded"
+          ],
+          "source_table_locator": "Calhoun and Smith (1999), Table 3 and Conditions, PDF pp. 8–9, printed pp. 210–211",
+          "note": "The printed payoffs double the earlier Pruitt-Lewis template. Low/control conditions impose no limit; -inf represents that stated rule. Exact allocations between limit versions are not reported.",
+          "aggregation_weight": 0.5,
+          "weight_basis": "Recorded equal-version average; encounter allocation not observed",
+          "required_approvals": 2,
+          "mandatory_parties": [],
+          "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
+          "reservation_interpretation": "Unbounded means the source explicitly assigns no binding numerical minimum; the analysis treats that role as willing to accept every listed payoff. It is not an assigned zero reservation value."
+        },
+        {
+          "component": "High self-concern",
+          "schedule": {
+            "kind": "additive_discrete",
+            "parties": [
+              "Buyer",
+              "Seller"
+            ],
+            "issues": [
+              {
+                "name": "Televisions",
+                "options": [
+                  {
+                    "option": "A",
+                    "payoffs": [
+                      4000.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "B",
+                    "payoffs": [
+                      3500.0,
+                      200.0
+                    ]
+                  },
+                  {
+                    "option": "C",
+                    "payoffs": [
+                      3000.0,
+                      400.0
+                    ]
+                  },
+                  {
+                    "option": "D",
+                    "payoffs": [
+                      2500.0,
+                      600.0
+                    ]
+                  },
+                  {
+                    "option": "E",
+                    "payoffs": [
+                      2000.0,
+                      800.0
+                    ]
+                  },
+                  {
+                    "option": "F",
+                    "payoffs": [
+                      1500.0,
+                      1000.0
+                    ]
+                  },
+                  {
+                    "option": "G",
+                    "payoffs": [
+                      1000.0,
+                      1200.0
+                    ]
+                  },
+                  {
+                    "option": "H",
+                    "payoffs": [
+                      500.0,
+                      1400.0
+                    ]
+                  },
+                  {
+                    "option": "I",
+                    "payoffs": [
+                      0.0,
+                      1600.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Computers",
+                "options": [
+                  {
+                    "option": "A",
+                    "payoffs": [
+                      2400.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "B",
+                    "payoffs": [
+                      2100.0,
+                      300.0
+                    ]
+                  },
+                  {
+                    "option": "C",
+                    "payoffs": [
+                      1800.0,
+                      600.0
+                    ]
+                  },
+                  {
+                    "option": "D",
+                    "payoffs": [
+                      1500.0,
+                      900.0
+                    ]
+                  },
+                  {
+                    "option": "E",
+                    "payoffs": [
+                      1200.0,
+                      1200.0
+                    ]
+                  },
+                  {
+                    "option": "F",
+                    "payoffs": [
+                      900.0,
+                      1500.0
+                    ]
+                  },
+                  {
+                    "option": "G",
+                    "payoffs": [
+                      600.0,
+                      1800.0
+                    ]
+                  },
+                  {
+                    "option": "H",
+                    "payoffs": [
+                      300.0,
+                      2100.0
+                    ]
+                  },
+                  {
+                    "option": "I",
+                    "payoffs": [
+                      0.0,
+                      2400.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Stereos",
+                "options": [
+                  {
+                    "option": "A",
+                    "payoffs": [
+                      1600.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "B",
+                    "payoffs": [
+                      1400.0,
+                      500.0
+                    ]
+                  },
+                  {
+                    "option": "C",
+                    "payoffs": [
+                      1200.0,
+                      1000.0
+                    ]
+                  },
+                  {
+                    "option": "D",
+                    "payoffs": [
+                      1000.0,
+                      1500.0
+                    ]
+                  },
+                  {
+                    "option": "E",
+                    "payoffs": [
+                      800.0,
+                      2000.0
+                    ]
+                  },
+                  {
+                    "option": "F",
+                    "payoffs": [
+                      600.0,
+                      2500.0
+                    ]
+                  },
+                  {
+                    "option": "G",
+                    "payoffs": [
+                      400.0,
+                      3000.0
+                    ]
+                  },
+                  {
+                    "option": "H",
+                    "payoffs": [
+                      200.0,
+                      3500.0
+                    ]
+                  },
+                  {
+                    "option": "I",
+                    "payoffs": [
+                      0.0,
+                      4000.0
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "reservation_values": [
+            4500,
+            4500
+          ],
+          "source_table_locator": "Calhoun and Smith (1999), Table 3 and Conditions, PDF pp. 8–9, printed pp. 210–211",
+          "note": "The printed payoffs double the earlier Pruitt-Lewis template. Low/control conditions impose no limit; -inf represents that stated rule. Exact allocations between limit versions are not reported.",
+          "aggregation_weight": 0.5,
+          "weight_basis": "Recorded equal-version average; encounter allocation not observed",
+          "required_approvals": 2,
+          "mandatory_parties": [],
+          "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value"
+        }
+      ],
+      "raw_payoff_status": "Numerical issue table recovered",
+      "needed_piece": ""
+    }
+  },
+  {
+    "payoff_id": "honors_class_six_issue_unbounded",
+    "observation_id": "OC2005_STUDY1",
+    "status": "excluded_pending_numeric_reservation_evidence",
+    "exclusion_reason": "Excluded: no assigned limit or walk-away price does not identify a numeric no-agreement payoff or establish compulsory selection. The Honors Time 2 task has observed impasses. Study 1 retains only its independently reported, numerically identified Confetti Time 1 task.",
+    "exclusion_evidence": "O'Connor, Arnold, and Burris (2005), Study 1 Method, printed p. 353 / PDF p. 4, and Time 2 results, printed p. 354 / PDF p. 5; complete Honors table in Appendix B, printed p. 361 / PDF p. 12. DOI 10.1037/0021-9010.90.2.350. The source states no limit or walk-away price and reports 12 impasses among 131 dyads; no numeric impasse payoff is identified. Source PDF SHA-256 60de796262ccec122f253a08e2ab4e03c5b626e9788d30fdbccac3cd17b7fa8e.",
+    "original_payoff_record": {
+      "payoff_id": "honors_class_six_issue_unbounded",
+      "negotiation_exercise": "Honors Class",
+      "payoff_source": "O'Connor, Arnold, and Burris (2005), Appendix B",
+      "reservation_values_or_rule": "The paper states that neither role has a limit or walk-away price; every complete listed package is acceptable.",
+      "components": [
+        {
+          "component": "Schedule",
+          "schedule": {
+            "kind": "additive_discrete",
+            "parties": [
+              "Strategy representative",
+              "Entrepreneurship representative"
+            ],
+            "issues": [
+              {
+                "name": "Number of sites",
+                "options": [
+                  {
+                    "option": "5",
+                    "payoffs": [
+                      440.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "7",
+                    "payoffs": [
+                      330.0,
+                      30.0
+                    ]
+                  },
+                  {
+                    "option": "9",
+                    "payoffs": [
+                      220.0,
+                      60.0
+                    ]
+                  },
+                  {
+                    "option": "11",
+                    "payoffs": [
+                      110.0,
+                      90.0
+                    ]
+                  },
+                  {
+                    "option": "13",
+                    "payoffs": [
+                      0.0,
+                      120.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Location",
+                "options": [
+                  {
+                    "option": "1",
+                    "payoffs": [
+                      220.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "2",
+                    "payoffs": [
+                      165.0,
+                      55.0
+                    ]
+                  },
+                  {
+                    "option": "3",
+                    "payoffs": [
+                      110.0,
+                      110.0
+                    ]
+                  },
+                  {
+                    "option": "4",
+                    "payoffs": [
+                      55.0,
+                      165.0
+                    ]
+                  },
+                  {
+                    "option": "5",
+                    "payoffs": [
+                      0.0,
+                      220.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Assignment",
+                "options": [
+                  {
+                    "option": "Journal",
+                    "payoffs": [
+                      200.0,
+                      200.0
+                    ]
+                  },
+                  {
+                    "option": "Group paper",
+                    "payoffs": [
+                      150.0,
+                      150.0
+                    ]
+                  },
+                  {
+                    "option": "Individual paper",
+                    "payoffs": [
+                      100.0,
+                      100.0
+                    ]
+                  },
+                  {
+                    "option": "Class presentation",
+                    "payoffs": [
+                      50.0,
+                      50.0
+                    ]
+                  },
+                  {
+                    "option": "In-depth analysis",
+                    "payoffs": [
+                      0.0,
+                      0.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Budget",
+                "options": [
+                  {
+                    "option": "50",
+                    "payoffs": [
+                      240.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "75",
+                    "payoffs": [
+                      180.0,
+                      60.0
+                    ]
+                  },
+                  {
+                    "option": "100",
+                    "payoffs": [
+                      120.0,
+                      120.0
+                    ]
+                  },
+                  {
+                    "option": "125",
+                    "payoffs": [
+                      60.0,
+                      180.0
+                    ]
+                  },
+                  {
+                    "option": "150",
+                    "payoffs": [
+                      0.0,
+                      240.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Mix",
+                "options": [
+                  {
+                    "option": "E",
+                    "payoffs": [
+                      120.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "D",
+                    "payoffs": [
+                      90.0,
+                      110.0
+                    ]
+                  },
+                  {
+                    "option": "C",
+                    "payoffs": [
+                      60.0,
+                      220.0
+                    ]
+                  },
+                  {
+                    "option": "B",
+                    "payoffs": [
+                      30.0,
+                      330.0
+                    ]
+                  },
+                  {
+                    "option": "A",
+                    "payoffs": [
+                      0.0,
+                      440.0
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Week",
+                "options": [
+                  {
+                    "option": "8",
+                    "payoffs": [
+                      160.0,
+                      0.0
+                    ]
+                  },
+                  {
+                    "option": "9",
+                    "payoffs": [
+                      120.0,
+                      40.0
+                    ]
+                  },
+                  {
+                    "option": "10",
+                    "payoffs": [
+                      80.0,
+                      80.0
+                    ]
+                  },
+                  {
+                    "option": "11",
+                    "payoffs": [
+                      40.0,
+                      120.0
+                    ]
+                  },
+                  {
+                    "option": "12",
+                    "payoffs": [
+                      0.0,
+                      160.0
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "reservation_values": [
+            "unbounded",
+            "unbounded"
+          ],
+          "source_table_locator": "O'Connor et al. (2005), Appendix B, printed p. 361 / PDF p. 12; Study 1 Method printed p. 353 states neither role received a limit or walk-away price",
+          "note": "Role tables print different row orders. Values are paired using the shared option labels; no reservation value is invented.",
+          "required_approvals": 2,
+          "mandatory_parties": [],
+          "acceptance_rule": "At least required_approvals parties have additive total payoff >= their own reservation value",
+          "aggregation_weight": 1,
+          "weight_basis": "One numerical version",
+          "reservation_interpretation": "Unbounded means the source explicitly assigns no binding numerical minimum; the analysis treats that role as willing to accept every listed payoff. It is not an assigned zero reservation value."
+        }
+      ],
+      "raw_payoff_status": "Numerical issue table recovered",
+      "needed_piece": ""
+    }
   }
 ]

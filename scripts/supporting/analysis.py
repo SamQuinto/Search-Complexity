@@ -331,8 +331,8 @@ def run_analysis(datasets, output_dir, draws=5000):
 
     result = {name: pd.concat(parts, ignore_index=True) for name, parts in tables.items()}
     for name, table in result.items():
-        table.to_csv(output_dir / f'{name}.csv', index=False)
+        table.to_csv(output_dir / f'{name}.csv', index=False, lineterminator='\n')
     (output_dir / 'analysis_summary.json').write_text(
         json.dumps({'bootstrap_draws': draws, 'base_seed': SEED, 'samples': summary}, indent=2),
-        encoding='utf-8')
+        encoding='utf-8', newline='\n')
     return result

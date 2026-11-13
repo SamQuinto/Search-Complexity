@@ -47,3 +47,7 @@ _*.py
 # The two numerical evidence workbooks
 !data/Paper_inventory.xlsx
 !data/Observation_data.xlsx
+
+# The rule checks save detailed case folders locally when run.
+# Keep the comparison files in GitHub rather than duplicate model outputs.
+results/reservation_rule/*/

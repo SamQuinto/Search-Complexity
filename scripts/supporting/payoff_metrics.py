@@ -7,8 +7,12 @@ import numpy as np
 import pandas as pd
 
 
-def metrics_from_acceptance(accepts, shape, required_approvals, mandatory_parties=(), starting_indices=None):
-    """Trace every one-issue path that strictly increases the approval count."""
+def numeric_accepts(payoff, reservation, strict=False):
+    """Compare numeric utility with its recorded RV; approval quotas are separate."""
+    return np.greater(payoff, reservation) if strict else np.greater_equal(payoff, reservation)
+
+
+def _acceptance_masks(accepts, shape, required_approvals, mandatory_parties=()):
     accepts = np.asarray(accepts, dtype=bool)
     if accepts.ndim != 2 or len(accepts) != int(np.prod(shape)):
         raise ValueError('The acceptance rows do not match the offer grid')
@@ -26,16 +30,71 @@ def metrics_from_acceptance(accepts, shape, required_approvals, mandatory_partie
         for issue in range(len(shape)):
             improving_neighbor |= targets.any(axis=issue, keepdims=True)
         reachable |= (votes == level) & improving_neighbor
+    return acceptable, reachable
+
+
+def metrics_from_acceptance(accepts, shape, required_approvals, mandatory_parties=(), starting_indices=None):
+    """Trace every one-issue path that strictly increases the approval count."""
+    acceptable, reachable = _acceptance_masks(accepts, shape, required_approvals, mandatory_parties)
     selected = reachable if starting_indices is None else reachable.ravel()[starting_indices]
     return {'bargaining_zone_share': float(acceptable.mean()),
             'search_complexity': float(1 - selected.mean()),
             'possible_offers': int(np.prod(shape))}
 
 
-def replay_acceptance_inputs(source_dir):
+def minimum_boundary_metrics(issues, reservations, required_approvals, mandatory_parties=()):
+    """Exact strict metrics when minimum totals >= RV; retain option multiplicities.
+
+    For a role whose minimum equals RV, strict acceptance requires at least one
+    issue above its own minimum. Options sharing that pattern have identical
+    acceptance and one-issue reachability effects. Other roles always approve.
+    """
+    issues = [np.asarray(issue, dtype=float) for issue in issues]
+    reservations = np.asarray(reservations, dtype=float)
+    lower = sum(issue.min(axis=0) for issue in issues)
+    if not np.all(lower >= reservations):
+        raise ValueError('Boundary compression requires minimum totals >= RV.')
+    always = lower > reservations
+    patterns, counts = [], []
+    for issue in issues:
+        pattern, count = np.unique((issue > issue.min(axis=0)) & ~always,
+                                   axis=0, return_counts=True)
+        patterns.append(pattern)
+        counts.append(count)
+    shape = tuple(len(pattern) for pattern in patterns)
+    coordinates = np.indices(shape).reshape(len(shape), -1)
+    accepts = np.tile(always, (int(np.prod(shape)), 1))
+    weights = np.ones(len(accepts), dtype=np.int64)
+    for axis, pattern in enumerate(patterns):
+        accepts |= pattern[coordinates[axis]]
+        weights *= counts[axis][coordinates[axis]]
+    acceptable, reachable = _acceptance_masks(accepts, shape, required_approvals, mandatory_parties)
+    total = int(np.prod([len(issue) for issue in issues]))
+    if int(weights.sum()) != total:
+        raise ValueError('Compressed states did not preserve the complete-offer measure.')
+    return {'bargaining_zone_share': float(weights[acceptable.ravel()].sum() / total),
+            'search_complexity': float(1 - weights[reachable.ravel()].sum() / total),
+            'possible_offers': total}
+
+
+def replay_acceptance_inputs(source_dir, strict=False, component_weights=None):
     """Read the portable acceptance grids already coded from source materials."""
     source_dir = Path(source_dir)
     manifest = pd.read_csv(source_dir / 'metric_input_manifest.csv')
+    if strict:
+        # Boolean >= grids contain no information about utility ties. Rebuild
+        # their exact numerical schedules rather than reusing those booleans.
+        root = source_dir.parent
+        structures = pd.read_csv(source_dir / 'structure_inputs.csv').rename(columns={'observation_id': 'payoff_id'})
+        values, _ = calculate_catalog_inputs(root / 'raw_payoff_catalog.json', structures,
+                                             root / 'within_payoff_weights.csv', strict=True,
+                                             component_weights=component_weights)
+        lookup = {row['payoff_id']: row for row in values}
+        missing = set(manifest.payoff_id) - set(lookup)
+        if missing:
+            raise ValueError('Missing numeric strict acceptance inputs: ' + ', '.join(sorted(missing)))
+        return [{**lookup[row.payoff_id], 'input_type': 'Numerically reconstructed strict acceptance grid',
+                 'source': row.source_locator} for row in manifest.itertuples(index=False)]
     records = []
     with np.load(source_dir / 'acceptance_inputs.npz', allow_pickle=False) as archive:
         for row in manifest.itertuples(index=False):
@@ -49,48 +108,82 @@ def replay_acceptance_inputs(source_dir):
     return records
 
 
-def metrics_from_source_proof(proof):
+def metrics_from_source_proof(proof, strict=False):
     """Calculate from a supplied source proof, without needing a file path."""
     if proof.get('kind') != 'all_payoffs_meet_reservations':
         raise ValueError('Numerical lower bounds and reservation values are required; formal offer legality is not an acceptability proof')
     lower = np.asarray(proof['lower_payoff_bounds'], dtype=float)
     reservations = np.asarray(proof['reservation_values'], dtype=float)
+    certificate = proof.get('strict_boundary') if strict else None
+    if certificate:
+        shape = certificate.get('offer_shape', [])
+        zeros = certificate.get('zero_profiles', [])
+        if (certificate.get('kind') != 'nonnegative_unique_zero_profiles_with_congruent_escape'
+                or certificate.get('calculation_comparison') != 'gt'
+                or certificate.get('zero_profiles_disjoint') is not True
+                or certificate.get('unprinted_unique_zero_endpoints_assumed') is not True
+                or not certificate.get('congruent_step_proof') or not certificate.get('assumption')
+                or not certificate.get('source') or not proof.get('source')
+                or not shape or any(type(n) is not int or n < 1 for n in shape)
+                or len(zeros) != len(lower) or any(type(n) is not int or n < 1 for n in zeros)
+                or lower.ndim != 1 or len(lower) < 2 or lower.shape != reservations.shape
+                or not np.all(lower == 0) or not np.all(reservations == 0)):
+            raise ValueError('The strict source certificate is incomplete or does not match the coded bounds.')
+        controls = proof.get('source_verified_controls')
+        if controls and (len(shape) != controls['issues'] or len(zeros) != controls['parties']):
+            raise ValueError('The certificate does not match the directly reported task dimensions.')
+        if controls and controls['compatible'] < 1:
+            raise ValueError('number_of_compatible_issues in the certificate disagrees with its congruent-issue proof.')
+        total = int(np.prod(shape))
+        if sum(zeros) > total:
+            raise ValueError('Zero profiles exceed the complete offer space.')
+        return {'bargaining_zone_share': 1 - sum(zeros) / total,
+                'search_complexity': 0., 'possible_offers': total}
     if (lower.ndim != 1 or len(lower) < 2 or lower.shape != reservations.shape
             or not np.isfinite(lower).all() or not np.isfinite(reservations).all()
-            or not np.all(lower >= reservations) or not proof.get('source')):
+            or not np.all(numeric_accepts(lower, reservations, strict)) or not proof.get('source')):
         raise ValueError('The documented bounds do not prove acceptability for every party')
     return {'bargaining_zone_share': 1.0, 'search_complexity': 0.0}
 
 
-def calculate_acceptability_proofs(path):
+def calculate_acceptability_proofs(path, strict=False):
     """Use source inequalities or an explicit rule to establish acceptability."""
-    return [{'payoff_id': proof['payoff_id'], **metrics_from_source_proof(proof),
-             'input_type': 'Source-based acceptability proof', 'source': proof['source']}
-            for proof in json.loads(Path(path).read_text(encoding='utf-8'))]
+    path = Path(path)
+    proofs = json.loads(path.read_text(encoding='utf-8'))
+    if strict:
+        catalog = json.loads((path.parent / 'raw_payoff_catalog.json').read_text(encoding='utf-8'))
+        numerical = {entry['payoff_id'] for entry in catalog if entry.get('components')}
+        # Weak >= certificates for numerical tables are superseded by their
+        # complete strict numerical calculation, never reused as > proofs.
+        proofs = [proof for proof in proofs if proof['payoff_id'] not in numerical]
+    return [{'payoff_id': proof['payoff_id'], **metrics_from_source_proof(proof, strict),
+             'input_type': ('Conditional structural source certificate' if strict and proof.get('strict_boundary')
+                            else 'Source-based acceptability proof'), 'source': proof['source']}
+            for proof in proofs]
 
 
-def metrics_from_programmed_rule(rule):
+def metrics_from_programmed_rule(rule, strict=False):
     """Calculate a supplied programmed rule without treating it as a seller RV."""
     shape = tuple(rule['shape'])
     choices = np.indices(shape).reshape(len(shape), -1)
     buyer = np.asarray(rule['buyer_score_coefficients']) @ choices
-    accepts = np.column_stack([buyer >= rule['buyer_minimum'],
+    accepts = np.column_stack([numeric_accepts(buyer, rule['buyer_minimum'], strict),
                                buyer <= rule['programmed_buyer_score_cap']])
     return metrics_from_acceptance(accepts, shape, 2)
 
 
-def calculate_programmed_rules(path):
+def calculate_programmed_rules(path, strict=False):
     """Calculate the documented main-sample reconstruction for a programmed rule."""
     records = []
     for rule in json.loads(Path(path).read_text(encoding='utf-8')):
         records.append({'payoff_id': rule['payoff_id'],
-                        **metrics_from_programmed_rule(rule),
+                        **metrics_from_programmed_rule(rule, strict),
                         'input_type': 'Reconstructed programmed acceptance rule',
                         'source': rule['sources']})
     return records
 
 
-def calculate_payoff_file(path):
+def calculate_payoff_file(path, strict=False):
     record = json.loads(Path(path).read_text(encoding='utf-8'))
     issues = [np.asarray(issue['payoffs'], dtype=float) for issue in record['issues']]
     shape = tuple(len(issue) for issue in issues)
@@ -99,7 +192,7 @@ def calculate_payoff_file(path):
         raise ValueError('An issue must supply a payoff for every party')
     choices = np.indices(shape).reshape(len(issues), -1)
     totals = sum(issue[choices[index]] for index, issue in enumerate(issues))
-    accepts = totals >= np.asarray(record['reservation_values'])
+    accepts = numeric_accepts(totals, np.asarray(record['reservation_values']), strict)
     metrics = metrics_from_acceptance(accepts, shape, record['required_approvals'])
     compatible = sum(np.all(issue == issue.max(axis=0), axis=1).any() for issue in issues)
     return {'payoff_id': record['payoff_id'],
@@ -111,7 +204,7 @@ def calculate_payoff_file(path):
             'source': record['sources']['payoff_schedule']}
 
 
-def calculate_catalog_inputs(catalog_path, structures, weights_path):
+def calculate_catalog_inputs(catalog_path, structures, weights_path, strict=False, component_weights=None):
     """Replay additive tables with the documented reservation and approval rules.
 
     The catalogue also records entries whose complete calculation is unavailable.
@@ -154,16 +247,18 @@ def calculate_catalog_inputs(catalog_path, structures, weights_path):
                 break
             shape = tuple(len(issue) for issue in issues)
             lower_bounds = sum(issue.min(axis=0) for issue in issues)
-            if np.all(lower_bounds >= reservations):
+            if np.all(numeric_accepts(lower_bounds, reservations, strict)):
                 metrics = {'bargaining_zone_share': 1.0, 'search_complexity': 0.0,
                            'possible_offers': int(np.prod(shape))}
+            elif strict and np.all(lower_bounds >= reservations):
+                metrics = minimum_boundary_metrics(issues, reservations, int(approvals), part.get('mandatory_parties', []))
             else:
                 if int(np.prod(shape)) > 2_000_000:
                     reason = 'This grid requires the compact acceptance input or another documented exact calculation'
                     break
                 choices = np.indices(shape).reshape(len(issues), -1)
                 totals = sum(issue[choices[index]] for index, issue in enumerate(issues))
-                accepts = totals >= reservations
+                accepts = numeric_accepts(totals, reservations, strict)
                 metrics = metrics_from_acceptance(accepts, shape, int(approvals),
                                                   part.get('mandatory_parties', []))
             calculated.append(metrics)
@@ -181,6 +276,9 @@ def calculate_catalog_inputs(catalog_path, structures, weights_path):
                 part.get('component', '') for part in parts}:
             values = documented.set_index('component').aggregation_weight
             weights = [values.loc[part['component']] for part in parts]
+            provided = True
+        if component_weights and payoff_id in component_weights:
+            weights = component_weights[payoff_id]
             provided = True
         same_metrics = all(np.ptp([value[name] for value in calculated]) <= 1e-12
                            for name in ['search_complexity', 'bargaining_zone_share'])

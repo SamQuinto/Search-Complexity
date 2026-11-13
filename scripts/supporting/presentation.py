@@ -108,16 +108,23 @@ def regression_table(coefficients, fits, dataset, label, title):
                             number(one(fits,dataset=dataset,model=model)[field])
                             for model in ['M1','M2','M3','M4','M5']]])
     selected_fits = fits.loc[fits.dataset.eq(dataset) & fits.model.isin(['M1','M2','M3','M4','M5'])]
-    unavailable = selected_fits.controls_with_unavailable_uncertainty.fillna('').str.len().gt(0).any()
+    unavailable = {term.strip()
+                   for value in selected_fits.controls_with_unavailable_uncertainty.fillna('')
+                   for term in value.split(',') if term.strip()}
     omitted = selected_fits.dropped_controls.fillna('').str.contains('automated_counterpart').any()
     note = ('Note. The dependent variable is agreement rate (0–1). Entries are coefficients, with HC3 robust standard errors '
             'in parentheses and two-sided p values beneath. Continuous predictors and the three count controls are standardized; '
             'indicator controls retain their original scales. Every model includes a constant. '
             '— indicates that a predictor is not included or is constant in this sample. '
             '* p < .05. ** p < .01. *** p < .001.')
+    descriptions = {'automated_counterpart': 'automated-counterpart indicator',
+                    'non_unanimous_rule': 'non-unanimity control'}
+    for term in sorted(unavailable):
+        description = descriptions.get(term, LABELS.get(term, term))
+        note += (f' The {description} identifies a single observation; its HC3 standard error '
+                 'and p value are unavailable.')
     if unavailable:
-        note += (' Only one observation involves an automated counterpart. Its indicator coefficient can be fitted, '
-                 'but its own HC3 standard error is unavailable. The other coefficients have estimable HC3 standard errors.')
+        note += ' The other coefficients have estimable HC3 standard errors.'
     if omitted:
         note += ' The automated-counterpart control is constant at zero and is omitted.'
     return {'label':label,'title':title,
@@ -210,7 +217,7 @@ def save_markdown(tables, path):
                  '| '+' | '.join(['---']*len(entry['columns']))+' |']
         text += ['| '+' | '.join(str(cell).replace('\n','<br>') for cell in row)+' |' for row in entry['rows']]
         text += ['',entry['note'],'']
-    path.write_text('\n'.join(text),encoding='utf-8')
+    path.write_text('\n'.join(text),encoding='utf-8', newline='\n')
 
 
 def make_figures(root, outputs):
@@ -302,7 +309,7 @@ def build_flow(root, outputs):
         ('Strict observations using a subset of conditions',int(eligibility.strict_coverage.eq('Recoverable subset of conditions').sum()),'Observations','data/derived/observation_eligibility.csv'),
         ('Combined-payoff comparison',len(pd.read_csv(outputs/'aggregate_main.csv')),'Combined payoff records','data/derived/aggregate_main.csv'),
         ('Strict combined-payoff comparison',len(pd.read_csv(outputs/'aggregate_strict.csv')),'Combined payoff records','data/derived/aggregate_strict.csv')]
-    pd.DataFrame(records,columns=['Stage','Count','Unit','File']).to_csv(outputs/'data_flow.csv',index=False)
+    pd.DataFrame(records,columns=['Stage','Count','Unit','File']).to_csv(outputs/'data_flow.csv',index=False, lineterminator='\n')
     sources = sorted({item.strip() for value in papers.discovery_sources.dropna()
                       for item in str(value).split('|') if item.strip()})
     counts=[]
@@ -313,7 +320,7 @@ def build_flow(root, outputs):
                        'Full texts or complete chapter versions':int((selected&full).sum()),
                        'Papers contributing observations':int((selected&contributing).sum()),
                        'Observations':int(paper_links.paper_id.isin(ids).sum())})
-    pd.DataFrame(counts).to_csv(outputs/'source_frequencies.csv',index=False)
+    pd.DataFrame(counts).to_csv(outputs/'source_frequencies.csv',index=False, lineterminator='\n')
     return records
 
 
@@ -330,10 +337,10 @@ def build_tables(root, outputs):
             regression_table(coeff,fits,'aggregate_strict','Table C3','Strict observations after combining identical payoff tables and reservation values')]
     if (outputs/'original_main_hypotheses.csv').exists():
         tables.append(original_table(outputs))
-    (outputs/'tables.json').write_text(json.dumps(tables,ensure_ascii=False,indent=2),encoding='utf-8')
+    (outputs/'tables.json').write_text(json.dumps(tables,ensure_ascii=False,indent=2),encoding='utf-8', newline='\n')
     save_markdown(tables,outputs/'tables.md')
     for entry in tables:
-        pd.DataFrame(entry['rows'],columns=entry['columns']).to_csv(outputs/(entry['label'].lower().replace(' ','_')+'.csv'),index=False)
+        pd.DataFrame(entry['rows'],columns=entry['columns']).to_csv(outputs/(entry['label'].lower().replace(' ','_')+'.csv'),index=False, lineterminator='\n')
     figures=make_figures(root,outputs)
     build_flow(root,outputs)
     return tables,figures

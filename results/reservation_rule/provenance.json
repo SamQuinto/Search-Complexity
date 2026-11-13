@@ -1,0 +1,136 @@
+{
+  "source_sha256": {
+    "data/raw_payoff_catalog.json": "860e39e6381610c9818fb392a17644cb4eab9c0b560665f72380510f60c26e64",
+    "data/acceptability_proofs.json": "ff8e3d8317bbefa9ca10c73005afb7dbb56e4986fd68ba8b8fbbd494bba7f703",
+    "data/programmed_acceptance_rules.json": "1a34774df456cf6d48d60670d1161eb2e1287b8cb45ba17fc771b982d962bd3a",
+    "data/within_payoff_weights.csv": "bb536a304180bb2327a075581ad23f71fcb602796b1ddd8e85bee5f1cc0824d7",
+    "data/component_decisions.csv": "15576bff88e0eaecb16b32af0f083a635f3432cbcec1c499f996fbb3858e6a4f",
+    "data/reservation_rule_sources.json": "58f7f942e510e5ec296f1e68f256217cb03f7cf6fab3387815d5ff2f58f75b28",
+    "data/sources/study_outcomes.csv": "baed536cc9f1632dd34d61418c6b39fad09412921ec282cbd4e56593faae87a1",
+    "data/sources/structure_inputs.csv": "2b026ca05f2a2e46eb80732436bcf26a9ca1003080dca626f66a408be0982dba",
+    "data/sources/structural_scores.csv": "19beb65dc86320e51fc3c390c907be85b90a984a74ef9917753c3b870b7d7e3e",
+    "data/sources/metric_input_manifest.csv": "6922ace75451496b83237c05612d681bd0efc89b270729d230f5ce4565b9d20b",
+    "data/sources/acceptance_inputs.npz": "3b5d3c61444a7110ea683cadf2c807c35a4a1baef05c55bb52c05ce270a67002",
+    "data/derived/component_evidence.csv": "0b36cc7430627a0a057dd2afe955655969f86628b87dd3720c31bacd49c7fd3d",
+    "data/regression_data.csv": "3f1c6e98531decabd09cc9be947214b650faafa4a0f6365531cf3237e01f4608",
+    "data/payoff_schedules/aaldering_2018_employment_five_issue_r0_r0.json": "c3e332f8070da2c18c93bcd7d2deaf28ca633e3bf4e84d36d84f0bf4e36d03b1"
+  },
+  "active_structures": 100,
+  "code_sha256": {
+    "reservation_sensitivity.py": "1eb02f70852dc370738728130d99e5685cb608ced74505f81f8d4a3ad3cd20d4",
+    "payoff_metrics.py": "99db91deeb04c057876e071891bac161440c2a95ed613d80d542412fe0b44dda",
+    "source_functions.py": "5be83503b0627d30dfc0f2dd3e8aa6e1c3e46faad78ce5dca7fbb7a601772ca6",
+    "additional_functions.py": "857c9f870fcf20775e1924025e488978410bc2a13c1905aa2dbbe9e2029d414c",
+    "sampled_metrics.py": "d04d8fc39bdd6a059ab5f4b913a0d7e3362a4d47d8af54be10aa4963f30eca18",
+    "analysis.py": "350191beea795a76343038a527ed1470b9d46bd4b1860254c07fb93eec21a48c",
+    "original_main_analysis.py": "ab3c6abc7d06237e7b169fd80a45c3cc08fc94175a44322d0b47258e08fbdb2a"
+  },
+  "sample_sizes": {
+    "main": 140,
+    "strict": 124,
+    "aggregate_main": 100,
+    "aggregate_strict": 81
+  },
+  "source_data_unchanged": true,
+  "draws_per_full_case": 5000,
+  "full_cases": [
+    {
+      "case": "inclusive_ge",
+      "northcraft": null,
+      "beersma_x": null
+    },
+    {
+      "case": "endpoint_x4",
+      "northcraft": "endpoint",
+      "beersma_x": 4
+    },
+    {
+      "case": "endpoint_x44",
+      "northcraft": "endpoint",
+      "beersma_x": 44
+    },
+    {
+      "case": "lower_x4",
+      "northcraft": "lower",
+      "beersma_x": 4
+    },
+    {
+      "case": "lower_x44",
+      "northcraft": "lower",
+      "beersma_x": 44
+    },
+    {
+      "case": "upper_x4",
+      "northcraft": "upper",
+      "beersma_x": 4
+    },
+    {
+      "case": "upper_x44",
+      "northcraft": "upper",
+      "beersma_x": 44
+    }
+  ],
+  "point_cases": 123,
+  "coverage": "Primary > RV; one inclusive >= full check, six > source-bound full checks and 123 > point-model scenarios. Full checks use 5000 draws and required omissions; the 123 scenarios are point checks only.",
+  "source_constraints": {
+    "northcraft": {
+      "source": "Northcraft et al. (1998), Tables 1-2 and Experimental Materials",
+      "doi": "10.1006/obhd.1998.2750",
+      "pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86",
+      "strict_rule": "both additive totals > 0",
+      "strict_search_complexity": 0.0,
+      "strict_search_complexity_proof": "All payoffs are nonnegative under the source family. The printed congruent issue has exactly one both-zero option E, and every A-D option gives both roles strictly positive points. If any party has total zero, the congruent issue must be E. Changing only that issue to A makes both parties strictly positive, so every rejected start has a one-step improving path to agreement.",
+      "strict_bargaining_zone_share_conditional_on_unique_zero_endpoints": 0.999872,
+      "endpoint_condition": "The two unprinted integrative issues retain the described strictly monotone zero-based template shape, so each role has exactly one zero-payoff option per omitted issue. This is a structural interpretation of similar payoffs and the preference-function design, not a recovered full numerical schedule.",
+      "strict_bargaining_zone_calculation": "For each party, total zero occurs at its unique own-worst option on each of six issues. The two role-specific zero-total packages are distinct because the printed opposed issues have different worst options. Exactly two of 15625 complete packages fail >0.",
+      "strict_bargaining_zone_conservative_bounds_without_endpoint_condition": [
+        0.9968,
+        1.0
+      ],
+      "conservative_bound_proof": "The four printed templates fix a unique zero combination for each role. At most 25 settings of the two unknown issues can accompany it. The role-specific zero-total sets are disjoint by the printed opposed templates. Thus at most 50 complete offers fail strict positivity; this loose bound does not infer unprinted zero multiplicities.",
+      "unresolved_source_ambiguities": [
+        "Nonlinear maximum 259 is visibly printed, while straightforward scaling would suggest 255. No silent typo correction is justified.",
+        "The exact two omitted option schedules and their assignment to physical issue names are not recovered."
+      ],
+      "inclusive_rule": "both additive totals >= 0",
+      "inclusive_bargaining_zone_share": 1.0,
+      "inclusive_search_complexity": 0.0
+    },
+    "beersma": {
+      "payoff_id": "beersma_de_dreu_2002_market_four_versions_pooled",
+      "source": "Beersma (2002), Small group negotiation and team performance, Chapter 4; corresponding Beersma and De Dreu (2002) study",
+      "repository": "https://dare.uva.nl/id/8b881e52-6bb7-49f9-9220-781e13bd8ad6",
+      "total_groups": 91,
+      "participants": 273,
+      "source_verified_marginals": {
+        "symmetrical": 47,
+        "asymmetrical": 44,
+        "unanimity": 46,
+        "majority": 45
+      },
+      "marginal_source": "Chapter 4, printed p. 71 / PDF p. 18, coalition manipulation checks",
+      "design_source": "Chapter 4, printed p. 63 / PDF p. 10: 2 symmetry x 2 decision rule x 2 social motive; random assignment of groups",
+      "joint_counts_recovered": false,
+      "social_motive_marginal_counts_recovered": false,
+      "social_motive_marginal_count_constraint": "Each motive has at least 4 groups and at most 87 groups; exact prosocial/egoistic totals are not reported. These instruction-only conditions do not create distinct numerical payoff models.",
+      "cell_nonemptiness_evidence": "Table 5, printed p. 73 / PDF p. 20, and Table 6, printed p. 78 / PDF p. 25, report finite means for all eight cells. ANOVA error df 83 with 91 groups is consistent with all eight factorial cells populated.",
+      "integer_constraints": [
+        "Each of the eight symmetry x rule x motive cells has an integer count >=1.",
+        "Sum over symmetry=Symmetrical is 47; Asymmetrical is 44.",
+        "Sum over rule=Unanimity is 46; Majority is 45.",
+        "Let x=N(Symmetrical,Unanimity). Collapsed cells [Sym-U,Sym-M,Asym-U,Asym-M]=[x,47-x,46-x,x-2].",
+        "Each collapsed cell contains two nonempty motive cells, so integer 4<=x<=44."
+      ],
+      "tables_checked": "Tables 4-6 provide global SDs and cell means, but no cell Ns or cell SDs. Mean/SD rounding is not converted into assumed sample sizes.",
+      "equal_allocation_supported": false,
+      "source_pdf_sha256": "5495426dc218be7635c6d8f100a4cd0298359ea7d6a6d86f0d1d03139821825c"
+    },
+    "coverage": "Primary > RV; one inclusive >= full check, six > source-bound full checks and 123 > point-model scenarios. Full checks use 5000 draws and required omissions; the 123 scenarios are point checks only.",
+    "primary_calculation": {
+      "numeric_RV_comparison": ">",
+      "nonnumeric_rules": "as_programmed",
+      "beersma_allocation_assumption": "Uniform average over source-feasible integer x4..44; meanx24; assumed weights [24,23,22,22]/91, not observed joint counts",
+      "northcraft": "Explicit zero-profile endpoint structural inference in the source certificates"
+    }
+  }
+}

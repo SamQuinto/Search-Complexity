@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.supporting.payoff_metrics import (metrics_from_acceptance,
+from scripts.supporting.payoff_metrics import (metrics_from_acceptance, numeric_accepts, minimum_boundary_metrics,
                                               metrics_from_programmed_rule,
                                               metrics_from_source_proof)
 
@@ -96,7 +96,7 @@ def unpack_catalog(entry):
     return entry
 
 
-def input_records(root):
+def input_records(root, strict=True):
     """Join raw inputs and explicit coding evidence, never structural_scores."""
     root = Path(root)
     catalog = read_json(root / 'data/raw_payoff_catalog.json')
@@ -117,6 +117,8 @@ def input_records(root):
         payoff_id = entry['payoff_id']
         coded = structures.loc[payoff_id]
         value = {'catalog': entry,
+                 'calculation_rule': {'numeric_RV_comparison': '>' if strict else '>=',
+                                      'nonnumeric_rules': 'as_programmed'},
                  'coverage': 'numerical' if entry.get('components') or entry.get('payoff_function_input') else 'proof_only',
                  'source_coding': {name: float(coded[name]) for name in MEASURES[2:]},
                  'coding_source': entry['payoff_source'],
@@ -149,10 +151,10 @@ def input_records(root):
     return records
 
 
-def attach_payoff_info(frame, root, components):
+def attach_payoff_info(frame, root, components, strict=True):
     """Add the JSON column directly after the ID, retaining all numeric values."""
     frame = frame.copy()
-    records = input_records(root)
+    records = input_records(root, strict)
     values = {}
     for study_id, rows in components.groupby('study_id', sort=False):
         complete = rows.negotiations.notna().all() and rows.negotiations.gt(0).all()
@@ -166,6 +168,8 @@ def attach_payoff_info(frame, root, components):
                 if not np.isclose(actual, expected, atol=1e-12, rtol=0):
                     raise ValueError(f'{study_id}: {name} differs from verified payoff/source controls; rebuild the coded data.')
         payload = {'schema_version': 1,
+                   'calculation_rule': {'numeric_RV_comparison': '>' if strict else '>=',
+                                        'nonnumeric_rules': 'as_programmed'},
                    'coverage': 'numerical' if all(records[i]['coverage'] == 'numerical' for i in ids) else 'includes_proof_only',
                    'weighting': 'negotiation_counts' if complete else 'equal_documented_components',
                    'components': [{'component_id': str(row.component_id), 'payoff_id': str(row.payoff_id),
@@ -229,7 +233,7 @@ def record_controls(record):
     return {name: float(np.dot(weights, [r[name] for r in rows])) for name in MEASURES[2:]}
 
 
-def table_parts(entry, settings=None):
+def table_parts(entry, settings=None, strict=False):
     """Calculate tables without reading a saved acceptance grid or score."""
     results = []
     for part in entry['components']:
@@ -246,15 +250,17 @@ def table_parts(entry, settings=None):
         shape = tuple(len(issue) for issue in issues)
         if settings and settings.get('method', '').startswith('Sampled starts'):
             from scripts.supporting.sampled_metrics import sampled_two_party_metrics
-            metric = sampled_two_party_metrics(issues, reservations, settings['starting_offer_draws'], settings['seed'])
-        elif np.all(sum(issue.min(axis=0) for issue in issues) >= reservations):
+            metric = sampled_two_party_metrics(issues, reservations, settings['starting_offer_draws'], settings['seed'], strict=strict)
+        elif np.all(numeric_accepts(sum(issue.min(axis=0) for issue in issues), reservations, strict)):
             metric = {'search_complexity': 0., 'bargaining_zone_share': 1.}
+        elif strict and np.all(sum(issue.min(axis=0) for issue in issues) >= reservations):
+            metric = minimum_boundary_metrics(issues, reservations, part['required_approvals'], part.get('mandatory_parties', []))
         else:
             if int(np.prod(shape)) > 2_000_000:
                 raise ValueError('Large offer space has no declared sampling calculator.')
             choices = np.indices(shape).reshape(len(shape), -1)
             totals = sum(issue[choices[i]] for i, issue in enumerate(issues))
-            metric = metrics_from_acceptance(totals >= reservations, shape, part['required_approvals'],
+            metric = metrics_from_acceptance(numeric_accepts(totals, reservations, strict), shape, part['required_approvals'],
                                              part.get('mandatory_parties', []))
         results.append({**metric, **table_controls(issues, len(reservations))})
     weights = [part.get('aggregation_weight') for part in entry['components']]
@@ -268,7 +274,7 @@ def table_parts(entry, settings=None):
     return {name: float(np.dot(weights, [r[name] for r in results])) for name in MEASURES}
 
 
-def function_metrics(entry, record):
+def function_metrics(entry, record, strict=False):
     """Use the released named implementations, with a model-contract check."""
     from scripts.supporting import source_functions as source
     from scripts.supporting import additional_functions as additional
@@ -281,25 +287,25 @@ def function_metrics(entry, record):
     if payoff_id in source.SOURCE_FUNCTION_SETTINGS and record.get('calculation_settings') != source.SOURCE_FUNCTION_SETTINGS[payoff_id]:
         raise ValueError('The registered function requires its declared released numerical procedure.')
     if payoff_id.startswith('sale_cafe_buyer_cap_'):
-        metric = metrics_from_programmed_rule(record['programmed_rule'])
+        metric = metrics_from_programmed_rule(record['programmed_rule'], strict)
     elif payoff_id.startswith('leonardelli_soccer_exp5_owner_'):
-        metric = source.soccer_metrics(model['reservation_values'])
+        metric = source.soccer_metrics(model['reservation_values'], strict)
     elif payoff_id == 'cartoon_standard_us_us':
-        metric = additional.cartoon_metrics(entry)
+        metric = additional.cartoon_metrics(entry, strict)
     elif payoff_id == 'moms_standard_four_issue_gunia_2013':
-        metric = source.moms_standard_metrics()
+        metric = source.moms_standard_metrics(strict)
     elif payoff_id == 'leonardelli_moms_exp6_reconstructed_contingency':
-        metric = source.moms_exp6_metrics()
+        metric = source.moms_exp6_metrics(strict)
     elif payoff_id == 'wolfe_mcginn_new_recruit_four_reservation_versions_pooled':
-        metric = source.wolfe_metrics()
+        metric = source.wolfe_metrics(strict)
     elif payoff_id == 'jaeger_2017_resource_allocation_scripted_acceptance':
-        metric = additional.jaeger_metrics(entry)
+        metric = additional.jaeger_metrics(entry, strict)
     elif payoff_id == 'kong_2011_disciplinary_bounded_rv_grid':
         grid = entry['reservation_value_grid']
         if not (np.allclose(grid['management_values'], np.linspace(-15000, 23100, 11), atol=0, rtol=0)
                 and np.allclose(grid['worker_values'], np.linspace(-100000, 27000, 11), atol=0, rtol=0)):
             raise ValueError('The recorded Kong grid changed; extend its named calculator explicitly.')
-        metric = additional.kong_metrics(entry)
+        metric = additional.kong_metrics(entry, strict)
         part = entry['components'][0]
         issues = [np.asarray([o['payoffs'] for o in i['options']]) for i in part['schedule']['issues']]
         return {**metric, **table_controls(issues, len(part['schedule']['parties']))}
@@ -357,23 +363,28 @@ def function_controls(model, record):
 
 
 @lru_cache(maxsize=256)
-def calculate_record(serialized):
+def calculate_record(serialized, strict=None):
     record = json.loads(serialized)
+    if strict is None:
+        comparison = record.get('calculation_rule', {}).get('numeric_RV_comparison')
+        if comparison not in ('>', '>='):
+            raise ValueError('The payoff record needs an explicit operative numeric RV comparison.')
+        strict = comparison == '>'
     entry = unpack_catalog(record['catalog'])
     payoff_id = entry['payoff_id']
     warnings = [entry['needed_piece']] if entry.get('needed_piece') else []
     if record['coverage'] == 'proof_only':
-        values = metrics_from_source_proof(record['proof'])
+        values = metrics_from_source_proof(record['proof'], strict)
         values.update(reported_controls(record['proof']))
         basis = 'Directly reported source controls; complete numerical schedules unavailable. ' + record['proof']['controls_source']
     elif entry.get('payoff_function_input') or payoff_id == 'kong_2011_disciplinary_bounded_rv_grid':
-        values = function_metrics(entry, record)
+        values = function_metrics(entry, record, strict)
         basis = 'Logical issues in the documented formula; optional Juniors inclusion is the common-benefit direction in Cartoon/Moms.com.'
         note = entry.get('payoff_function_input', {}).get('reconstruction_note')
         if note:
             warnings.append(note)
     else:
-        values = table_parts(entry, record.get('calculation_settings'))
+        values = table_parts(entry, record.get('calculation_settings'), strict)
         basis = 'Shared best choice in the supplied additive-utility table; all parties maximize the encoded payoff.'
     coded = record['source_coding']['number_of_compatible_issues']
     validate_controls(values, record['source_coding'], payoff_id)
@@ -382,15 +393,21 @@ def calculate_record(serialized):
             'control_basis': basis, 'warnings': warnings}
 
 
-def calculate(cell):
+def calculate(cell, strict=None):
     """Derive one observation using only its JSON cell and registered code."""
     payload = json.loads(cell) if isinstance(cell, str) else cell
     if payload.get('schema_version') != 1:
         raise ValueError('Unsupported payoff JSON schema.')
+    if strict is None:
+        rule = payload.get('calculation_rule')
+        if not rule or rule.get('numeric_RV_comparison') not in ('>', '>='):
+            raise ValueError('The payoff cell needs its operative calculation rule.')
+        if any(record.get('calculation_rule') != rule for record in payload['payoffs'].values()):
+            raise ValueError('The payoff records and cell disagree about the operative calculation rule.')
     weights = np.asarray([c['weight'] for c in payload['components']], dtype=float)
     if (weights < 0).any() or not np.isclose(weights.sum(), 1, atol=1e-12, rtol=0):
         raise ValueError('Observation component weights must sum to one.')
-    rows = [calculate_record(dumps(payload['payoffs'][c['payoff_id']])) for c in payload['components']]
+    rows = [calculate_record(dumps(payload['payoffs'][c['payoff_id']]), strict) for c in payload['components']]
     values = {name: None if any(r[name] is None for r in rows) else float(np.dot(weights, [r[name] for r in rows]))
               for name in [*MEASURES, 'coded_number_of_compatible_issues']}
     return {**values, 'coverage': payload['coverage'],
@@ -398,6 +415,16 @@ def calculate(cell):
                                                for note in p.get('input_issues', []))),
             'control_basis': list(dict.fromkeys(r['control_basis'] for r in rows)),
             'warnings': list(dict.fromkeys(note for r in rows for note in r['warnings']))}
+
+
+def check_payoff_columns(frame):
+    """Check all five payoff-derived fields using each cell's operative rule."""
+    for row in frame.to_dict('records'):
+        result = calculate(row[COLUMN])
+        for name in MEASURES:
+            if result[name] is None or not np.isclose(result[name], float(row[name]), atol=1e-12, rtol=0):
+                raise ValueError(f"{row['observation_id']}: payoff_json does not reproduce {name} under its recorded calculation rule.")
+    return len(frame) * len(MEASURES)
 
 
 def main():

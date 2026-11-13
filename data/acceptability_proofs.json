@@ -18,7 +18,29 @@
       "compatible": 1
     },
     "controls_source": "Northcraft et al. (1998), Experimental Materials, printed p. 66 / PDF p. 13: Applicant and Recruiter negotiate six five-option issues: four integrative, one distributive, one congruent.",
-    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86"
+    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86",
+    "strict_boundary": {
+      "kind": "nonnegative_unique_zero_profiles_with_congruent_escape",
+      "calculation_comparison": "gt",
+      "offer_shape": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "zero_profiles": [
+        1,
+        1
+      ],
+      "zero_profiles_disjoint": true,
+      "congruent_step_proof": "All source-family payoffs are nonnegative. The printed congruent issue gives both roles zero only at E and gives both roles positive points at A-D. A zero-total party therefore requires congruent E; changing that issue alone to A gives both roles positive totals and increases the approval count to agreement.",
+      "unprinted_unique_zero_endpoints_assumed": true,
+      "assumption": "The two unprinted integrative issues retain the described strictly monotone, zero-based scaled preference shape, with exactly one zero-payoff option per role per issue. Their complete numerical arrays and physical-name mapping are not recovered. This structural inference is used only as an explicit main-calculation assumption; it does not establish strict-evidence eligibility.",
+      "source": "Northcraft et al. (1998), Table 1, printed p. 59 / PDF p. 6; Table 2, printed p. 62 / PDF p. 9; Experimental Materials, printed pp. 66-67 / PDF pp. 13-14. DOI 10.1006/obhd.1998.2750.",
+      "strict_eligible": false
+    }
   },
   {
     "payoff_id": "northcraft_1998_employment_linear_r0_r0",
@@ -39,7 +61,29 @@
       "compatible": 1
     },
     "controls_source": "Northcraft et al. (1998), Experimental Materials, printed p. 66 / PDF p. 13: Applicant and Recruiter negotiate six five-option issues: four integrative, one distributive, one congruent.",
-    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86"
+    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86",
+    "strict_boundary": {
+      "kind": "nonnegative_unique_zero_profiles_with_congruent_escape",
+      "calculation_comparison": "gt",
+      "offer_shape": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "zero_profiles": [
+        1,
+        1
+      ],
+      "zero_profiles_disjoint": true,
+      "congruent_step_proof": "All source-family payoffs are nonnegative. The printed congruent issue gives both roles zero only at E and gives both roles positive points at A-D. A zero-total party therefore requires congruent E; changing that issue alone to A gives both roles positive totals and increases the approval count to agreement.",
+      "unprinted_unique_zero_endpoints_assumed": true,
+      "assumption": "The two unprinted integrative issues retain the described strictly monotone, zero-based scaled preference shape, with exactly one zero-payoff option per role per issue. Their complete numerical arrays and physical-name mapping are not recovered. This structural inference is used only as an explicit main-calculation assumption; it does not establish strict-evidence eligibility.",
+      "source": "Northcraft et al. (1998), Table 1, printed p. 59 / PDF p. 6; Table 2, printed p. 62 / PDF p. 9; Experimental Materials, printed pp. 66-67 / PDF pp. 13-14. DOI 10.1006/obhd.1998.2750.",
+      "strict_eligible": false
+    }
   },
   {
     "payoff_id": "northcraft_1998_employment_increasing_r0_r0",
@@ -60,7 +104,29 @@
       "compatible": 1
     },
     "controls_source": "Northcraft et al. (1998), Experimental Materials, printed p. 66 / PDF p. 13: Applicant and Recruiter negotiate six five-option issues: four integrative, one distributive, one congruent.",
-    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86"
+    "source_pdf_sha256": "30a9e83bc5aabaad84413230ce329a931b192d4cb849713c26d14fa9f586ff86",
+    "strict_boundary": {
+      "kind": "nonnegative_unique_zero_profiles_with_congruent_escape",
+      "calculation_comparison": "gt",
+      "offer_shape": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "zero_profiles": [
+        1,
+        1
+      ],
+      "zero_profiles_disjoint": true,
+      "congruent_step_proof": "All source-family payoffs are nonnegative. The printed congruent issue gives both roles zero only at E and gives both roles positive points at A-D. A zero-total party therefore requires congruent E; changing that issue alone to A gives both roles positive totals and increases the approval count to agreement.",
+      "unprinted_unique_zero_endpoints_assumed": true,
+      "assumption": "The two unprinted integrative issues retain the described strictly monotone, zero-based scaled preference shape, with exactly one zero-payoff option per role per issue. Their complete numerical arrays and physical-name mapping are not recovered. This structural inference is used only as an explicit main-calculation assumption; it does not establish strict-evidence eligibility.",
+      "source": "Northcraft et al. (1998), Table 1, printed p. 59 / PDF p. 6; Table 2, printed p. 62 / PDF p. 9; Experimental Materials, printed pp. 66-67 / PDF pp. 13-14. DOI 10.1006/obhd.1998.2750.",
+      "strict_eligible": false
+    }
   },
   {
     "payoff_id": "murnighan_1999_development_pooled",

@@ -1,0 +1,2 @@
+model,term,b_primary,se_primary,p_primary,ci_low_primary,ci_high_primary,n_primary,df_resid_primary,uncertainty_primary,dataset,b_strict,se_strict,p_strict,ci_low_strict,ci_high_strict,n_strict,df_resid_strict,uncertainty_strict,case
+M3,bargaining_zone_share,-0.0533252183006852,0.0243136705425812,0.0308125594025389,-0.1016142666801636,-0.0050361699212067,100,92.0,HC3,aggregate_main,-0.0515571323866,0.0282591661646859,0.0713316195826189,-0.107682275634731,0.0045680108615309,100,92.0,HC3,inclusive_ge

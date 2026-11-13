@@ -112,7 +112,7 @@ def build_data(root, output_dir):
                                 calculate_catalog_inputs)
 
     metric_records = []
-    for calculated in replay_acceptance_inputs(source):
+    for calculated in replay_acceptance_inputs(source, strict=True):
         matches = scores.payoff_id.eq(calculated['payoff_id'])
         require(matches.sum() == 1, 'An acceptance input needs one matching payoff ID')
         for measure in MEASURES:
@@ -121,7 +121,7 @@ def build_data(root, output_dir):
             scores.loc[matches, measure] = calculated[measure]
         metric_records.append(calculated)
     for path in sorted((root / 'data/payoff_schedules').glob('*.json')):
-        calculated = calculate_payoff_file(path)
+        calculated = calculate_payoff_file(path, strict=True)
         matches = scores.payoff_id.eq(calculated['payoff_id'])
         require(matches.sum() == 1, 'A numerical schedule needs one matching payoff ID')
         for measure in MEASURES:
@@ -133,7 +133,7 @@ def build_data(root, output_dir):
             require(np.isclose(structures.loc[structural_match, control].iloc[0], calculated[control]),
                     f'The numerical schedule disagrees with {control}')
         metric_records.append(calculated)
-    for calculated in calculate_acceptability_proofs(root / 'data/acceptability_proofs.json'):
+    for calculated in calculate_acceptability_proofs(root / 'data/acceptability_proofs.json', strict=True):
         matches = scores.payoff_id.eq(calculated['payoff_id'])
         require(matches.sum() == 1, 'An acceptability proof needs one matching payoff ID')
         for measure in MEASURES:
@@ -141,7 +141,7 @@ def build_data(root, output_dir):
                     f'The source proof disagrees with the recorded {measure}')
             scores.loc[matches, measure] = calculated[measure]
         metric_records.append(calculated)
-    for calculated in calculate_programmed_rules(root / 'data/programmed_acceptance_rules.json'):
+    for calculated in calculate_programmed_rules(root / 'data/programmed_acceptance_rules.json', strict=True):
         matches = scores.payoff_id.eq(calculated['payoff_id'])
         require(matches.sum() == 1, 'A programmed rule needs one matching payoff ID')
         for measure in MEASURES:
@@ -150,7 +150,7 @@ def build_data(root, output_dir):
             scores.loc[matches, measure] = calculated[measure]
         metric_records.append(calculated)
     catalog_values, catalog_components = calculate_catalog_inputs(
-        root / 'data/raw_payoff_catalog.json', structures, root / 'data/within_payoff_weights.csv')
+        root / 'data/raw_payoff_catalog.json', structures, root / 'data/within_payoff_weights.csv', strict=True)
     for calculated in catalog_values:
         matches = scores.payoff_id.eq(calculated['payoff_id'])
         require(matches.sum() == 1, 'A payoff table needs one matching payoff ID')
@@ -166,8 +166,8 @@ def build_data(root, output_dir):
     from .additional_functions import calculate_additional_inputs
     from .sampled_metrics import calculate_player_input
 
-    function_values = calculate_formula_inputs(root) + calculate_additional_inputs(root)
-    player_value, player_components = calculate_player_input(root / 'data/raw_payoff_catalog.json')
+    function_values = calculate_formula_inputs(root, strict=True) + calculate_additional_inputs(root, strict=True)
+    player_value, player_components = calculate_player_input(root / 'data/raw_payoff_catalog.json', strict=True)
     for calculated in [*function_values, player_value]:
         matches = scores.payoff_id.eq(calculated['payoff_id'])
         require(matches.sum() == 1, 'A source function needs one matching payoff ID')
@@ -282,9 +282,9 @@ def build_data(root, output_dir):
                   'aggregate_strict': aggregate_identical_structures(strict_components)}
 
     save_analysis_files(main, strict, aggregates, components, eligibility, output_dir, root=root)
-    pd.DataFrame(metric_records).to_csv(output_dir / 'payoff_metric_checks.csv', index=False)
-    catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False)
-    pd.DataFrame(player_components).to_csv(output_dir / 'player_component_metrics.csv', index=False)
+    pd.DataFrame(metric_records).to_csv(output_dir / 'payoff_metric_checks.csv', index=False, lineterminator='\n')
+    catalog_components.to_csv(output_dir / 'catalog_component_metrics.csv', index=False, lineterminator='\n')
+    pd.DataFrame(player_components).to_csv(output_dir / 'player_component_metrics.csv', index=False, lineterminator='\n')
     return {'main': main, 'strict': strict, **aggregates}
 
 def make_eligibility_table(components):
@@ -319,22 +319,22 @@ def save_analysis_files(main, strict, aggregates, components, eligibility, outpu
     """Save the analysis datasets and their source links."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    main.to_csv(output_dir / 'study_inputs.csv', index=False)
+    main.to_csv(output_dir / 'study_inputs.csv', index=False, lineterminator='\n')
     from .payoff_info import attach_payoff_info
     attach_payoff_info(main[MODEL_COLUMNS], root, components).to_csv(
-        output_dir / 'regression_data.csv', index=False)
-    strict.to_csv(output_dir / 'strict_study_inputs.csv', index=False)
-    strict[MODEL_COLUMNS].to_csv(output_dir / 'strict_regression_data.csv', index=False)
-    eligibility.to_csv(output_dir / 'observation_eligibility.csv', index=False)
+        output_dir / 'regression_data.csv', index=False, lineterminator='\n')
+    strict.to_csv(output_dir / 'strict_study_inputs.csv', index=False, lineterminator='\n')
+    strict[MODEL_COLUMNS].to_csv(output_dir / 'strict_regression_data.csv', index=False, lineterminator='\n')
+    eligibility.to_csv(output_dir / 'observation_eligibility.csv', index=False, lineterminator='\n')
     for name, data in aggregates.items():
-        data.to_csv(output_dir / f'{name}.csv', index=False)
+        data.to_csv(output_dir / f'{name}.csv', index=False, lineterminator='\n')
     public_columns = ['component_id', 'study_id', 'paper_citation', 'study_label', 'payoff_id',
                       'negotiation_exercise', 'agreement_rate', 'agreements', 'negotiations',
                       *PREDICTORS, 'payoff_source', 'reservation_values_or_rule',
                       'agreement_rate_source', 'agreement_rate_coding', 'source_link', 'strict_included', 'strict_reason',
                       'strict_evidence', 'main_weight', 'strict_weight', 'approval_rule',
                       'approval_rule_basis', 'approval_rule_source']
-    components[public_columns].to_csv(output_dir / 'component_evidence.csv', index=False)
+    components[public_columns].to_csv(output_dir / 'component_evidence.csv', index=False, lineterminator='\n')
 
 
 def prepare_analysis_data(root, output_dir):
@@ -379,6 +379,6 @@ def prepare_analysis_data(root, output_dir):
     # Keep the released primary dataset as the actual primary regression input.
     from .payoff_info import attach_payoff_info
     released = attach_payoff_info(released, root, components)
-    released.to_csv(output_dir / 'regression_data.csv', index=False)
+    released.to_csv(output_dir / 'regression_data.csv', index=False, lineterminator='\n')
     return {'main': released, 'strict': strict, **aggregates}
 
