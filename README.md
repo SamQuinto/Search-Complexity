@@ -4,7 +4,7 @@
 | --- | --- |
 | **1. Agent-based model** | [Rebuild Figures 1 and 2 and replay the model](study1_agent_based_model/README.md) |
 | **2. Archival analysis** | [Reproduce Study 2](#reproduce-study-2) |
-| **3. Prolific experiment** | [Experimental design and materials information](study3_experiment/README.md) |
+| **3. Prolific experiment** | [Negotiation JSONs and post-task survey](study3_experiment/README.md) |
 
 [Download the repository](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), extract it, and install the requirements from the extracted folder using Python 3.12. The instructions for each study give its entry point.
 
@@ -30,6 +30,7 @@ Both the script and notebook rebuild the measures from the coded payoffs, using 
 - **Use the final data:** [data/regression_data.csv](data/regression_data.csv). The stricter dataset is [data/strict_regression_data.csv](data/strict_regression_data.csv).
 - **Read the reproduced tables:** [results/tables](results/tables/).
 - **See the figure and detailed checks:** [results/figures](results/figures/) and [results/checks](results/checks/).
+- **Reproduce the local peak check:** `python scripts/local_peaks.py`. See the [comparison and counts](results/local_peaks/README.md).
 
 ## Find what you need
 

@@ -15,9 +15,11 @@ ROOT = Path(__file__).resolve().parent
 BASE_SEED = 20260818
 
 
-def replay(scenario_count, output):
-    saved = pd.read_csv(ROOT / "data" / "simulation_conditions.csv")
-    with gzip.open(ROOT / "data" / "negotiations.json.gz", "rt", encoding="utf-8") as source:
+def replay(scenario_count, output, parties):
+    suffix = "_two_party" if parties == 2 else ""
+    saved = pd.read_csv(ROOT / "data" / f"simulation_conditions{suffix}.csv")
+    inputs = ROOT / "data" / f"negotiations{suffix}.json.gz"
+    with gzip.open(inputs, "rt", encoding="utf-8") as source:
         scenarios = json.load(source)
     if not 1 <= scenario_count <= len(scenarios):
         raise ValueError(f"Choose between 1 and {len(scenarios)} negotiations.")
@@ -28,8 +30,8 @@ def replay(scenario_count, output):
         prepared = model.prepare_scenario(scenario, weak_acceptance=True, max_search_distance=3)
         metrics = model.scenario_metrics(prepared)
         for row in group.to_dict(orient="records"):
-            seeds = range(BASE_SEED + int(index) * 100_000 + 6_000,
-                          BASE_SEED + int(index) * 100_000 + 6_000 + row["n_runs"])
+            first_seed = BASE_SEED + int(index) * 100_000 + parties * 1_000
+            seeds = range(first_seed, first_seed + row["n_runs"])
             agreements = sum(
                 model.simulate_once(
                     prepared, alpha=.5, seed=seed, first_offer_rule="ambitious",
@@ -62,5 +64,7 @@ if __name__ == "__main__":
     parser.add_argument("--scenarios", type=int, default=1,
                         help="Number of negotiations to replay, starting at the first saved index.")
     parser.add_argument("--output", type=Path, help="Optional path for the replayed conditions CSV.")
+    parser.add_argument("--parties", type=int, choices=(2, 6), default=6,
+                        help="Group size to replay. Defaults to six parties.")
     args = parser.parse_args()
-    replay(args.scenarios, args.output)
+    replay(args.scenarios, args.output, args.parties)

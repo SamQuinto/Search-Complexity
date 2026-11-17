@@ -13,7 +13,8 @@ from .source_functions import halton as shifted_halton
 from .payoff_metrics import numeric_accepts
 
 
-def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827, strict=False):
+def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827, strict=False,
+                              *, local_peaks=False):
     issues = [np.asarray(issue, dtype=float) for issue in issues]
     reservations = np.asarray(reservations, dtype=float)
     if reservations.shape != (2,) or any(issue.shape[1] != 2 for issue in issues):
@@ -49,6 +50,15 @@ def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827, stri
     remaining = np.flatnonzero(~agreement)
     reachable[remaining] = one_change_reaches(remaining, totals[remaining])
     zero_approvals = ~approvals.any(axis=1)
+    if local_peaks:
+        # From one approval, only an agreement improves. From zero, find
+        # whether any issue could bring up either party to its threshold.
+        peaks = ~agreement & ~reachable
+        zero = np.flatnonzero(zero_approvals)
+        for axis, issue in enumerate(issues):
+            best = totals[zero] - current_values[axis][zero] + issue.max(axis=0)
+            peaks[zero] &= ~numeric_accepts(best, reservations, strict).any(axis=1)
+        peak_count = float(peaks.mean() * int(np.prod(sizes)))
     for first_issue, options in enumerate(issues):
         for option in options:
             remaining = np.flatnonzero(zero_approvals & ~reachable)
@@ -60,9 +70,12 @@ def sampled_two_party_metrics(issues, reservations, n=65536, seed=20260827, stri
             if len(selected):
                 second_change = one_change_reaches(selected, revised[improved], omit_issue=first_issue)
                 reachable[selected[second_change]] = True
-    return {'bargaining_zone_share': float(agreement.mean()),
-            'search_complexity': float(1 - reachable.mean()),
-            'possible_offers': int(np.prod(sizes)), 'sampled_starting_offers': n, 'seed': seed}
+    result = {'bargaining_zone_share': float(agreement.mean()),
+              'search_complexity': float(1 - reachable.mean()),
+              'possible_offers': int(np.prod(sizes)), 'sampled_starting_offers': n, 'seed': seed}
+    if local_peaks:
+        result['local_peak_count'] = peak_count
+    return result
 
 
 def calculate_player_input(catalogue_path, strict=False):

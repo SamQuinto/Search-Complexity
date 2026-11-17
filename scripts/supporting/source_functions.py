@@ -78,7 +78,7 @@ def payment_profiles(periods=4, units=4):
     return np.asarray(rows, dtype=float) / units
 
 
-def soccer_metrics(reservations, strict=False):
+def soccer_metrics(reservations, strict=False, *, local_peaks=False):
     """Owner/player order, with the original separate volume and start samples."""
     volume_points = halton(16384, 3)
     owner = ((1 - volume_points[:, 0]) * 500000
@@ -99,7 +99,7 @@ def soccer_metrics(reservations, strict=False):
                              np.asarray(shape) - 1)
     starting_indices = np.ravel_multi_index(coordinates.T, shape)
     metrics = metrics_from_acceptance(numeric_accepts(totals, np.asarray(reservations), strict), shape, 2,
-                                     starting_indices=starting_indices)
+                                     starting_indices=starting_indices, local_peaks=local_peaks)
     metrics['bargaining_zone_share'] = float(zone_share)
     return metrics
 
@@ -136,12 +136,13 @@ def moms_grid(contingencies=None):
     return np.column_stack([buyer, seller]), shape
 
 
-def moms_standard_metrics(strict=False):
+def moms_standard_metrics(strict=False, *, local_peaks=False):
     totals, shape = moms_grid()
-    return metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2)
+    return metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2,
+                                   local_peaks=local_peaks)
 
 
-def moms_exp6_metrics(strict=False):
+def moms_exp6_metrics(strict=False, *, local_peaks=False):
     """Average the original four contingent-term strengths and sample settings."""
     observed = np.asarray([[0.0, 0.0], [-150000, 450000], [-1400000, 1400000],
                            [1890000, -690000], [50000, 1250000],
@@ -151,7 +152,8 @@ def moms_exp6_metrics(strict=False):
     rows = []
     for scale in [0.25, 0.50, 0.75, 1.00]:
         totals, shape = moms_grid(observed * scale)
-        metrics = metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2)
+        metrics = metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2,
+                                          local_peaks=local_peaks)
         price = 35.0 + 25.0 * points[:, 0]
         run_indices = np.minimum((points[:, 1] * len(runs)).astype(int), len(runs) - 1)
         exponentials = -np.log(np.clip(points[:, 2:6], 1e-12, 1 - 1e-12))
@@ -171,11 +173,10 @@ def moms_exp6_metrics(strict=False):
                   + contingent[:, 1])
         metrics['bargaining_zone_share'] = float(((numeric_accepts(buyer, 0, strict)) & (numeric_accepts(seller, 0, strict))).mean())
         rows.append(metrics)
-    return {name: float(np.mean([row[name] for row in rows]))
-            for name in ['bargaining_zone_share', 'search_complexity']}
+    return average_formula_metrics(rows, local_peaks)
 
 
-def wolfe_metrics(strict=False):
+def wolfe_metrics(strict=False, *, local_peaks=False):
     """Recruiter/candidate order with four equally weighted reservation pairs."""
     discrete = [
         paired([0, 400, 800, 1200, 1600], [4000, 3000, 2000, 1000, 0]),
@@ -194,11 +195,18 @@ def wolfe_metrics(strict=False):
     sampled += np.column_stack([8000 * (1 - points[:, 4]), 8000 * points[:, 4]])
     rows = []
     for reservations in [(9500, 5000), (5000, 9500), (9500, 9500), (5000, 5000)]:
-        metrics = metrics_from_acceptance(numeric_accepts(totals, np.asarray(reservations), strict), shape, 2)
+        metrics = metrics_from_acceptance(numeric_accepts(totals, np.asarray(reservations), strict),
+                                          shape, 2, local_peaks=local_peaks)
         metrics['bargaining_zone_share'] = float((numeric_accepts(sampled, np.asarray(reservations), strict)).all(axis=1).mean())
         rows.append(metrics)
-    return {name: float(np.mean([row[name] for row in rows]))
-            for name in ['bargaining_zone_share', 'search_complexity']}
+    return average_formula_metrics(rows, local_peaks)
+
+
+def average_formula_metrics(rows, local_peaks):
+    names = ['bargaining_zone_share', 'search_complexity']
+    if local_peaks:
+        names.append('local_peak_count')
+    return {name: float(np.mean([row[name] for row in rows])) for name in names}
 
 
 SOURCE_FUNCTION_SETTINGS = {

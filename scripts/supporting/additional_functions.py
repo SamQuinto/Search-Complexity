@@ -6,10 +6,10 @@ from pathlib import Path
 import numpy as np
 
 from .payoff_metrics import metrics_from_acceptance, numeric_accepts
-from .source_functions import first_primes, radical_inverse, payment_profiles, payoff_grid
+from .source_functions import average_formula_metrics, first_primes, radical_inverse, payment_profiles, payoff_grid
 
 
-def cartoon_metrics(record, strict=False):
+def cartoon_metrics(record, strict=False, *, local_peaks=False):
     model = record['payoff_function_input']
     variables, parameters = model['variables'], model['parameters']
     price_range = variables['price']
@@ -35,7 +35,8 @@ def cartoon_metrics(record, strict=False):
 
     totals = utilities(prices[coordinates[0]], runs[coordinates[1]],
                        profiles[coordinates[2]], optional[coordinates[3]])
-    metric = metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2)
+    metric = metrics_from_acceptance(numeric_accepts(totals, 0, strict), shape, 2,
+                                     local_peaks=local_peaks)
     # The volume estimate uses the source's unshifted Halton points, with
     # continuous financing shares spread uniformly over their simplex.
     n = model['bargaining_zone_sampling']['sample_size']
@@ -52,7 +53,7 @@ def cartoon_metrics(record, strict=False):
     return metric
 
 
-def kong_metrics(record, strict=False):
+def kong_metrics(record, strict=False, *, local_peaks=False):
     part = record['components'][0]
     issues = [np.asarray([option['payoffs'] for option in issue['options']], dtype=float)
               for issue in part['schedule']['issues']]
@@ -63,12 +64,12 @@ def kong_metrics(record, strict=False):
     # 121 points in the fixed 11-by-11 range grid.
     for management in np.linspace(-15000, 23100, 11):
         for worker in np.linspace(-100000, 27000, 11):
-            results.append(metrics_from_acceptance(numeric_accepts(totals, [management, worker], strict), shape, 2))
-    return {name: float(np.mean([row[name] for row in results]))
-            for name in ['bargaining_zone_share', 'search_complexity']}
+            accepts = numeric_accepts(totals, [management, worker], strict)
+            results.append(metrics_from_acceptance(accepts, shape, 2, local_peaks=local_peaks))
+    return average_formula_metrics(results, local_peaks)
 
 
-def jaeger_metrics(record, strict=False):
+def jaeger_metrics(record, strict=False, *, local_peaks=False):
     model = record['payoff_function_input']
     management = np.asarray(model['management_item_values'])
     psychology = np.asarray(model['psychology_item_values'])
@@ -80,7 +81,7 @@ def jaeger_metrics(record, strict=False):
     scripted_acceptance = (first_total > second_total) | (
         (first_total == second_total) & (interest_advantage > 0))
     accepts = np.column_stack([scripted_acceptance, np.ones(len(packages), dtype=bool)])
-    return metrics_from_acceptance(accepts, shape, 2)
+    return metrics_from_acceptance(accepts, shape, 2, local_peaks=local_peaks)
 
 
 def calculate_additional_inputs(root, strict=False):

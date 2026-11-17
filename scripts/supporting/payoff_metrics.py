@@ -12,7 +12,7 @@ def numeric_accepts(payoff, reservation, strict=False):
     return np.greater(payoff, reservation) if strict else np.greater_equal(payoff, reservation)
 
 
-def _acceptance_masks(accepts, shape, required_approvals, mandatory_parties=()):
+def acceptance_grid(accepts, shape, required_approvals, mandatory_parties=()):
     accepts = np.asarray(accepts, dtype=bool)
     if accepts.ndim != 2 or len(accepts) != int(np.prod(shape)):
         raise ValueError('The acceptance rows do not match the offer grid')
@@ -23,6 +23,20 @@ def _acceptance_masks(accepts, shape, required_approvals, mandatory_parties=()):
     acceptable = votes >= required_approvals
     if mandatory_parties:
         acceptable &= accepts[:, mandatory_parties].all(axis=1).reshape(shape)
+    return votes, acceptable
+
+
+def local_peak_mask(votes, acceptable):
+    """Find non-agreements whose one-issue alternatives never add an approval."""
+    peaks = ~acceptable
+    for axis in range(votes.ndim):
+        peaks &= votes >= votes.max(axis=axis, keepdims=True)
+    return peaks
+
+
+def _acceptance_masks(accepts, shape, required_approvals, mandatory_parties=()):
+    votes, acceptable = acceptance_grid(accepts, shape, required_approvals, mandatory_parties)
+    parties = np.shape(accepts)[1]
     reachable = acceptable.copy()
     for level in range(parties - 1, -1, -1):
         targets = reachable & (votes > level)
@@ -33,16 +47,22 @@ def _acceptance_masks(accepts, shape, required_approvals, mandatory_parties=()):
     return acceptable, reachable
 
 
-def metrics_from_acceptance(accepts, shape, required_approvals, mandatory_parties=(), starting_indices=None):
+def metrics_from_acceptance(accepts, shape, required_approvals, mandatory_parties=(),
+                            starting_indices=None, *, local_peaks=False):
     """Trace every one-issue path that strictly increases the approval count."""
     acceptable, reachable = _acceptance_masks(accepts, shape, required_approvals, mandatory_parties)
     selected = reachable if starting_indices is None else reachable.ravel()[starting_indices]
-    return {'bargaining_zone_share': float(acceptable.mean()),
-            'search_complexity': float(1 - selected.mean()),
-            'possible_offers': int(np.prod(shape))}
+    result = {'bargaining_zone_share': float(acceptable.mean()),
+              'search_complexity': float(1 - selected.mean()),
+              'possible_offers': int(np.prod(shape))}
+    if local_peaks:
+        votes = np.asarray(accepts, dtype=bool).sum(axis=1).reshape(shape)
+        result['local_peak_count'] = int(local_peak_mask(votes, acceptable).sum())
+    return result
 
 
-def minimum_boundary_metrics(issues, reservations, required_approvals, mandatory_parties=()):
+def minimum_boundary_metrics(issues, reservations, required_approvals, mandatory_parties=(),
+                             *, local_peaks=False):
     """Exact strict metrics when minimum totals >= RV; retain option multiplicities.
 
     For a role whose minimum equals RV, strict acceptance requires at least one
@@ -72,9 +92,14 @@ def minimum_boundary_metrics(issues, reservations, required_approvals, mandatory
     total = int(np.prod([len(issue) for issue in issues]))
     if int(weights.sum()) != total:
         raise ValueError('Compressed states did not preserve the complete-offer measure.')
-    return {'bargaining_zone_share': float(weights[acceptable.ravel()].sum() / total),
-            'search_complexity': float(1 - weights[reachable.ravel()].sum() / total),
-            'possible_offers': total}
+    result = {'bargaining_zone_share': float(weights[acceptable.ravel()].sum() / total),
+              'search_complexity': float(1 - weights[reachable.ravel()].sum() / total),
+              'possible_offers': total}
+    if local_peaks:
+        votes = accepts.sum(axis=1).reshape(shape)
+        peaks = local_peak_mask(votes, acceptable)
+        result['local_peak_count'] = int(weights[peaks.ravel()].sum())
+    return result
 
 
 def replay_acceptance_inputs(source_dir, strict=False, component_weights=None):
@@ -162,14 +187,14 @@ def calculate_acceptability_proofs(path, strict=False):
             for proof in proofs]
 
 
-def metrics_from_programmed_rule(rule, strict=False):
+def metrics_from_programmed_rule(rule, strict=False, *, local_peaks=False):
     """Calculate a supplied programmed rule without treating it as a seller RV."""
     shape = tuple(rule['shape'])
     choices = np.indices(shape).reshape(len(shape), -1)
     buyer = np.asarray(rule['buyer_score_coefficients']) @ choices
     accepts = np.column_stack([numeric_accepts(buyer, rule['buyer_minimum'], strict),
                                buyer <= rule['programmed_buyer_score_cap']])
-    return metrics_from_acceptance(accepts, shape, 2)
+    return metrics_from_acceptance(accepts, shape, 2, local_peaks=local_peaks)
 
 
 def calculate_programmed_rules(path, strict=False):

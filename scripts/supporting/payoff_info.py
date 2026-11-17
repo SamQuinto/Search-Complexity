@@ -233,7 +233,7 @@ def record_controls(record):
     return {name: float(np.dot(weights, [r[name] for r in rows])) for name in MEASURES[2:]}
 
 
-def table_parts(entry, settings=None, strict=False):
+def table_parts(entry, settings=None, strict=False, *, local_peaks=False):
     """Calculate tables without reading a saved acceptance grid or score."""
     results = []
     for part in entry['components']:
@@ -250,31 +250,39 @@ def table_parts(entry, settings=None, strict=False):
         shape = tuple(len(issue) for issue in issues)
         if settings and settings.get('method', '').startswith('Sampled starts'):
             from scripts.supporting.sampled_metrics import sampled_two_party_metrics
-            metric = sampled_two_party_metrics(issues, reservations, settings['starting_offer_draws'], settings['seed'], strict=strict)
+            metric = sampled_two_party_metrics(issues, reservations, settings['starting_offer_draws'],
+                                               settings['seed'], strict=strict, local_peaks=local_peaks)
         elif np.all(numeric_accepts(sum(issue.min(axis=0) for issue in issues), reservations, strict)):
-            metric = {'search_complexity': 0., 'bargaining_zone_share': 1.}
+            metric = {'search_complexity': 0., 'bargaining_zone_share': 1., 'local_peak_count': 0}
         elif strict and np.all(sum(issue.min(axis=0) for issue in issues) >= reservations):
-            metric = minimum_boundary_metrics(issues, reservations, part['required_approvals'], part.get('mandatory_parties', []))
+            metric = minimum_boundary_metrics(issues, reservations, part['required_approvals'],
+                                              part.get('mandatory_parties', []), local_peaks=local_peaks)
         else:
             if int(np.prod(shape)) > 2_000_000:
                 raise ValueError('Large offer space has no declared sampling calculator.')
             choices = np.indices(shape).reshape(len(shape), -1)
             totals = sum(issue[choices[i]] for i, issue in enumerate(issues))
             metric = metrics_from_acceptance(numeric_accepts(totals, reservations, strict), shape, part['required_approvals'],
-                                             part.get('mandatory_parties', []))
+                                             part.get('mandatory_parties', []), local_peaks=local_peaks)
         results.append({**metric, **table_controls(issues, len(reservations))})
     weights = [part.get('aggregation_weight') for part in entry['components']]
-    if any(weight is None for weight in weights):
+    unknown_weights = any(weight is None for weight in weights)
+    if unknown_weights:
         if not all(np.ptp([row[name] for row in results]) <= 1e-12 for name in MEASURES):
             raise ValueError('Unknown within-payoff allocation changes a requested measure.')
         weights = np.ones(len(results)) / len(results)
     weights = np.asarray(weights, dtype=float)
     if not np.isclose(weights.sum(), 1, atol=1e-12, rtol=0) or (weights < 0).any():
         raise ValueError('Within-payoff component weights do not sum to one.')
-    return {name: float(np.dot(weights, [r[name] for r in results])) for name in MEASURES}
+    values = {name: float(np.dot(weights, [r[name] for r in results])) for name in MEASURES}
+    if local_peaks:
+        counts = [row['local_peak_count'] for row in results]
+        values['local_peak_count'] = (None if unknown_weights and not np.allclose(counts, counts[0])
+                                      else float(np.dot(weights, counts)))
+    return values
 
 
-def function_metrics(entry, record, strict=False):
+def function_metrics(entry, record, strict=False, *, local_peaks=False):
     """Use the released named implementations, with a model-contract check."""
     from scripts.supporting import source_functions as source
     from scripts.supporting import additional_functions as additional
@@ -287,25 +295,25 @@ def function_metrics(entry, record, strict=False):
     if payoff_id in source.SOURCE_FUNCTION_SETTINGS and record.get('calculation_settings') != source.SOURCE_FUNCTION_SETTINGS[payoff_id]:
         raise ValueError('The registered function requires its declared released numerical procedure.')
     if payoff_id.startswith('sale_cafe_buyer_cap_'):
-        metric = metrics_from_programmed_rule(record['programmed_rule'], strict)
+        metric = metrics_from_programmed_rule(record['programmed_rule'], strict, local_peaks=local_peaks)
     elif payoff_id.startswith('leonardelli_soccer_exp5_owner_'):
-        metric = source.soccer_metrics(model['reservation_values'], strict)
+        metric = source.soccer_metrics(model['reservation_values'], strict, local_peaks=local_peaks)
     elif payoff_id == 'cartoon_standard_us_us':
-        metric = additional.cartoon_metrics(entry, strict)
+        metric = additional.cartoon_metrics(entry, strict, local_peaks=local_peaks)
     elif payoff_id == 'moms_standard_four_issue_gunia_2013':
-        metric = source.moms_standard_metrics(strict)
+        metric = source.moms_standard_metrics(strict, local_peaks=local_peaks)
     elif payoff_id == 'leonardelli_moms_exp6_reconstructed_contingency':
-        metric = source.moms_exp6_metrics(strict)
+        metric = source.moms_exp6_metrics(strict, local_peaks=local_peaks)
     elif payoff_id == 'wolfe_mcginn_new_recruit_four_reservation_versions_pooled':
-        metric = source.wolfe_metrics(strict)
+        metric = source.wolfe_metrics(strict, local_peaks=local_peaks)
     elif payoff_id == 'jaeger_2017_resource_allocation_scripted_acceptance':
-        metric = additional.jaeger_metrics(entry, strict)
+        metric = additional.jaeger_metrics(entry, strict, local_peaks=local_peaks)
     elif payoff_id == 'kong_2011_disciplinary_bounded_rv_grid':
         grid = entry['reservation_value_grid']
         if not (np.allclose(grid['management_values'], np.linspace(-15000, 23100, 11), atol=0, rtol=0)
                 and np.allclose(grid['worker_values'], np.linspace(-100000, 27000, 11), atol=0, rtol=0)):
             raise ValueError('The recorded Kong grid changed; extend its named calculator explicitly.')
-        metric = additional.kong_metrics(entry, strict)
+        metric = additional.kong_metrics(entry, strict, local_peaks=local_peaks)
         part = entry['components'][0]
         issues = [np.asarray([o['payoffs'] for o in i['options']]) for i in part['schedule']['issues']]
         return {**metric, **table_controls(issues, len(part['schedule']['parties']))}
@@ -363,7 +371,7 @@ def function_controls(model, record):
 
 
 @lru_cache(maxsize=256)
-def calculate_record(serialized, strict=None):
+def calculate_record(serialized, strict=None, *, local_peaks=False):
     record = json.loads(serialized)
     if strict is None:
         comparison = record.get('calculation_rule', {}).get('numeric_RV_comparison')
@@ -376,19 +384,23 @@ def calculate_record(serialized, strict=None):
     if record['coverage'] == 'proof_only':
         values = metrics_from_source_proof(record['proof'], strict)
         values.update(reported_controls(record['proof']))
+        # Every offer is acceptable or the certificate proves an improving
+        # one-issue route for every offer on the boundary.
+        values['local_peak_count'] = 0
         basis = 'Directly reported source controls; complete numerical schedules unavailable. ' + record['proof']['controls_source']
     elif entry.get('payoff_function_input') or payoff_id == 'kong_2011_disciplinary_bounded_rv_grid':
-        values = function_metrics(entry, record, strict)
+        values = function_metrics(entry, record, strict, local_peaks=local_peaks)
         basis = 'Logical issues in the documented formula; optional Juniors inclusion is the common-benefit direction in Cartoon/Moms.com.'
         note = entry.get('payoff_function_input', {}).get('reconstruction_note')
         if note:
             warnings.append(note)
     else:
-        values = table_parts(entry, record.get('calculation_settings'), strict)
+        values = table_parts(entry, record.get('calculation_settings'), strict, local_peaks=local_peaks)
         basis = 'Shared best choice in the supplied additive-utility table; all parties maximize the encoded payoff.'
     coded = record['source_coding']['number_of_compatible_issues']
     validate_controls(values, record['source_coding'], payoff_id)
-    return {**{name: values[name] for name in MEASURES},
+    names = [*MEASURES, 'local_peak_count'] if local_peaks else MEASURES
+    return {**{name: values[name] for name in names},
             'coded_number_of_compatible_issues': coded,
             'control_basis': basis, 'warnings': warnings}
 

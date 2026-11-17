@@ -31,7 +31,7 @@ CONTINUOUS = [SC, BZ, *CONTROLS[:3]]
 SEED = 20261111
 
 
-def complete_sample(data, weighted=False):
+def complete_sample(data, weighted=False, *, peak_counts=False):
     sample = data.dropna(subset=[OUTCOME, *PREDICTORS]).copy().reset_index(drop=True)
     if not sample.observation_id.is_unique:
         raise ValueError('Duplicate observation in the model data')
@@ -40,9 +40,12 @@ def complete_sample(data, weighted=False):
                             np.isfinite(sample.negotiations)].copy().reset_index(drop=True)
     if len(sample) < 3 or not sample[OUTCOME].between(0, 1).all():
         raise ValueError('Invalid or insufficient observed agreement data')
-    if not sample[[SC, BZ, *CONTROLS[3:]]].apply(lambda x: x.between(0, 1)).all().all():
+    proportions = [BZ, *CONTROLS[3:]] if peak_counts else [SC, BZ, *CONTROLS[3:]]
+    if not sample[proportions].apply(lambda x: x.between(0, 1)).all().all():
         raise ValueError('A proportion or indicator is outside its permitted range')
-    if not (sample[SC] <= 1 - sample[BZ] + 1e-9).all():
+    if peak_counts and (not np.isfinite(sample[SC]).all() or sample[SC].lt(0).any()):
+        raise ValueError('Local peak counts must be finite and nonnegative')
+    if not peak_counts and not (sample[SC] <= 1 - sample[BZ] + 1e-9).all():
         raise ValueError('Search complexity exceeds the unacceptable share of offers')
     return sample
 
@@ -74,10 +77,10 @@ def design(data, model):
     return matrix[:, keep], [names[index] for index in keep], dropped
 
 
-def fit(sample, model):
+def fit(sample, model, *, peak_counts=False):
     """Report HC3 uncertainty, using a t reference with residual degrees of freedom."""
     weighted = model == 'weighted_joint'
-    use = complete_sample(sample, weighted=weighted)
+    use = complete_sample(sample, weighted=weighted, peak_counts=peak_counts)
     matrix, terms, dropped = design(standardized_predictors(use[PREDICTORS]), model)
     x = pd.DataFrame(matrix, columns=terms)
     y = use[OUTCOME]
@@ -153,8 +156,8 @@ def fast_estimates(raw, y, weights=None):
     return output
 
 
-def bootstrap(sample, draws, seed, weighted=False):
-    use = complete_sample(sample, weighted=weighted)
+def bootstrap(sample, draws, seed, weighted=False, *, peak_counts=False):
+    use = complete_sample(sample, weighted=weighted, peak_counts=peak_counts)
     raw, y = use[PREDICTORS].to_numpy(float), use[OUTCOME].to_numpy(float)
     weights = use.negotiations.to_numpy(float) if weighted else None
     tests = ['weighted_search_complexity'] if weighted else ['H1', 'H2']
@@ -177,9 +180,9 @@ def bootstrap(sample, draws, seed, weighted=False):
     return pd.DataFrame(rows)
 
 
-def leave_one_out(sample, weighted=False):
+def leave_one_out(sample, weighted=False, *, peak_counts=False):
     """Retain every other observation after omitting one experiment."""
-    use = complete_sample(sample, weighted=weighted)
+    use = complete_sample(sample, weighted=weighted, peak_counts=peak_counts)
     rows, model_rows = [], []
     models = ['weighted_joint'] if weighted else ['M2', 'M3', 'M5']
     for observation in use.observation_id:
@@ -187,7 +190,7 @@ def leave_one_out(sample, weighted=False):
         try:
             fits = {}
             for model in models:
-                coefficient, info = fit(remaining, model)
+                coefficient, info = fit(remaining, model, peak_counts=peak_counts)
                 fits[model] = info
                 model_rows.append(coefficient.assign(
                     omitted_observation=observation, weighted=weighted,

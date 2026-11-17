@@ -1,0 +1,37 @@
+scales:
+  difficulty_5:
+    - "1 — Very easy"
+    - "2 — Somewhat easy"
+    - "3 — Neither easy nor difficult"
+    - "4 — Somewhat difficult"
+    - "5 — Very difficult"
+  confidence_5:
+    - "1 — Not at all confident"
+    - "2 — Slightly confident"
+    - "3 — Moderately confident"
+    - "4 — Very confident"
+    - "5 — Extremely confident"
+
+questions:
+  - id: perceived_difficulty
+    n: 1
+    page: 1
+    type: likert
+    scale: difficulty_5
+    required: true
+    label: "How difficult did you find the negotiation?"
+
+  - id: confidence_in_agreement
+    n: 2
+    page: 1
+    type: likert
+    scale: confidence_5
+    required: true
+    label: "During the negotiation, how confident were you that your group could reach an agreement that would give all three participants more than zero points?"
+
+  - id: task_feedback
+    n: 3
+    page: 1
+    type: open_text
+    required: false
+    label: "Do you have any feedback about the negotiation task?"
