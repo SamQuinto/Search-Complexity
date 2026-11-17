@@ -1,1 +1,1 @@
-"""Supporting calculations for the Study 1 notebook and runner."""
+"""Supporting calculations for the Study 2 notebook and runner."""

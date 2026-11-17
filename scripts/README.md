@@ -1,6 +1,6 @@
-# Run Study 1
+# Run Study 2
 
-Start with **[run.py](run.py)**, the main Python analysis script, and **[data/regression_data.csv](../data/regression_data.csv)**, the main analysis dataset. By default, the script rebuilds the coded primary inputs under `payoff > RV`, checks all five payoff-derived fields in every row, and produces the tables, Figure 2 and statistical checks.
+Start with **[run.py](run.py)**, the main Python analysis script, and **[data/regression_data.csv](../data/regression_data.csv)**, the main analysis dataset. By default, the script rebuilds the measures using `payoff > RV`, checks the five values calculated from the payoff information in each row, and produces the archival tables, figure, and statistical checks.
 
 The notebook version, **[analysis.ipynb](analysis.ipynb)**, runs the same analysis with short explanations. Choose **Run all** after installing the requirements below.
 
@@ -18,9 +18,9 @@ python -m pip install -r requirements.txt
 python -m scripts.run
 ```
 
-Please use the [complete Study 1 download](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), so this folder stays beside `data/` and `requirements.txt`. Python 3.12 and the pinned requirements were used for the replication check. No account, API key, or path edits are needed.
+Use the [repository download](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip) so this folder stays beside `data/` and `requirements.txt`. Install the requirements with Python 3.12.
 
-The main dataset is [regression_data.csv](../data/regression_data.csv). Rebuilt datasets go to [data](../data/), and tables, Figure 2, and statistical checks go to [results](../results/).
+Rebuilt datasets go to [data](../data/), and the tables, figure, and statistical checks go to [results](../results/).
 
 Both entry points also produce Table C5: one inclusive `>= RV` comparison, six source-bound cases and 123 point scenarios. Detailed results go to [results/reservation_rule](../results/reservation_rule/). The active inputs are 97 numerical records and three conditional Northcraft records; the source constraints and assumptions remain explicit.
 

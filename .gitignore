@@ -17,6 +17,7 @@ teaching_case_library/
 source_library/
 private/
 *.pdf
+!study1_agent_based_model/results/*.pdf
 *.docx
 *.zip
 *.xls

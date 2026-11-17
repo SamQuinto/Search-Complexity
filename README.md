@@ -1,6 +1,14 @@
-# Study 1 replication materials
+# Search complexity in negotiation · Replication materials
 
-## Reproduce Study 1
+| Study | Where to start |
+| --- | --- |
+| **1. Agent-based model** | [Rebuild Figures 1 and 2 and replay the model](study1_agent_based_model/README.md) |
+| **2. Archival analysis** | [Reproduce Study 2](#reproduce-study-2) |
+| **3. Prolific experiment** | [Experimental design and materials information](study3_experiment/README.md) |
+
+[Download the repository](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), extract it, and install the requirements from the extracted folder using Python 3.12. The instructions for each study give its entry point.
+
+## Reproduce Study 2
 
 **Main analysis dataset:** [data/regression_data.csv](data/regression_data.csv).
 
@@ -8,18 +16,16 @@
 
 **Notebook version:** [scripts/analysis.ipynb](scripts/analysis.ipynb). Choose **Run all** to run the same analysis with short explanations.
 
-[Download the complete Study 1 folder](https://github.com/SamQuinto/Search-Complexity/archive/refs/heads/main.zip), extract the ZIP, and open a terminal inside the extracted folder. With Python 3.12, run:
+From the repository root, run:
 
 ```bash
 python -m pip install -r requirements.txt
 python scripts/run.py
 ```
 
-The code reproduces **Tables 1–3, Tables C1–C5, Figure 2, and the regression and robustness checks**. It includes the 5,000-draw resampling and single-observation omission checks. No account, API key, or original computer path is needed.
+The code reproduces the **archival tables, figure, regressions, and robustness checks**, including 5,000 resampling draws and checks that omit one observation at a time. It runs locally with the data in this repository.
 
-Script and Notebook rebuild the primary calculation from the coded payoffs, using `payoff > RV`, and check that every payoff JSON cell reproduces its five numerical fields. The operative comparison is stored separately from authors' source instructions. They also produce an inclusive `>= RV` check, six source-bound checks and 123 point scenarios in [results/reservation_rule](results/reservation_rule/), summarized in Table C5. Beersma's assumed allocation average and Northcraft's endpoint inference remain explicit; their components are excluded from the evidence-restricted sample. Use `python scripts/run.py --skip-reservations`, or set `check_reservations=False` in the Notebook, to run Tables 1–3 and C1–C4 only. Figure 2 always uses the primary calculation.
-
-You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **Run all** after installing the requirements. It runs the same code.
+Both the script and notebook rebuild the measures from the coded payoffs, using `payoff > RV`, and check the five values calculated from each payoff JSON cell. The [reservation-value checks](results/reservation_rule/) also test `>= RV` and other rules consistent with the available source information. Use `python scripts/run.py --skip-reservations`, or set `check_reservations=False` in the notebook, to skip those additional checks.
 
 - **Use the final data:** [data/regression_data.csv](data/regression_data.csv). The stricter dataset is [data/strict_regression_data.csv](data/strict_regression_data.csv).
 - **Read the reproduced tables:** [results/tables](results/tables/).
@@ -48,10 +54,10 @@ You can also open [scripts/analysis.ipynb](scripts/analysis.ipynb) and choose **
 
 - `data/`: coded sources, inventories, and analysis datasets. The intermediate comparison datasets in `data/derived/` are rebuilt by the main analysis.
 - `scripts/`: start with [run.py](scripts/run.py). The notebook version is [analysis.ipynb](scripts/analysis.ipynb), and the [scripts README](scripts/README.md) explains both. Helper code is in `scripts/supporting/`.
-- `results/`: current tables, Figure 2, and detailed statistical checks.
+- `results/`: archival tables, figure, and statistical checks.
 - `archive/`: earlier materials; these are not used by the replication and are omitted from the download ZIP.
 
-The main replication rebuilds the structural measures from the coded payoff and outcome sources, checks every embedded payoff cell, and runs the analyses. `--use-released-data` loads the released primary dataset while retaining its payoff-cell checks. The workbooks and [data documentation](data/README.md) identify sources and coding decisions. The papers and licensed teaching documents themselves are not redistributed here. Figure 1 is a conceptual illustration; Figure 2 uses the primary calculation.
+Use `--use-released-data` to start from the released analysis dataset. The script still checks the measures against each payoff cell. The [data documentation](data/README.md) explains the sources and coding decisions recorded in the workbooks.
 
 ## Calculate from the payoff column
 
@@ -64,4 +70,4 @@ python scripts/supporting/payoff_info.py --check
 
 The active catalogue contains 97 numerical payoff records and three Northcraft records using an explicit endpoint assumption and directly reported controls. Complete Northcraft schedules remain unavailable. The helper checks both structural measures and all three counts for every included row. [Input coverage](data/payoff_input_issues.csv) gives the observations, weights and missing material. Table options are paired by the same physical alternative across roles; any control mismatch stops preparation or checking. See the [payoff-column notes](data/README.md#the-payoff-json-column) for the format and limitations.
 
-Preregistration: https://osf.io/wtgxc
+[Study 2 preregistration](https://osf.io/wtgxc)

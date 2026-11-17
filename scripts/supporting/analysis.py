@@ -1,4 +1,4 @@
-"""Fit Study 1 models and the planned checks using individual observations.
+"""Fit Study 2 models and the planned checks using individual observations.
 
 An observation is one independent experiment or recruited sample. Every
 resampling draw selects whole observations. Conditions within an experiment

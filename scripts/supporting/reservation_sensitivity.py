@@ -1,4 +1,4 @@
-"""Check Study 1's > RV primary rule against >= RV and source-bound scenarios.
+"""Check Study 2's > RV primary rule against >= RV and source-bound scenarios.
 
 The rule comparison changes only the numeric acceptance comparison; coded RVs,
 payoffs, outcomes, controls, approval quotas, grids, seeds and programmed

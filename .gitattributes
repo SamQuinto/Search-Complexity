@@ -7,3 +7,4 @@ archive/** export-ignore
 *.ipynb text eol=lf
 *.xlsx binary
 *.npz binary
+study1_agent_based_model/data/*.gz binary

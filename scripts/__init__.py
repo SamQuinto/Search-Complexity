@@ -1,1 +1,1 @@
-"""Code shared by analysis.ipynb and the Study 1 replication command."""
+"""Code shared by analysis.ipynb and the Study 2 replication command."""
