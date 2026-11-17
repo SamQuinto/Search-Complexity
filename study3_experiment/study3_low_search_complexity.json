@@ -1,58 +1,10 @@
 {
-  "schema_version": "study2-fixed-issues-v1",
-  "scenario_id": "tpl_3p_9i_coworking_balanced_4a93c0a77674",
-  "title": "Shared Office Space Negotiation",
-  "condition": "low",
-  "player_count": 3,
-  "scoring_mode": "table",
-  "parties": {
-    "Party A": {
-      "slot": 1,
-      "name": "Party A",
-      "short": "A"
-    },
-    "Party B": {
-      "slot": 2,
-      "name": "Party B",
-      "short": "B"
-    },
-    "Party C": {
-      "slot": 3,
-      "name": "Party C",
-      "short": "C"
-    }
-  },
-  "active_issues": [
-    "Self_Managed_Cleaning",
-    "Smaller_Office_Space",
-    "Secondhand_Furniture",
-    "Strict_Visitor_Time_Windows",
-    "Kitchen_as_Private_Call_Room",
-    "Strict_Morning_Quiet_Time",
-    "Guest_Meeting_Room",
-    "Allow_Evening_Events",
-    "Large_Meeting_Table"
-  ],
-  "required_issues": [
-    "Self_Managed_Cleaning",
-    "Smaller_Office_Space",
-    "Secondhand_Furniture",
-    "Strict_Visitor_Time_Windows",
-    "Kitchen_as_Private_Call_Room",
-    "Strict_Morning_Quiet_Time",
-    "Guest_Meeting_Room",
-    "Allow_Evening_Events",
-    "Large_Meeting_Table"
-  ],
-  "invented_issues_enabled": false,
-  "roles": {
-    "Party A": {
+  "roles": [
+    {
       "role_name": "Party A",
       "narrative": "You are a freelance content writer working from home, but you want to move to a rented office space. There are no co-working hubs nearby that fit what you need, and renting an office alone would be too expensive. A local property owner has recently offered office space for rent at a good rate, but it only makes financial sense if the cost is shared. The property owner has also offered two possible setups: a larger office that costs more, or a smaller, more modest office that keeps costs lower.\n\nYou found two other professionals in a similar situation who might want to share: an academic coordinator and a corporate trainer. The three of you must decide how the space will operate, but all three of you use workspaces in different ways. Your goal is to agree on a sharing arrangement that helps you get out of the house while meeting your budgetary and functional needs.\n\nIn a few minutes, all three of you will join a video call to discuss each of these possible office features. Some features keep costs low, some features support focused quiet work, and others support things like meetings and group activity. Each feature can either be **INCLUDED** or **EXCLUDED** from the final office agreement.\n\nYour office mates benefit from different features:\n\n- The academic coordinator often needs space for meetings, planning sessions, and quick check-ins. Their work runs on a tight budget, so they care about keeping costs low.\n- The corporate trainer runs coaching sessions and professional development workshops for paying clients. They care about a space that feels professional and focused, but also can be arranged for events and group sessions.\n\n**About You:**\n\nAs a freelance copywriter, you spend your days writing articles, editing client drafts, and turning ideas into written materials. Your work is mentally demanding and requires long stretches of concentration, especially when you are trying to meet a deadline.\n\nYou don't want to work from home all the time. You like being around other working people, having short breaks, and feeling like your workday has some structure.\n\nAt the same time, you don't want the office to turn into a meeting room or event venue where people are constantly talking, moving furniture, bringing visitors, or otherwise making noise. You don't need meeting or event spaces. What you do need is a calm, open-feeling space where you can think, reflect, and pace for a moment when you are stuck. You think being able to move easily between your desk, the kitchen, and the bathroom, without navigating around furniture or other people, would help with that. Your income can vary month to month, so affordability is important.\n\nYou don't want to go back to expensive cafés just to get out of the house, so you're hopeful this works out. But you won't agree to anything that is a net negative for you.\n\nIf you can't make this work, you'll have to keep working from home — that's worth 0 points (no bonus). Anything worth more than 0 points earns you money.\n\nYour priorities are: **Value for Money** and having **Focused Work Spaces**.\n\n- To keep a realistic budget, you want to purchase secondhand furniture, use self-managed cleaning, and choose the smaller office space.\n- These choices keep the office affordable for three people paying out of pocket, and a shared office does not need to feel fancy or oversized to work well.\n- To support focus and minimize distractions, you want strict visitor time windows and to turn the kitchen into a private call room outside lunch hours.\n- You want strict quiet time in the mornings, so everyone can get their hardest tasks done with focus at the start of the day.\n- You are against allowing evening events because they bring in noise and visitors, especially when you might work late and inspiration hits.\n- You also dislike the large meeting table and guest meeting room because they break up the office, take over floor space, and make it harder to move around when you are thinking. People should take their in-person meetings elsewhere, right?\n\nYour preferences and points for each issue are detailed below.",
-      "full_text": "You are a freelance content writer working from home, but you want to move to a rented office space. There are no co-working hubs nearby that fit what you need, and renting an office alone would be too expensive. A local property owner has recently offered office space for rent at a good rate, but it only makes financial sense if the cost is shared. The property owner has also offered two possible setups: a larger office that costs more, or a smaller, more modest office that keeps costs lower.\n\nYou found two other professionals in a similar situation who might want to share: an academic coordinator and a corporate trainer. The three of you must decide how the space will operate, but all three of you use workspaces in different ways. Your goal is to agree on a sharing arrangement that helps you get out of the house while meeting your budgetary and functional needs.\n\nIn a few minutes, all three of you will join a video call to discuss each of these possible office features. Some features keep costs low, some features support focused quiet work, and others support things like meetings and group activity. Each feature can either be **INCLUDED** or **EXCLUDED** from the final office agreement.\n\nYour office mates benefit from different features:\n\n- The academic coordinator often needs space for meetings, planning sessions, and quick check-ins. Their work runs on a tight budget, so they care about keeping costs low.\n- The corporate trainer runs coaching sessions and professional development workshops for paying clients. They care about a space that feels professional and focused, but also can be arranged for events and group sessions.\n\n**About You:**\n\nAs a freelance copywriter, you spend your days writing articles, editing client drafts, and turning ideas into written materials. Your work is mentally demanding and requires long stretches of concentration, especially when you are trying to meet a deadline.\n\nYou don't want to work from home all the time. You like being around other working people, having short breaks, and feeling like your workday has some structure.\n\nAt the same time, you don't want the office to turn into a meeting room or event venue where people are constantly talking, moving furniture, bringing visitors, or otherwise making noise. You don't need meeting or event spaces. What you do need is a calm, open-feeling space where you can think, reflect, and pace for a moment when you are stuck. You think being able to move easily between your desk, the kitchen, and the bathroom, without navigating around furniture or other people, would help with that. Your income can vary month to month, so affordability is important.\n\nYou don't want to go back to expensive cafés just to get out of the house, so you're hopeful this works out. But you won't agree to anything that is a net negative for you.\n\nIf you can't make this work, you'll have to keep working from home — that's worth 0 points (no bonus). Anything worth more than 0 points earns you money.\n\nYour priorities are: **Value for Money** and having **Focused Work Spaces**.\n\n- To keep a realistic budget, you want to purchase secondhand furniture, use self-managed cleaning, and choose the smaller office space.\n- These choices keep the office affordable for three people paying out of pocket, and a shared office does not need to feel fancy or oversized to work well.\n- To support focus and minimize distractions, you want strict visitor time windows and to turn the kitchen into a private call room outside lunch hours.\n- You want strict quiet time in the mornings, so everyone can get their hardest tasks done with focus at the start of the day.\n- You are against allowing evening events because they bring in noise and visitors, especially when you might work late and inspiration hits.\n- You also dislike the large meeting table and guest meeting room because they break up the office, take over floor space, and make it harder to move around when you are thinking. People should take their in-person meetings elsewhere, right?\n\nYour preferences and points for each issue are detailed below.",
       "RP": 0,
-      "BATNA": "Continue working from home, worth 0 points.",
-      "determinatescoretable": {
+      "scoresheet": {
         "Self_Managed_Cleaning": [
           {
             "option": "Include",
@@ -163,13 +115,47 @@
         ]
       }
     },
-    "Party B": {
+    {
       "role_name": "Party B",
       "narrative": "You are an academic coordinator working from home, but you want to move to a rented office space. There are no co-working hubs nearby that fit what you need, and renting an office alone would be too expensive. A local property owner has recently offered office space for rent at a good rate, but it only makes financial sense if the cost is shared. The property owner has also offered two possible setups: a larger office that costs more, or a smaller, more modest office that keeps costs lower.\n\nYou found two other professionals in a similar situation who might want to share: a freelance content writer and a corporate trainer. The three of you must decide how the space will operate, but all three of you use workspaces in different ways. Your goal is to agree on a sharing arrangement that helps you get out of the house while meeting your budgetary and functional needs.\n\nIn a few minutes, all three of you will join a video call to discuss each of these possible office features. Some features keep costs low, some features support focused quiet work, and others support things like meetings and group activity. Each feature can either be **INCLUDED** or **EXCLUDED** from the final office agreement.\n\nYour office mates benefit from different features:\n\n- The freelance content writer requires long stretches of concentration. They have limited budget, and care about keeping costs low while protecting focused work time.\n- The corporate trainer runs coaching sessions and professional development workshops for paying clients. They care about a space that feels professional and focused, but also can be arranged for events and group sessions.\n\n**About You: Academic Coordinator**\n\nYou spend a good chunk of your day booking sessions for freelance tutors, speaking with families, and advising students. Most of your work happens by email, and tutors work from their own space, but you still need to be available for phone calls and to meet new clients.\n\nYou also sometimes organize small events as after-work socials for tutors and matching sessions between tutors and potential students. You currently host these work meetings at home or in public places, which is far from ideal. You also are just tired of working from home. You want a real office where you can hold professional meetings, avoid the distractions of home, and have coworkers.\n\nAt the same time, you're not trying to create a noisy event venue. You just need the office to be comfortable for everyday admin work, occasional group sessions, and scheduled meetings. Your work runs on a very tight budget, so the space needs to stay affordable while still supporting your work.\n\nIf you can't make this work, you'll have to keep working from home — that's worth 0 points (no bonus). Anything worth more than 0 points earns you money.\n\nYour priorities are: **Value for Money** and having adequate **Events and Meeting Space**.\n\n- To keep costs low, you want the group to purchase secondhand furniture, use self-managed cleaning, and choose the smaller office space.\n- To support meetings and shared work, you want to allow evening events, add a divider for a guest meeting room, and place a large meeting table at the center of the office.\n- These features help you meet families, students, tutors, and clients in a setting that feels more appropriate than your home or a café.\n- You are against strict visitor time windows, using the kitchen as a private call room, and strict morning quiet time.\n- Visitor windows are hard for you because students, families, and tutors often have limited availability, so you cannot always fit meetings into narrow time slots.\n- The kitchen also needs to remain a casual hospitality space where you can offer guests tea, coffee, or a snack, even outside lunch hours.\n- Strict morning quiet time is difficult because your work depends on coordination, quick calls, and short conversations throughout the day. Why share an office if you can't talk through plans or handle quick coordination when the day starts, right?\n\nYour preferences and points for each issue are detailed below.",
-      "full_text": "You are an academic coordinator working from home, but you want to move to a rented office space. There are no co-working hubs nearby that fit what you need, and renting an office alone would be too expensive. A local property owner has recently offered office space for rent at a good rate, but it only makes financial sense if the cost is shared. The property owner has also offered two possible setups: a larger office that costs more, or a smaller, more modest office that keeps costs lower.\n\nYou found two other professionals in a similar situation who might want to share: a freelance content writer and a corporate trainer. The three of you must decide how the space will operate, but all three of you use workspaces in different ways. Your goal is to agree on a sharing arrangement that helps you get out of the house while meeting your budgetary and functional needs.\n\nIn a few minutes, all three of you will join a video call to discuss each of these possible office features. Some features keep costs low, some features support focused quiet work, and others support things like meetings and group activity. Each feature can either be **INCLUDED** or **EXCLUDED** from the final office agreement.\n\nYour office mates benefit from different features:\n\n- The freelance content writer requires long stretches of concentration. They have limited budget, and care about keeping costs low while protecting focused work time.\n- The corporate trainer runs coaching sessions and professional development workshops for paying clients. They care about a space that feels professional and focused, but also can be arranged for events and group sessions.\n\n**About You: Academic Coordinator**\n\nYou spend a good chunk of your day booking sessions for freelance tutors, speaking with families, and advising students. Most of your work happens by email, and tutors work from their own space, but you still need to be available for phone calls and to meet new clients.\n\nYou also sometimes organize small events as after-work socials for tutors and matching sessions between tutors and potential students. You currently host these work meetings at home or in public places, which is far from ideal. You also are just tired of working from home. You want a real office where you can hold professional meetings, avoid the distractions of home, and have coworkers.\n\nAt the same time, you're not trying to create a noisy event venue. You just need the office to be comfortable for everyday admin work, occasional group sessions, and scheduled meetings. Your work runs on a very tight budget, so the space needs to stay affordable while still supporting your work.\n\nIf you can't make this work, you'll have to keep working from home — that's worth 0 points (no bonus). Anything worth more than 0 points earns you money.\n\nYour priorities are: **Value for Money** and having adequate **Events and Meeting Space**.\n\n- To keep costs low, you want the group to purchase secondhand furniture, use self-managed cleaning, and choose the smaller office space.\n- To support meetings and shared work, you want to allow evening events, add a divider for a guest meeting room, and place a large meeting table at the center of the office.\n- These features help you meet families, students, tutors, and clients in a setting that feels more appropriate than your home or a café.\n- You are against strict visitor time windows, using the kitchen as a private call room, and strict morning quiet time.\n- Visitor windows are hard for you because students, families, and tutors often have limited availability, so you cannot always fit meetings into narrow time slots.\n- The kitchen also needs to remain a casual hospitality space where you can offer guests tea, coffee, or a snack, even outside lunch hours.\n- Strict morning quiet time is difficult because your work depends on coordination, quick calls, and short conversations throughout the day. Why share an office if you can't talk through plans or handle quick coordination when the day starts, right?\n\nYour preferences and points for each issue are detailed below.",
       "RP": 0,
-      "BATNA": "Continue working from home, worth 0 points.",
-      "determinatescoretable": {
+      "scoresheet": {
+        "Large_Meeting_Table": [
+          {
+            "option": "Include",
+            "score": 3.983449,
+            "reason": "<b>Events and Meeting Space:</b> Useful for collaboration, tutor-student work sessions, and family meetings."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
+        "Guest_Meeting_Room": [
+          {
+            "option": "Include",
+            "score": 10.939593,
+            "reason": "<b>Events and Meeting Space:</b> Creates a better setup for meeting students, families, tutors, or clients."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
+        "Allow_Evening_Events": [
+          {
+            "option": "Include",
+            "score": 7.931343,
+            "reason": "<b>Events and Meeting Space:</b> Supports after-work socials and other sessions for students and tutors."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
         "Self_Managed_Cleaning": [
           {
             "option": "Include",
@@ -206,6 +192,18 @@
             "reason": ""
           }
         ],
+        "Strict_Morning_Quiet_Time": [
+          {
+            "option": "Include",
+            "score": -7.938011,
+            "reason": "<b>Client Engagement:</b> Need to coordinate, take quick calls, or have short conversations early in the day."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
         "Strict_Visitor_Time_Windows": [
           {
             "option": "Include",
@@ -229,129 +227,19 @@
             "score": 0,
             "reason": ""
           }
-        ],
-        "Strict_Morning_Quiet_Time": [
-          {
-            "option": "Include",
-            "score": -7.938011,
-            "reason": "<b>Client Engagement:</b> Need to coordinate, take quick calls, or have short conversations early in the day."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Guest_Meeting_Room": [
-          {
-            "option": "Include",
-            "score": 10.939593,
-            "reason": "<b>Events and Meeting Space:</b> Creates a better setup for meeting students, families, tutors, or clients."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Allow_Evening_Events": [
-          {
-            "option": "Include",
-            "score": 7.931343,
-            "reason": "<b>Events and Meeting Space:</b> Supports after-work socials and other sessions for students and tutors."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Large_Meeting_Table": [
-          {
-            "option": "Include",
-            "score": 3.983449,
-            "reason": "<b>Events and Meeting Space:</b> Useful for collaboration, tutor-student work sessions, and family meetings."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
         ]
       }
     },
-    "Party C": {
+    {
       "role_name": "Party C",
       "narrative": "You are a corporate trainer working from home, but you want to move to a rented office space. There are no co-working hubs nearby that fit what you need, and renting an office alone would be too expensive. A local property owner has recently offered office space for rent at a good rate, but it only makes financial sense if the cost is shared. The property owner has also offered two possible setups: a larger office that costs more, or a smaller, more modest office that keeps costs lower.\n\nYou found two other professionals in a similar situation who might want to share: a freelance content writer and an academic coordinator. The three of you must decide how the space will operate, but all three of you use workspaces in different ways. Your goal is to agree on a sharing arrangement that helps you get out of the house while meeting your budgetary and functional needs.\n\nIn a few minutes, all three of you will join a video call to discuss each of these possible office features. Some features keep costs low, some features support focused quiet work, and others support things like meetings and group activity. Each feature can either be **INCLUDED** or **EXCLUDED** from the final office agreement.\n\nYour office mates benefit from different features:\n\n- The freelance content writer requires long stretches of concentration. They have limited budget, and care about keeping costs low while protecting focused work time.\n- The academic coordinator often needs space for meetings, planning sessions, and quick check-ins. Their work runs on a tight budget, so they care about keeping costs low.\n\n**About You: Corporate Trainer**\n\nAs a freelance corporate trainer, you spend most of your day doing admin work and designing professional development workshops. Sometimes you meet clients or run small workshops during work hours. But a lot of your work happens on nights and weekends, when professionals are free to attend sessions after work.\n\nYou currently have to rent space every time you run a workshop, which is far from ideal, plus you're just tired of working from home. You like the idea of having a space where you can socialize with co-workers.\n\nBudget matters, but it's not the only thing that counts — you have to spend money to make money! A professional space where you can focus, take Zoom calls, and show clients around will be good for business. On the other hand, cutting costs too much will backfire if it makes the office feel cramped and unprofessional. There's no point in paying to rent an office if you're not going to get value for your money.\n\nIf you can't make this work, you'll have to keep working from home — that's worth 0 points (no bonus). Anything worth more than 0 points earns you money.\n\nYour priorities are: having **Focused Work Spaces** and adequate **Events and Meeting Space**.\n\n- To help everyone focus better, you want strict visitor time windows, to use the kitchen as a private call room, and to have strict morning quiet time.\n- You are not against guests. You just want guests to come during agreed windows, so everyone knows when the office will be more social and when it will be quieter.\n- To support workshops and client-facing work, you want to allow evening events, add a divider for a guest meeting room, and place a large meeting table at the center of the office.\n- These features make the office useful for paid workshops, group exercises, client conversations, and professional events after typical working hours.\n- Secondhand furniture and a smaller office space will make the office feel more cramped and less professional.\n- Self-managed cleaning can create conflict and introduce risks to professionalism. What happens if you show up for a meeting and the office is a mess?\n\nYour preferences and points for each issue are detailed below.",
-      "full_text": "You are a corporate trainer working from home, but you want to move to a rented office space. There are no co-working hubs nearby that fit what you need, and renting an office alone would be too expensive. A local property owner has recently offered office space for rent at a good rate, but it only makes financial sense if the cost is shared. The property owner has also offered two possible setups: a larger office that costs more, or a smaller, more modest office that keeps costs lower.\n\nYou found two other professionals in a similar situation who might want to share: a freelance content writer and an academic coordinator. The three of you must decide how the space will operate, but all three of you use workspaces in different ways. Your goal is to agree on a sharing arrangement that helps you get out of the house while meeting your budgetary and functional needs.\n\nIn a few minutes, all three of you will join a video call to discuss each of these possible office features. Some features keep costs low, some features support focused quiet work, and others support things like meetings and group activity. Each feature can either be **INCLUDED** or **EXCLUDED** from the final office agreement.\n\nYour office mates benefit from different features:\n\n- The freelance content writer requires long stretches of concentration. They have limited budget, and care about keeping costs low while protecting focused work time.\n- The academic coordinator often needs space for meetings, planning sessions, and quick check-ins. Their work runs on a tight budget, so they care about keeping costs low.\n\n**About You: Corporate Trainer**\n\nAs a freelance corporate trainer, you spend most of your day doing admin work and designing professional development workshops. Sometimes you meet clients or run small workshops during work hours. But a lot of your work happens on nights and weekends, when professionals are free to attend sessions after work.\n\nYou currently have to rent space every time you run a workshop, which is far from ideal, plus you're just tired of working from home. You like the idea of having a space where you can socialize with co-workers.\n\nBudget matters, but it's not the only thing that counts — you have to spend money to make money! A professional space where you can focus, take Zoom calls, and show clients around will be good for business. On the other hand, cutting costs too much will backfire if it makes the office feel cramped and unprofessional. There's no point in paying to rent an office if you're not going to get value for your money.\n\nIf you can't make this work, you'll have to keep working from home — that's worth 0 points (no bonus). Anything worth more than 0 points earns you money.\n\nYour priorities are: having **Focused Work Spaces** and adequate **Events and Meeting Space**.\n\n- To help everyone focus better, you want strict visitor time windows, to use the kitchen as a private call room, and to have strict morning quiet time.\n- You are not against guests. You just want guests to come during agreed windows, so everyone knows when the office will be more social and when it will be quieter.\n- To support workshops and client-facing work, you want to allow evening events, add a divider for a guest meeting room, and place a large meeting table at the center of the office.\n- These features make the office useful for paid workshops, group exercises, client conversations, and professional events after typical working hours.\n- Secondhand furniture and a smaller office space will make the office feel more cramped and less professional.\n- Self-managed cleaning can create conflict and introduce risks to professionalism. What happens if you show up for a meeting and the office is a mess?\n\nYour preferences and points for each issue are detailed below.",
       "RP": 0,
-      "BATNA": "Continue working from home, worth 0 points.",
-      "determinatescoretable": {
-        "Self_Managed_Cleaning": [
+      "scoresheet": {
+        "Large_Meeting_Table": [
           {
             "option": "Include",
-            "score": -15.273356,
-            "reason": "<b>Value for Money:</b> Creates conflict and introduces risks to professionalism."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Smaller_Office_Space": [
-          {
-            "option": "Include",
-            "score": -8.231124,
-            "reason": "<b>Value for Money:</b> Insufficient space for meetings and events, undermining professionalism."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Secondhand_Furniture": [
-          {
-            "option": "Include",
-            "score": -10.042285,
-            "reason": "<b>Value for Money:</b> Makes the office feel less polished and less appealing to clients."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Strict_Visitor_Time_Windows": [
-          {
-            "option": "Include",
-            "score": 0.568873,
-            "reason": "<b>Focused Work Spaces:</b> It makes guests predictable, so that focused work and client-facing activity can coexist."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Kitchen_as_Private_Call_Room": [
-          {
-            "option": "Include",
-            "score": 0.292192,
-            "reason": "<b>Focused Work Spaces:</b> Prevents virtual meetings and client calls from spilling into the main work area."
-          },
-          {
-            "option": "Exclude",
-            "score": 0,
-            "reason": ""
-          }
-        ],
-        "Strict_Morning_Quiet_Time": [
-          {
-            "option": "Include",
-            "score": 2.457662,
-            "reason": "<b>Focused Work Spaces:</b> Lets people get important work done early before guests and other noisy activity."
+            "score": 2.422958,
+            "reason": "<b>Events and Meeting Space:</b> Supports workshops, group activities, and client-facing sessions."
           },
           {
             "option": "Exclude",
@@ -383,11 +271,71 @@
             "reason": ""
           }
         ],
-        "Large_Meeting_Table": [
+        "Strict_Morning_Quiet_Time": [
           {
             "option": "Include",
-            "score": 2.422958,
-            "reason": "<b>Events and Meeting Space:</b> Supports workshops, group activities, and client-facing sessions."
+            "score": 2.457662,
+            "reason": "<b>Focused Work Spaces:</b> Lets people get important work done early before guests and other noisy activity."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
+        "Strict_Visitor_Time_Windows": [
+          {
+            "option": "Include",
+            "score": 0.568873,
+            "reason": "<b>Focused Work Spaces:</b> It makes guests predictable, so that focused work and client-facing activity can coexist."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
+        "Kitchen_as_Private_Call_Room": [
+          {
+            "option": "Include",
+            "score": 0.292192,
+            "reason": "<b>Focused Work Spaces:</b> Prevents virtual meetings and client calls from spilling into the main work area."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
+        "Secondhand_Furniture": [
+          {
+            "option": "Include",
+            "score": -10.042285,
+            "reason": "<b>Value for Money:</b> Makes the office feel less polished and less appealing to clients."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
+        "Self_Managed_Cleaning": [
+          {
+            "option": "Include",
+            "score": -15.273356,
+            "reason": "<b>Value for Money:</b> Creates conflict and introduces risks to professionalism."
+          },
+          {
+            "option": "Exclude",
+            "score": 0,
+            "reason": ""
+          }
+        ],
+        "Smaller_Office_Space": [
+          {
+            "option": "Include",
+            "score": -8.231124,
+            "reason": "<b>Value for Money:</b> Insufficient space for meetings and events, undermining professionalism."
           },
           {
             "option": "Exclude",
@@ -397,237 +345,6 @@
         ]
       }
     }
-  },
-  "issues": [
-    {
-      "id": "self_managed_cleaning",
-      "name": "Self_Managed_Cleaning",
-      "display_name": "Self Managed Cleaning",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": 0.837568,
-          "Party B": 7.027046,
-          "Party C": -15.273356
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "smaller_office_space",
-      "name": "Smaller_Office_Space",
-      "display_name": "Smaller Office Space",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": 11.465644,
-          "Party B": 1.335001,
-          "Party C": -8.231124
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "secondhand_furniture",
-      "name": "Secondhand_Furniture",
-      "display_name": "Secondhand Furniture",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": 11.220489,
-          "Party B": 2.630718,
-          "Party C": -10.042285
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "strict_visitor_time_windows",
-      "name": "Strict_Visitor_Time_Windows",
-      "display_name": "Strict Visitor Time Windows",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": 14.351673,
-          "Party B": -3.107604,
-          "Party C": 0.568873
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "kitchen_as_private_call_room",
-      "name": "Kitchen_as_Private_Call_Room",
-      "display_name": "Kitchen as Private Call Room",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": 0.412195,
-          "Party B": -12.930716,
-          "Party C": 0.292192
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "strict_morning_quiet_time",
-      "name": "Strict_Morning_Quiet_Time",
-      "display_name": "Strict Morning Quiet Time",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": 11.026149,
-          "Party B": -7.938011,
-          "Party C": 2.457662
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "guest_meeting_room",
-      "name": "Guest_Meeting_Room",
-      "display_name": "Guest Meeting Room",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": -11.115552,
-          "Party B": 10.939593,
-          "Party C": 0.409515
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "allow_evening_events",
-      "name": "Allow_Evening_Events",
-      "display_name": "Allow Evening Events",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": -14.511943,
-          "Party B": 7.931343,
-          "Party C": 4.440727
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    },
-    {
-      "id": "large_meeting_table",
-      "name": "Large_Meeting_Table",
-      "display_name": "Large Meeting Table",
-      "required": true,
-      "kind": "discrete",
-      "options": [
-        {
-          "label": "Include",
-          "Party A": -13.331523,
-          "Party B": 3.983449,
-          "Party C": 2.422958
-        },
-        {
-          "label": "Exclude",
-          "Party A": 0,
-          "Party B": 0,
-          "Party C": 0
-        }
-      ]
-    }
   ],
-  "issue_space": {
-    "mode": "bounded",
-    "unknown_term_policy": "reject",
-    "supported_issue_count": 9
-  },
-  "agreement_rules": {
-    "approval_rule": "unanimous",
-    "required_acceptances": 3,
-    "require_positive_each_party": true,
-    "require_nonnegative_each_party": false,
-    "threshold": 0,
-    "allow_zero": false,
-    "comparison": ">"
-  },
-  "table_negotiation": {
-    "issue_names": [
-      "Self_Managed_Cleaning",
-      "Smaller_Office_Space",
-      "Secondhand_Furniture",
-      "Strict_Visitor_Time_Windows",
-      "Kitchen_as_Private_Call_Room",
-      "Strict_Morning_Quiet_Time",
-      "Guest_Meeting_Room",
-      "Allow_Evening_Events",
-      "Large_Meeting_Table"
-    ],
-    "choices_are_exhaustive": true,
-    "score_decimal_places": 6,
-    "max_choices_per_issue": 2
-  },
-  "review_design": {
-    "all_terms_explicit": true
-  },
-  "readrole_instructions": "<p>Read your role materials and private payoff table carefully. You have five minutes to prepare. Think about your priorities, your alternative if you do not agree, and offers you might make. Consider what matters to the other two participants as well.</p>",
-  "task_instructions": "<p>Choose Include or Exclude for each of the nine office features in every complete offer. Use only the listed features and choices. Your points are the sum of your selected choices. All three participants must accept the same complete offer, and that offer must give each participant more than 0 points. Without an agreement, each participant receives 0 points. Your payoff table is private.</p>",
-  "tips": "<p class=\"text-gray-700 mb-4\">Negotiation is a skill you can get better at with practice. At its core, it is about making choices when people want different things, with each person's decision affecting what the others get out of the deal. The good news is that a few basic ideas go a long way.</p><p class=\"text-gray-700 mb-4\">One of the most important ideas is knowing your <strong>best alternative</strong> to negotiating an agreement, or your <strong>BATNA</strong>. This is your realistic fallback plan outside the negotiation. Knowing what that alternative is <strong>actually worth</strong> helps protect you from accepting an agreement that leaves you worse off than walking away. A simple rule follows from this: <strong>never accept a deal worse than your BATNA</strong>.</p><p class=\"text-gray-700 mb-4\">Another key idea is that some negotiations can be <strong>win-win</strong>. This happens when people value different issues differently. If something matters a lot to you but not as much to the other person, you may be able to <strong>trade it for something you care about more</strong>. In practice, this means focusing less on \"splitting the difference\" and more on <strong>learning what the other person really wants</strong>, so you can make smart tradeoffs that leave both of you better off.</p><p class=\"text-gray-700 mb-4\">A final tip is that <strong>win-win outcomes become easier to achieve when everyone knows what matters most to each party</strong>. So try to be clear about what you care about, and how these interests translate to what you want across each issue under negotiation. At the same time, <strong>listen closely to what the other person cares about.</strong> Knowing this is what will make such smart, win-win tradeoffs possible.</p><p>Choose Include or Exclude for each of the nine office features in every complete offer. Use only the listed features and choices. Your points are the sum of your selected choices. All three participants must accept the same complete offer, and that offer must give each participant more than 0 points. Without an agreement, each participant receives 0 points. Your payoff table is private.</p>",
-  "material_source": {
-    "project_file": "exploration_nudge_experiment/data/materials/low_4a93c0a77674.json",
-    "sha256": "8068f866a1c88989bb3da19762a434b9f34d5c9847a3f837513de5d1bed350be",
-    "note": "Role narratives, reservation values, option labels, scores, and option explanations are unchanged. Issue display order is shared across all roles and both conditions. The role collection is keyed by role name and scoresheet is named determinatescoretable to follow the fixed-issue handoff. Shared preparation and complete-offer instructions were added."
-  }
+  "tips": "<p class=\"text-gray-700 mb-4\">Negotiation is a skill you can get better at with practice. At its core, it is about making choices when people want different things, with each person's decision affecting what the others get out of the deal. The good news is that a few basic ideas go a long way.</p><p class=\"text-gray-700 mb-4\">One of the most important ideas is knowing your <strong>best alternative</strong> to negotiating an agreement, or your <strong>BATNA</strong>. This is your realistic fallback plan outside the negotiation. Knowing what that alternative is <strong>actually worth</strong> helps protect you from accepting an agreement that leaves you worse off than walking away. A simple rule follows from this: <strong>never accept a deal worse than your BATNA</strong>.</p><p class=\"text-gray-700 mb-4\">Another key idea is that some negotiations can be <strong>win-win</strong>. This happens when people value different issues differently. If something matters a lot to you but not as much to the other person, you may be able to <strong>trade it for something you care about more</strong>. In practice, this means focusing less on \"splitting the difference\" and more on <strong>learning what the other person really wants</strong>, so you can make smart tradeoffs that leave both of you better off.</p><p class=\"text-gray-700 mb-4\">A final tip is that <strong>win-win outcomes become easier to achieve when everyone knows what matters most to each party</strong>. So try to be clear about what you care about, and how these interests translate to what you want across each issue under negotiation. At the same time, <strong>listen closely to what the other person cares about.</strong> Knowing this is what will make such smart, win-win tradeoffs possible.</p>"
 }
