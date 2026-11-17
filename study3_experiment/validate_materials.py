@@ -45,9 +45,11 @@ def check_file(path, condition):
                         and type(o["score"]) in (int, float)
                         and isinstance(o["reason"], str) for o in options),
                     f"Unexpected option fields for {name}, {issue}.")
+            require(all(Decimal(str(o["score"])) == Decimal(str(o["score"])).quantize(Decimal("0.01"))
+                        for o in options), f"Score exceeds two decimal places for {name}, {issue}.")
 
     # Offer entries are option indices: 0 = Include and 1 = Exclude. Decimal
-    # arithmetic preserves the six-decimal points for the > 0 boundary.
+    # arithmetic preserves the score at the > 0 boundary.
     offers = list(product((0, 1), repeat=9))
     votes = {}
     for offer in offers:
