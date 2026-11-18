@@ -8,6 +8,7 @@ from decimal import Decimal
 from itertools import product
 import json
 from pathlib import Path
+import re
 
 
 HERE = Path(__file__).resolve().parent
@@ -18,6 +19,31 @@ EXPECTED_COMPLEXITY = {"low": Decimal(421) / 512,
 def require(condition, message):
     if not condition:
         raise ValueError(message)
+
+
+def check_display_order(role):
+    """Rank interests by their best Include score, then rank their features."""
+    name = role["role_name"]
+    groups = {}
+    current_group = None
+    for issue, options in role["scoresheet"].items():
+        include = options[0]
+        match = re.match(r"^<b>([^<]+):</b>", include["reason"])
+        require(match is not None, f"Missing interest label for {name}, {issue}.")
+        group = match.group(1)
+        if group != current_group:
+            require(group not in groups,
+                    f"Interest features must stay together for {name}, {group}.")
+            groups[group] = []
+            current_group = group
+        groups[group].append(Decimal(str(include["score"])))
+
+    for group, scores in groups.items():
+        require(scores == sorted(scores, reverse=True),
+                f"Features must rank by descending Include score for {name}, {group}.")
+    best_scores = [max(scores) for scores in groups.values()]
+    require(best_scores == sorted(best_scores, reverse=True),
+            f"Interests must rank by their highest Include score for {name}.")
 
 
 def check_file(path, condition):
@@ -49,6 +75,7 @@ def check_file(path, condition):
                     f"Score must be finite for {name}, {issue}.")
             require(all(Decimal(str(o["score"])) == Decimal(str(o["score"])).quantize(Decimal("0.01"))
                         for o in options), f"Score exceeds two decimal places for {name}, {issue}.")
+        check_display_order(role)
 
     # Offer entries are option indices: 0 = Include and 1 = Exclude. Decimal
     # arithmetic preserves the score at the > 0 boundary.
@@ -107,10 +134,11 @@ def main():
         name = low_role["role_name"]
         require(low_role["narrative"] == high_role["narrative"],
                 f"Narratives differ between conditions for {name}.")
-        require(list(low_role["scoresheet"]) == list(high_role["scoresheet"]),
-                f"Issue display order differs between conditions for {name}.")
+        require(set(low_role["scoresheet"]) == set(high_role["scoresheet"]),
+                f"Issue sets differ between conditions for {name}.")
     require(low["tips"] == high["tips"], "Negotiation tips differ between conditions.")
     print("PASS: identical role narratives and shared instructions in both conditions.")
+    print("PASS: interests and features rank by Include score for each role and condition.")
 
 
 if __name__ == "__main__":

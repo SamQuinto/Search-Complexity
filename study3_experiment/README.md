@@ -12,6 +12,8 @@ Use the raw file links for the two treatments. The JSONs follow the [three-perso
 
 The JSON scores are rounded to two decimal places. The largest individual agreement payoff is £11.25 in both conditions. Every agreement gives everyone at least £1. The [payoff scaling record](payoff_scaling.md) gives the multipliers and rounding procedure. We checked all 512 offers and verified each party's acceptance decisions and routes to agreement.
 
+For each role, interest groups appear in descending order of their highest Include score. Within each interest group, features also appear in descending order of their Include score. The ranking uses signed scores: for example, −10 comes before −20. This ordering is calculated separately for each role and condition, so the display order can differ between Easy and Hard. Payoffs and the Include/Exclude option order are unchanged.
+
 Set the app to assign one person to each of the three roles and show each person their own payoff table. The study uses five minutes of preparation. Agreement requires all three participants to accept the same offer and receive more than zero points from it.
 
 The survey has one page with two five-point ratings and optional task feedback. Run `python study3_experiment/validate_materials.py` to check both payoff files and recalculate the structural measures. A three-person walkthrough can check the survey and agreement rules in Empirica.
