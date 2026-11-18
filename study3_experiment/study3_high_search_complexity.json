@@ -195,7 +195,7 @@
         "Strict_Morning_Quiet_Time": [
           {
             "option": "Include",
-            "score": -30.22,
+            "score": -30.21,
             "reason": "<b>Client Engagement:</b> Need to coordinate, take quick calls, or have short conversations early in the day."
           },
           {
@@ -207,7 +207,7 @@
         "Strict_Visitor_Time_Windows": [
           {
             "option": "Include",
-            "score": -24.46,
+            "score": -24.45,
             "reason": "<b>Client Engagement:</b> Need flexibility to schedule meetings with clients and tutors."
           },
           {
@@ -219,7 +219,7 @@
         "Kitchen_as_Private_Call_Room": [
           {
             "option": "Include",
-            "score": -34.71,
+            "score": -34.70,
             "reason": "<b>Client Engagement:</b> Need an informal hospitality space for guests, and a break spot for you."
           },
           {

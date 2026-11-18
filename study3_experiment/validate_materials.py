@@ -69,14 +69,14 @@ def check_file(path, condition):
     acceptable = {offer for offer in offers if votes[offer] == 3}
     require(len(acceptable) == 4, "Expected four mutually acceptable offers.")
     minimum = min(min(payoff_totals[offer]) for offer in acceptable)
-    require(minimum == {"low": Decimal("1.15"), "high": Decimal("0.99")}[condition],
+    require(minimum == {"low": Decimal("1.15"), "high": Decimal("1.00")}[condition],
             "Unexpected lowest agreement payoff after rounding.")
     for party in range(3):
         agreement_payoffs = [payoff_totals[offer][party] for offer in acceptable]
-        require(min(agreement_payoffs) > Decimal("0"),
-                f"Agreement payoff must be positive for Party {'ABC'[party]}.")
+        require(min(agreement_payoffs) >= Decimal("1.00"),
+                f"Agreement payoff below £1 for Party {'ABC'[party]}.")
     maximum = max(max(payoff_totals[offer]) for offer in acceptable)
-    require(maximum == {"low": Decimal("11.25"), "high": Decimal("11.24")}[condition],
+    require(maximum == Decimal("11.25"),
             "Unexpected highest individual agreement payoff after rounding.")
 
     # Work backwards from agreement. A one-issue revision qualifies only when
