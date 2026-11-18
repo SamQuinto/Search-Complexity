@@ -45,23 +45,34 @@ def check_file(path, condition):
                         and type(o["score"]) in (int, float)
                         and isinstance(o["reason"], str) for o in options),
                     f"Unexpected option fields for {name}, {issue}.")
-            require(all(Decimal(str(o["score"])) == Decimal(str(o["score"])).quantize(Decimal("0.01"))
-                        for o in options), f"Score exceeds two decimal places for {name}, {issue}.")
+            require(all(Decimal(str(o["score"])).is_finite() for o in options),
+                    f"Score must be finite for {name}, {issue}.")
 
     # Offer entries are option indices: 0 = Include and 1 = Exclude. Decimal
     # arithmetic preserves the score at the > 0 boundary.
     offers = list(product((0, 1), repeat=9))
     votes = {}
+    payoff_totals = {}
     for offer in offers:
         count = 0
+        totals = []
         for role in roles:
             total = sum(Decimal(str(role["scoresheet"][issue][index]["score"]))
                         for issue, index in zip(issues, offer))
             count += total > Decimal(str(role["RP"]))
+            totals.append(total)
         votes[offer] = count
+        payoff_totals[offer] = totals
 
     acceptable = {offer for offer in offers if votes[offer] == 3}
     require(len(acceptable) == 4, "Expected four mutually acceptable offers.")
+    for party in range(3):
+        agreement_payoffs = [payoff_totals[offer][party] for offer in acceptable]
+        require(min(agreement_payoffs) >= Decimal("1.00"),
+                f"Agreement payoff below £1 for Party {'ABC'[party]}.")
+    maximum = max(max(payoff_totals[offer]) for offer in acceptable)
+    require(abs(maximum - Decimal("11.25")) < Decimal("0.00000001"),
+            "Expected £11.25 highest individual agreement payoff in each condition.")
 
     # Work backwards from agreement. A one-issue revision qualifies only when
     # more people meet their reservation values. Keep any starting offer with

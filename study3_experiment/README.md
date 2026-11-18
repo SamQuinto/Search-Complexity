@@ -10,7 +10,7 @@ Study 3 compares two versions of a three-person office-sharing negotiation. Each
 
 Use the raw file links for the two treatments. The JSONs follow the [three-person Empirica example](https://raw.githubusercontent.com/SamQuinto/Describing-Search-in-Negotiations/refs/heads/main/shared_office_3p_easy.json), with a `roles` list, a `scoresheet` for each role, and shared `tips`. Easy uses the selected payoff table `4a93c0a77674` (82.23% search complexity) and Hard uses `61024eb53d22` (86.72%). Both give four mutually acceptable offers out of 512.
 
-The JSON scores are rounded to two decimal places. We checked all 512 offers in each condition and verified that rounding preserves each party's acceptance decisions and which offers have an improving route to agreement.
+The largest individual payoff among the four agreements is £11.25 in both conditions, and every agreement gives everyone at least £1. The [payoff scaling record](payoff_scaling.md) gives the multipliers and role averages. Feature scores retain the precision of the multiplication. Round final payments to two decimal places. We checked all 512 offers and verified each party's acceptance decisions, offer rankings, and routes to agreement.
 
 Set the app to assign one person to each of the three roles and show each person their own payoff table. The study uses five minutes of preparation. Agreement requires all three participants to accept the same offer and receive more than zero points from it.
 
